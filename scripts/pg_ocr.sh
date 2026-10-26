@@ -11,8 +11,10 @@
 #    SOURCE=alt RUN=v5 bash pg_ocr.sh 94 470-500      needs the normal run (v4) first
 #    bash pg_ocr.sh 94 merge v4,v5                    best version of every page
 #                                                     -> output/PG094/best/
-#    bash pg_ocr.sh 94 structure                      chapters, books, Migne columns
-#                                                     -> output/PG094/structured/
+#    bash pg_ocr.sh 94 works                          split into works, page check, chapters
+#                                                     -> output/PG094/works/
+#    SOURCE=alt RUN=v5 bash pg_ocr.sh 94 leaf:487,488 add leaves missing from the main scan
+#    bash pg_ocr.sh 94 structure                      (older: one work only)
 #  Optional:
 #    RUN=v6 ...      name of the result folder (default v4)
 #    STAGES=text ... only rebuild the text files from finished OCR (seconds)
@@ -43,6 +45,15 @@ main() {
         python "$ROOT/scripts/pg_merge.py" --vol "$VOL" --tags "${3:-v4,v5}" --root "$ROOT"
         echo "reading text: $ROOT/output/$TAG/best/${TAG}_reading.txt"
         echo "which run each page came from: $ROOT/output/$TAG/best/merge_report.tsv"
+        return 0
+    fi
+
+    if [ "$PAGES" = "works" ]; then            # split into works, check page order/gaps, structure each
+        MODEL="${MODEL:-$(ls -1t "$ROOT"/models/rec/run_*/best_*.safetensors 2>/dev/null | grep -v '_failed' | head -n1 || true)}"
+        PYTHONUNBUFFERED=1 python "$ROOT/scripts/pg_works.py" --vol "$VOL" --root "$ROOT" --model "$MODEL" \
+            --text-tag "${3:-best}" ${ONLY:+--only "$ONLY"}
+        echo "works:          $ROOT/output/$TAG/works/   (one folder per work)"
+        echo "page check:     $ROOT/output/$TAG/works/coverage.txt"
         return 0
     fi
 

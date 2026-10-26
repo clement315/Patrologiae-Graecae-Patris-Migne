@@ -22,7 +22,7 @@ import json
 import unicodedata
 from pathlib import Path
 
-VERSION = "2.2 (word-level combination by frequency + confidence, missing lines added)"
+VERSION = "2.3 (word-level combination; different pages and false copies detected)"
 
 
 def load(outdir, tag):
@@ -211,6 +211,7 @@ def main():
     report = ["page\tbase\t" + "\t".join(f"{t}_lines\t{t}_conf" for t in tags) + "\tlines_paired\twords_from_other\tlines_added_from_other"]
     wins, recent, dups = collections.Counter(), [], []
     total_taken = total_added = 0
+    different, page_words_of = [], {}
     for p in sorted(set(runs[tags[0]]) | set(runs[tags[1]])):
         stats = {t: (len(runs[t].get(p, [])),
                      sum(l["conf"] for l in runs[t].get(p, [])) / max(1, len(runs[t].get(p, []))))
@@ -221,6 +222,12 @@ def main():
         other = tags[1] if base == tags[0] else tags[0]
         A, B = runs[base].get(p, []), runs[other].get(p, [])
         pairs = pair_lines(A, B) if B else {}
+        if A and B and min(len(A), len(B)) >= 5 and len(pairs) < 0.4 * min(len(A), len(B)):
+            # the two runs read different pages (the second scan was matched to the wrong
+            # leaf): the main scan (first run) is the page itself, nothing is combined
+            base, other = tags[0], tags[1]
+            A, B, pairs = runs[base].get(p, []), [], {}
+            different.append(p)
         merged, taken = [], 0
         for i, la in enumerate(A):
             if i in pairs:
@@ -262,8 +269,14 @@ def main():
         merged = merged2
         # duplicate scans of the same page
         words = {w for _, _, c, s in merged if c >= 0.9 for w in s.split()}
-        dup = known_dups.get(p) or next(
-            (q for q, w in recent if words and len(words & w) / len(words | w) > args.dup_jaccard), None)
+        dup = next((q for q, w in recent if words and len(words & w) / len(words | w) > args.dup_jaccard), None)
+        if dup is None and p in known_dups:
+            # a run said 'copy of an earlier page': accept only if the texts agree
+            q = known_dups[p]
+            w = page_words_of.get(q, set())
+            if words and w and len(words & w) / len(words | w) > 0.4:
+                dup = q
+        page_words_of[p] = words
         recent = (recent + [(p, words)])[-3:]
         if dup is not None:
             dups.append(f"p{p} = p{dup}")
@@ -290,7 +303,8 @@ def main():
     summary = {"version": VERSION, "runs": tags, "word_level": all(has_words.values()),
                "pages": sum(wins.values()), "base_run_per_page": dict(wins),
                "words_taken_from_other_run": total_taken,
-               "lines_added_from_other_run": total_added, "duplicate_pages_skipped": dups,
+               "lines_added_from_other_run": total_added,
+               "pages_read_differently_by_the_runs": different, "duplicate_pages_skipped": dups,
                "lines": len(confs), "mean_line_conf": round(sum(confs) / max(1, len(confs)), 4),
                "lines_below_0.80": sum(c < 0.8 for c in confs),
                "lines_below_0.90": sum(c < 0.9 for c in confs)}

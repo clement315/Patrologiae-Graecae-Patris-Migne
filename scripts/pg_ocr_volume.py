@@ -34,7 +34,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-VERSION = "2.6.1 (nested boxes, word confidences, better page map for the alt scan)"
+VERSION = "2.7 (extra leaves from the second scan; nested boxes, word confidences, better page map for the alt scan)"
 GREEK_CLASS = "MainText_ColGreek"
 LATIN_CLASS = "MainText_ColLatin"
 NOTE_CLASSES = ("MainText_ColLatin", "Marginalia_Footnote")
@@ -43,7 +43,13 @@ PREVIEW_COLOURS = {"MainText_ColGreek": (0, 170, 0), "MainText_ColLatin": (220, 
 
 
 # ----------------------------------------------------------------- helpers
+EXTRA_BASE = 10000      # 'leaf:487' = leaf 487 of the second scan, stored as page 10487
+
+
 def parse_pages(spec: str, n_pages: int):
+    if spec.startswith("leaf:"):
+        # pages missing from the main scan, taken directly from the second scan
+        return sorted(EXTRA_BASE + int(x) for x in spec[5:].split(",") if x.strip())
     if spec in ("all", ""):
         return list(range(1, n_pages + 1))
     pages = set()
@@ -180,7 +186,9 @@ def build_altmap(args, pages, work):
     first = {p: c[0] - p for p, c in found.items()}
     matched = sorted(found)
     result = {}
-    for p in sorted(set(pages) | set(found)):
+    for p in [p for p in pages if p >= EXTRA_BASE]:
+        result[p] = {"leaf": p - EXTRA_BASE, "how": "extra"}
+    for p in sorted(set(p for p in pages if p < EXTRA_BASE) | set(found)):
         near = sorted(matched, key=lambda x: abs(x - p))[:7]
         local = sorted(first[x] for x in near)[len(near) // 2]
         if p in found:
@@ -206,7 +214,9 @@ def build_altmap(args, pages, work):
         oa = result[after[0]]["leaf"] - after[0] if after else None
         off = ob if ob is not None else oa
         result[p] = {"leaf": p + off, "how": "interpolated" + ("" if ob == oa else " (uncertain)")}
-    amap = {str(k): v for k, v in result.items()}
+    old = amap if amap.get("_version") == MAP_VERSION else {}
+    amap = dict(old)                    # keep pages mapped in earlier calls
+    amap.update({str(k): v for k, v in result.items()})
     amap["_version"] = MAP_VERSION
     mf.write_text(json.dumps(amap, indent=1))
     req = [result[p] for p in pages]
@@ -215,7 +225,7 @@ def build_altmap(args, pages, work):
     for p in pages:
         if "uncertain" in result[p]["how"]:
             print(f"[alt]   p{p} -> leaf {result[p]['leaf']} is a guess (offset changes here) - check the preview")
-    return result
+    return {int(k): v for k, v in amap.items() if not k.startswith("_")}
 
 
 def alt_image(args, leaf):
@@ -293,7 +303,8 @@ def stage_layout(args, pages, work):
     if args.source == "alt" and done:
         altmap = build_altmap(args, pages, work)
         recs = [json.loads(l) for l in layout_file.read_text(encoding="utf-8").splitlines() if l.strip()]
-        stale = {r["page"] for r in recs if r["page"] in altmap
+        req = set(pages)                # only pages of this run can be redone
+        stale = {r["page"] for r in recs if r["page"] in req and r["page"] in altmap
                  and r.get("source") != f"alt leaf {altmap[r['page']]['leaf']}"}
         if stale:
             print(f"[layout] page map changed for {sorted(stale)} -> these pages are redone")

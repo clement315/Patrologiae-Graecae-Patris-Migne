@@ -19,7 +19,8 @@ bash scripts/pg_train.sh                                # train the recognition 
 bash scripts/pg_ocr.sh 94 all                           # main scan
 SOURCE=alt RUN=v5 bash scripts/pg_ocr.sh 94 215-834     # second scan (IA "PatrologiaGraeca")
 bash scripts/pg_ocr.sh 94 merge v4,v5                   # word-level merge -> output/PG094/best/
-bash scripts/pg_ocr.sh 94 structure                     # chapters, Migne columns -> output/PG094/structured/
+bash scripts/pg_ocr.sh 94 works                         # split into works, check page order -> output/PG094/works/
+SOURCE=alt RUN=v5 bash scripts/pg_ocr.sh 94 leaf:487,488  # add leaves missing from the main scan
 ```
 
 All steps are resumable. The project folder defaults to `/mnt/e/PG_OCR` (set `PG_ROOT` to change it).
@@ -33,7 +34,8 @@ All steps are resumable. The project folder defaults to `/mnt/e/PG_OCR` (set `PG
 | `scripts/pg_ocr.sh` | Entry point: recognise, merge, structure |
 | `scripts/pg_ocr_volume.py` | Layout → column crops → kraken → text with line and word confidences |
 | `scripts/pg_merge.py` | Combine two runs word by word (confidence and in-volume frequency) |
-| `scripts/pg_structure.py` | Books, chapters, Migne columns, one file per chapter |
+| `scripts/pg_works.py` | Splits the volume into its works, restores the page order, finds pages missing from the main scan, structures each work (books / chapters / sections / orations / dialogue) |
+| `scripts/pg_structure.py` | Chapter detection and numbering, Migne columns (used by `pg_works.py`) |
 
 ## Results (PG 94)
 
