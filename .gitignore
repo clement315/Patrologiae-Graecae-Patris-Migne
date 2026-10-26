@@ -1,0 +1,16 @@
+# data, models and results stay local (large, partly third-party)
+data/
+models/
+work/
+output/
+logs/
+.venv/
+__pycache__/
+*.pyc
+*.safetensors
+*.mlmodel
+*.pt
+*.arrow
+*.pdf
+*.jpg
+*.png
