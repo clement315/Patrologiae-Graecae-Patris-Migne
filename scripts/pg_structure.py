@@ -35,7 +35,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-VERSION = "2.0 (headings checked against the IA OCR of both scans)"
+VERSION = "2.1 (headings checked against the IA OCR of both scans; unread subject lines at a column top)"
 IA = "https://archive.org/download"
 MAIN_ITEMS = {94: "patrologicursus53migngoog"}       # IA item of data/pdf/PGxxx.pdf
 GREEK_NUM = {"Α": 1, "Β": 2, "Γ": 3, "Δ": 4, "Ε": 5, "Ϛ": 6, "Ϝ": 6, "Ζ": 7, "Η": 8, "Θ": 9,
@@ -386,15 +386,24 @@ def resolve_headings(pages, items_of, ia_main, ia_alt, report):
             for h in ia[len(cand):]:
                 if not h["subject"]:
                     continue
-                g = grams(key(h["subject"]))
-                best_k, best_s = None, 0.0
+                ks = key(h["subject"])
+                g = grams(ks)
+                scores, opening = [], []
                 for k, it in enumerate(items):
                     if it["kind"] != "line" or k in used:
                         continue
-                    s2 = grams(key(it["text"]))
-                    sim = len(g & s2) / max(1, len(g | s2))
-                    if sim > best_s:
-                        best_k, best_s = k, sim
+                    kt = key(it["text"])
+                    scores.append((jacc(g, grams(kt)), k))
+                    if it["n"] == 1:      # subject at the top of a column: compare with the line's opening
+                        opening.append((jacc(g, grams(kt[:len(ks) + 2])), k))
+                scores.sort(reverse=True)
+                opening.sort(reverse=True)
+                best_s, best_k = scores[0] if scores else (0.0, None)
+                if best_s < 0.35 and opening and opening[0][0] >= 0.3:
+                    o_s, o_k = opening[0]
+                    rest = max([sc for sc, kk in scores if kk != o_k] or [0.0])
+                    if o_s - rest >= 0.1:
+                        best_s, best_k = 0.35, o_k
                 if best_k is not None and best_s >= 0.35:
                     cand.append(best_k)
                     used.add(best_k)
@@ -561,6 +570,10 @@ def build_chapters(pages, items_of, heads, cols, mark_conf):
 def grams(s, n=3):
     s = f" {s} "
     return {s[i:i + n] for i in range(len(s) - n + 1)}
+
+
+def jacc(a, b):
+    return len(a & b) / max(1, len(a | b))
 
 
 def key(s):

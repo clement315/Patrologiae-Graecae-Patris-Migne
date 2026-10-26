@@ -41,7 +41,7 @@ All steps are resumable. The project folder defaults to `/mnt/e/PG_OCR` (set `PG
 
 - Recognition model, test set: **CER 0.96 %**, WER 4.66 %.
 - *Expositio fidei* (cols. 789–1228), two scans merged: mean line confidence 0.985,
-  about 0.5 % character errors in a manual sample; 98 of 100 chapters detected.
+  about 0.5 % character errors in a manual sample; 99 of 100 chapters detected.
 
 Development notes: [`docs/NOTES.md`](docs/NOTES.md).
 
