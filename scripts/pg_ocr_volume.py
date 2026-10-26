@@ -422,7 +422,7 @@ def xml_complete(path):
 def stage_ocr(args, pages, work):
     crops_dir = work / "crops"
     page_set = set(pages)
-    crops = sorted(c for c in crops_dir.glob("p*_c*.png") if int(c.stem[1:5]) in page_set)
+    crops = sorted(c for c in crops_dir.glob("p*_c*.png") if int(c.stem[1:].split("_c")[0]) in page_set)
     todo = [c for c in crops if not xml_complete(c.with_suffix(".xml"))]
     print(f"[ocr] {len(crops)} column images, {len(todo)} still to recognise")
     t0 = time.time()

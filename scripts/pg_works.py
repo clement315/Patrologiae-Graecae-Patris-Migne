@@ -17,7 +17,8 @@ Steps
        chapters  numbered chapters, one book (Dialectica)
        sections  titled sections, not numbered (De haeresibus, Contra Jacobitas, ...)
        orations  orations from the running heads, titled sections inside (De imaginibus)
-       dialogue  titled sections; speaker turns (MAN. / ORTH.) start new paragraphs
+       numbered  sections numbered in the text ('βʹ. Σκυθισμός') (De haeresibus, Contra Jacobitas)
+       dialogue  speaker turns (MAN. / ORTH.) start new paragraphs (numbered_dialogue: also numbered)
 
 Outputs: output/PG094/works/<work>/<work>.md, sections/NNN.txt, report.txt;
          output/PG094/works/works.tsv, coverage.txt
@@ -34,7 +35,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.0"
+VERSION = "1.1"
 
 WORKS = {
     94: [
@@ -42,15 +43,15 @@ WORKS = {
          "pages": [215, 256], "kind": "sections"},
         {"slug": "dialectica", "title": "Dialectica (Capita philosophica)",
          "pages": [264, 355], "kind": "chapters"},
-        {"slug": "de_haeresibus", "title": "De haeresibus", "pages": [356, 407], "kind": "sections"},
+        {"slug": "de_haeresibus", "title": "De haeresibus", "pages": [356, 407], "kind": "numbered"},
         {"slug": "expositio_fidei", "title": "Expositio fidei (Ekdosis akribes tes orthodoxou pisteos)",
          "pages": [412, 633], "kind": "books"},
         {"slug": "orationes_de_imaginibus", "title": "Orationes de imaginibus I-III",
          "pages": [634, 739], "kind": "orations", "run_key": "ORATIO"},
         {"slug": "de_recta_sententia", "title": "De recta sententia", "pages": [740, 745], "kind": "sections"},
-        {"slug": "contra_jacobitas", "title": "Contra Jacobitas", "pages": [746, 780], "kind": "sections"},
+        {"slug": "contra_jacobitas", "title": "Contra Jacobitas", "pages": [746, 780], "kind": "numbered"},
         {"slug": "contra_manichaeos", "title": "Dialogus contra Manichaeos", "pages": [781, 823],
-         "kind": "dialogue", "speakers": {"ΜΑΝ.": r"Μ[ΑΛ][ΝΒΕ]|ΚΑΝ|ΜΝ", "ΟΡΘ.": r"ΟΡ?Θ|Ο[ΕΞ]Θ|ΟΘΟΟΖ|ΟΕ"}},
+         "kind": "numbered_dialogue", "speakers": {"ΜΑΝ.": r"Μ[ΑΛ][ΝΒΕ]|ΚΑΝ|ΜΝ", "ΟΡΘ.": r"ΟΡ?Θ|Ο[ΕΞ]Θ|ΟΘΟΟΖ|ΟΕ"}},
         {"slug": "disputatio_saraceni", "title": "Disputatio Christiani et Saraceni", "pages": [824, 831],
          "kind": "dialogue", "speakers": {}},
         {"slug": "de_draconibus", "title": "De draconibus et strygibus", "pages": [832, 834], "kind": "sections"},
@@ -230,8 +231,55 @@ def section_heads(order, items_of):
         for k, it in enumerate(items_of[p]):
             if it["kind"] != "block":
                 continue
-            good = [t.strip() for t, c in it["lines"] if c >= 0.75 and len(t.strip()) >= 3]
-            heads.append({"page": p, "k": k, "text": " ".join(good) or "[title not readable]"})
+            good = [t.strip() for t, c in it["lines"] if c >= 0.85 and len(t.strip()) >= 4]
+            if good:                            # unreadable title blocks are left out
+                heads.append({"page": p, "k": k, "text": " ".join(good)})
+    return heads
+
+
+NUM_RX = re.compile(r"^(?:⟦\?⟧\s*)?[«(\[]?\s*([α-ωϛϟ]{1,3})\s?[ʹ'΄´]\s?[.,·]\s*(.*)$")
+
+
+def numbered_heads(order, items_of, report, max_step=4, gap_cost=0.6):
+    """Sections numbered in the text ('βʹ. Σκυθισμός ...', 'ιʹ. Εἰ μερικὰς ...').
+
+    Every line that starts with a Greek numeral is a candidate; the longest increasing
+    chain with small steps is kept (dynamic programming), so OCR-garbled numerals and
+    sub-lists that restart at 1 (e.g. the Messalian propositions) do not break it."""
+    cand = []
+    for p in order:
+        for k, it in enumerate(items_of[p]):
+            if it["kind"] != "line":
+                continue
+            m = NUM_RX.match(it["text"].strip())
+            if m:
+                v = S.greek_number(m.group(1))
+                if v:
+                    cand.append((p, k, v, m.group(2)))
+    n = len(cand)
+    if not n:
+        return []
+    score, back = [1.0] * n, [-1] * n
+    for j in range(n):
+        for i in range(max(0, j - 60), j):
+            d = cand[j][2] - cand[i][2]
+            if 1 <= d <= max_step and score[i] + 1 - gap_cost * (d - 1) > score[j]:
+                score[j], back[j] = score[i] + 1 - gap_cost * (d - 1), i
+    j = max(range(n), key=lambda x: score[x])
+    chain = []
+    while j >= 0:
+        chain.append(cand[j])
+        j = back[j]
+    chain.reverse()
+    heads, prev = [], 0
+    for p, k, v, rest in chain:
+        if v > prev + 1:
+            report.append(f"number(s) {prev + 1}-{v - 1} not found before PDF p. {p}")
+        name = re.split(r"(?<=[^\s]{3})[·.,;:]", rest, maxsplit=1)[0][:60].strip()
+        heads.append({"page": p, "k": k, "text": f"{S.greek_ord(v)}. {name}".strip(), "no": v,
+                      "keep_line": True})
+        prev = v
+    report.append(f"{len(heads)} numbered sections (1-{prev}) out of {n} numeral-like line starts")
     return heads
 
 
@@ -270,10 +318,12 @@ def build_sections(order, items_of, heads, cols, mark_conf, oration=None):
                 last_or = oration.get(p)
                 cur = {"head": None, "items": [], "page": p, "col": col, "book": last_or}
             if (p, k) in hk:
+                h = hk[(p, k)]
                 secs.append(cur)
-                cur = {"head": hk[(p, k)]["text"], "items": [], "page": p, "col": col,
-                       "book": last_or}
-                continue
+                cur = {"head": h["text"], "items": [], "page": p, "col": col,
+                       "book": last_or, "no": h.get("no")}
+                if not h.get("keep_line"):
+                    continue
             if it["kind"] == "block":
                 continue
             cur["items"].append({"kind": "line", "text": it["text"], "unsure": it["conf"] < mark_conf,
@@ -474,6 +524,9 @@ def main():
             if kind == "chapters":
                 for u in units:
                     u["book"] = None
+        elif kind in ("numbered", "numbered_dialogue"):
+            heads = numbered_heads(wp, items_of, wrep)
+            units = build_sections(wp, items_of, heads, cols, args.mark_conf)
         else:
             heads = section_heads(wp, items_of)
             oration = oration_of_page(main_text, main_index, w.get("run_key", "ORATIO"), wp) \

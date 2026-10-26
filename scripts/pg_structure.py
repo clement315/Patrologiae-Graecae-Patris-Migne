@@ -39,7 +39,7 @@ VERSION = "2.0 (headings checked against the IA OCR of both scans)"
 IA = "https://archive.org/download"
 MAIN_ITEMS = {94: "patrologicursus53migngoog"}       # IA item of data/pdf/PGxxx.pdf
 GREEK_NUM = {"Α": 1, "Β": 2, "Γ": 3, "Δ": 4, "Ε": 5, "Ϛ": 6, "Ϝ": 6, "Ζ": 7, "Η": 8, "Θ": 9,
-             "Ι": 10, "Κ": 20, "Λ": 30, "Μ": 40, "Ν": 50, "Ξ": 60, "Ο": 70, "Π": 80, "Ϙ": 90,
+             "Ι": 10, "Κ": 20, "Λ": 30, "Μ": 40, "Ν": 50, "Ξ": 60, "Ο": 70, "Π": 80, "Ϙ": 90, "Ϟ": 90,
              "Ρ": 100}
 LATIN_LOOKALIKE = str.maketrans("ABEZHIKMNOPTXY", "ΑΒΕΖΗΙΚΜΝΟΡΤΧΥ")
 ROMAN = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 8, "IX": 9, "X": 10}
