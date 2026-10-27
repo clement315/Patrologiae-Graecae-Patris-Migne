@@ -34,7 +34,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-VERSION = "2.7 (extra leaves from the second scan; nested boxes, word confidences, better page map for the alt scan)"
+VERSION = "2.8 (excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
 GREEK_CLASS = "MainText_ColGreek"
 LATIN_CLASS = "MainText_ColLatin"
 NOTE_CLASSES = ("MainText_ColLatin", "Marginalia_Footnote")
@@ -61,6 +61,25 @@ def parse_pages(spec: str, n_pages: int):
         else:
             pages.add(int(part))
     return sorted(p for p in pages if 1 <= p <= n_pages)
+
+
+def excluded_pages(root, tag):
+    """Pages left out of the text (Latin prefaces, title pages, index): work/PGxxx/exclude_pages.txt.
+
+    One page or range per line, e.g. "222-235  # Declaratio fidei (Latin only)".
+    """
+    f = Path(root) / "work" / tag / "exclude_pages.txt"
+    out = set()
+    if f.exists():
+        for line in f.read_text(encoding="utf-8").splitlines():
+            line = line.split("#", 1)[0].strip()
+            for part in filter(None, (x.strip() for x in line.split(","))):
+                if "-" in part:
+                    a, b = part.split("-")
+                    out.update(range(int(a), int(b) + 1))
+                else:
+                    out.add(int(part))
+    return out
 
 
 def iou(a, b):
@@ -510,6 +529,9 @@ def stage_text(args, pages, work, outdir):
     page_conf = {}
     fragmented, heavy, duplicates = [], [], []
     recent = []                          # word sets of the last pages (duplicate scans)
+    excluded = getattr(args, "excluded", set())
+    skipped_excl = [p for p in all_pages if p in excluded]
+    all_pages = [p for p in all_pages if p not in excluded]
     for pno in all_pages:
         rec = layout[pno]
         if not rec["greek"]:
@@ -590,7 +612,8 @@ def stage_text(args, pages, work, outdir):
     weak_pages = sorted((p for p, m in means.items() if m < args.weak_page_conf), key=lambda p: means[p])
     summary = {
         "volume": vol, "pdf": str(args.pdf), "model": str(args.model),
-        "pages_processed": len(all_pages), "pages_without_greek_column": len(no_greek),
+        "pages_processed": len(all_pages), "pages_excluded": len(skipped_excl),
+        "pages_without_greek_column": len(no_greek),
         "greek_columns": sum(len(layout[p]["greek"]) for p in all_pages),
         "columns_failed_ocr": len(failed), "lines": n_lines, "characters": n_chars,
         "lines_set_aside_low_conf": len(suspect) - 1,
@@ -666,6 +689,13 @@ def main():
     n_pages = len(fitz.open(str(args.pdf)))
     pages = parse_pages(args.pages, n_pages)
     tag = f"PG{args.vol:03d}"
+    args.excluded = excluded_pages(args.root, tag)
+    if args.excluded:
+        before = len(pages)
+        pages = [p for p in pages if p not in args.excluded]
+        print(f"{before - len(pages)} page(s) skipped as listed in work/{tag}/exclude_pages.txt")
+        if not pages:
+            raise SystemExit("all requested pages are excluded")
     if args.ref_lines is None:
         args.ref_lines = args.root / "output" / tag / "v4" / f"{tag}_lines.tsv"
     work = args.root / "work" / tag / args.tag

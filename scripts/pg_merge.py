@@ -19,10 +19,14 @@ import argparse
 import collections
 import difflib
 import json
+import sys
 import unicodedata
 from pathlib import Path
 
-VERSION = "2.3 (word-level combination; different pages and false copies detected)"
+VERSION = "2.4 (word-level combination; false copies detected; excluded pages left out)"
+
+
+EXCLUDED = set()
 
 
 def load(outdir, tag):
@@ -177,6 +181,11 @@ def main():
     args = ap.parse_args()
 
     tag = f"PG{args.vol:03d}"
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from pg_ocr_volume import excluded_pages
+    EXCLUDED.update(excluded_pages(args.root, tag))
+    if EXCLUDED:
+        print(f"{len(EXCLUDED)} page(s) left out as listed in work/{tag}/exclude_pages.txt")
     tags = args.tags.split(",")
     if len(tags) != 2:
         raise SystemExit("give exactly two runs, e.g. --tags v4,v5")
@@ -186,6 +195,8 @@ def main():
         if not (d / f"{tag}_lines.tsv").exists():
             raise SystemExit(f"missing {d / (tag + '_lines.tsv')}")
         runs[t], has_words[t] = load(d, tag)
+        for p in [p for p in runs[t] if p in EXCLUDED]:
+            del runs[t][p]
         if not has_words[t]:
             print(f"note: {t} has no {tag}_words.jsonl (re-run its text stage with script >= 2.6 "
                   f"for word-level merging) - whole lines are compared there")
@@ -301,7 +312,7 @@ def main():
     (outdir / "merge_report.tsv").write_text("\n".join(report) + "\n", encoding="utf-8")
     confs = [float(r.split("\t")[3]) for r in tsv[1:]]
     summary = {"version": VERSION, "runs": tags, "word_level": all(has_words.values()),
-               "pages": sum(wins.values()), "base_run_per_page": dict(wins),
+               "pages": sum(wins.values()), "pages_excluded": len(EXCLUDED), "base_run_per_page": dict(wins),
                "words_taken_from_other_run": total_taken,
                "lines_added_from_other_run": total_added,
                "pages_read_differently_by_the_runs": different, "duplicate_pages_skipped": dups,

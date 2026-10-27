@@ -24,7 +24,8 @@ bash scripts/pg_ocr.sh 94 works                         # split into works, chec
 SOURCE=alt RUN=v5 bash scripts/pg_ocr.sh 94 leaf:487,488  # add leaves missing from the main scan
 ```
 
-All steps are resumable. The project folder defaults to `/mnt/e/PG_OCR` (set `PG_ROOT` to change it).
+Pages without Greek text (Latin prefaces, title pages, index) can be listed in
+`work/PGxxx/exclude_pages.txt`; recognition and merge leave them out. All steps are resumable. The project folder defaults to `/mnt/e/PG_OCR` (set `PG_ROOT` to change it).
 
 ## Scripts
 
