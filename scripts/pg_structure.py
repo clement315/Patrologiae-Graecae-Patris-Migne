@@ -37,7 +37,7 @@ from pathlib import Path
 
 VERSION = "2.1 (headings checked against the IA OCR of both scans; unread subject lines at a column top)"
 IA = "https://archive.org/download"
-MAIN_ITEMS = {94: "patrologicursus53migngoog"}       # IA item of data/pdf/PGxxx.pdf
+MAIN_ITEMS = {94: "patrologicursus53migngoog", 95: "patrologicursus50migngoog"}       # IA item of data/pdf/PGxxx.pdf
 GREEK_NUM = {"Α": 1, "Β": 2, "Γ": 3, "Δ": 4, "Ε": 5, "Ϛ": 6, "Ϝ": 6, "Ζ": 7, "Η": 8, "Θ": 9,
              "Ι": 10, "Κ": 20, "Λ": 30, "Μ": 40, "Ν": 50, "Ξ": 60, "Ο": 70, "Π": 80, "Ϙ": 90, "Ϟ": 90,
              "Ρ": 100}

@@ -16,6 +16,7 @@ powershell -ExecutionPolicy Bypass -File setup\setup_pg_ocr.ps1   # Windows: dat
 bash setup/setup_kraken.sh                                        # WSL: kraken environment
 
 bash scripts/pg_train.sh                                # train the recognition model
+bash scripts/run_pg_volume.sh 95                        # a whole volume: both scans + merge, resumable
 bash scripts/pg_ocr.sh 94 all                           # main scan
 SOURCE=alt RUN=v5 bash scripts/pg_ocr.sh 94 215-834     # second scan (IA "PatrologiaGraeca")
 bash scripts/pg_ocr.sh 94 merge v4,v5                   # word-level merge -> output/PG094/best/
@@ -31,6 +32,7 @@ All steps are resumable. The project folder defaults to `/mnt/e/PG_OCR` (set `PG
 |---|---|
 | `scripts/prepare_gt.py` | Normalise the ground truth and split it into train / val / test |
 | `scripts/pg_train.sh` | Train the kraken recognition model (watchdog, OOM fallback) |
+| `scripts/run_pg_volume.sh` | One volume start to finish: checks, download and title-page check, both scans, merge, report |
 | `scripts/pg_ocr.sh` | Entry point: recognise, merge, structure |
 | `scripts/pg_ocr_volume.py` | Layout → column crops → kraken → text with line and word confidences |
 | `scripts/pg_merge.py` | Combine two runs word by word (confidence and in-volume frequency) |

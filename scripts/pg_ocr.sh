@@ -122,6 +122,7 @@ main() {
 default_url() {
     case "$1" in
         94) echo "https://archive.org/download/patrologicursus53migngoog/patrologicursus53migngoog.pdf" ;;
+        95) echo "https://archive.org/download/patrologicursus50migngoog/patrologicursus50migngoog.pdf" ;;
         *)  echo "" ;;
     esac
 }
