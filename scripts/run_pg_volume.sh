@@ -141,6 +141,10 @@ for i in range(min(15, doc.page_count)):
             hits.append(i + 1)
         for m in re.findall(r"\bTOMUS\s+([CXLVI]+)\b", L.upper()):
             others.add(m)
+chars = sum(len(doc[i].get_text().strip()) for i in range(1, min(15, doc.page_count)))
+if chars < 200:
+    print("this scan has no text layer on its first pages (usual for Google scans) - the volume number cannot be checked automatically")
+    sys.exit(4)
 print(f"volume {vol} = TOMUS {R}: found on page(s) {sorted(set(hits)) or 'none'}")
 wrong = sorted(o for o in others if o != R)
 if wrong:
@@ -153,6 +157,9 @@ PY
         if [ $YES -eq 1 ]; then
             warn "title-page check is doubtful (the text layer of the scan may be poor) - continuing because of --yes"
         else
+            [ $rc -eq 4 ] && die "open $PDF and look at the title page (usually PDF page 5-10, 'PATROLOGIAE GRAECAE TOMUS ...').
+  If it is volume $VOL, continue with:
+    bash $0 $VOL --from pdf --yes"
             die "could not confirm on the title pages that this PDF is volume $VOL.
   Look at the lines above (or open $PDF). If it is the right volume, run again with --yes:
     bash $0 $VOL --from pdf --yes
