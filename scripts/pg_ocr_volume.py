@@ -34,7 +34,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-VERSION = "3.0 (second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
+VERSION = "3.1 (map: pages of another copy; second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
 GREEK_CLASS = "MainText_ColGreek"
 LATIN_CLASS = "MainText_ColLatin"
 NOTE_CLASSES = ("MainText_ColLatin", "Marginalia_Footnote")
@@ -46,7 +46,18 @@ PREVIEW_COLOURS = {"MainText_ColGreek": (0, 170, 0), "MainText_ColLatin": (220, 
 EXTRA_BASE = 10000      # 'leaf:487' = leaf 487 of the second scan, stored as page 10487
 
 
+PAGE_MAP = {}            # 'map:20955=487,...' = page 487 of --pdf, stored as page 20955
+
+
 def parse_pages(spec: str, n_pages: int):
+    if spec.startswith("map:"):
+        # pages of another copy (--pdf) that fill gaps of the main scan; each gets its own id
+        # (20000 + Migne column), so it can sit next to the main scan's pages
+        for part in spec[4:].split(","):
+            if part.strip():
+                a, b = part.split("=")
+                PAGE_MAP[int(a)] = int(b)
+        return sorted(PAGE_MAP)
     if spec.startswith("leaf:"):
         # pages missing from the main scan, taken directly from the second scan
         return sorted(EXTRA_BASE + int(x) for x in spec[5:].split(",") if x.strip())
@@ -427,7 +438,7 @@ def stage_layout(args, pages, work):
                                          "finished pages are kept; run the same command again later")
                     continue
             else:
-                page = doc[pno - 1]
+                page = doc[PAGE_MAP.get(pno, pno) - 1]
                 zoom = args.target_height / page.rect.height
                 pix = page.get_pixmap(matrix=fitz.Matrix(zoom, zoom), colorspace=fitz.csGRAY, alpha=False)
                 img = Image.frombytes("L", (pix.width, pix.height), pix.samples)
@@ -496,6 +507,7 @@ def stage_layout(args, pages, work):
             pv.save(prev_dir / f"p{pno:04d}.jpg", quality=80)
 
             rec = {"page": pno, "size": [img.width, img.height], "greek": kept,
+                   **({"pdf": str(args.pdf), "pdf_page": PAGE_MAP[pno]} if pno in PAGE_MAP else {}),
                    "source": (f"alt leaf {altmap[pno]['leaf']}" if altmap else "pdf"),
                    "rejected_greek": rejected, "detections": dets}
             out.write(json.dumps(rec, ensure_ascii=False) + "\n")

@@ -14,6 +14,9 @@
 #    bash pg_ocr.sh 94 works                          split into works, page check, chapters
 #                                                     -> output/PG094/works/
 #    SOURCE=alt RUN=v5 bash pg_ocr.sh 94 leaf:487,488 add leaves missing from the main scan
+#    PDF_FILE=/mnt/e/PG_OCR/data/pdf/<other copy>.pdf RUN=patch bash pg_ocr.sh 95 map:20955=487,...
+#                                                     pages missing in both scans, from another copy
+#    bash pg_ocr.sh 95 merge v4,v5+patch              merge, adding those pages
 #    bash pg_ocr.sh 94 structure                      (older: one work only)
 #  Optional:
 #    RUN=v6 ...      name of the result folder (default v4)
@@ -35,7 +38,7 @@ main() {
     TAG="$(printf 'PG%03d' "$VOL")"
     RUN="${RUN:-v4}"
     SOURCE="${SOURCE:-pdf}"
-    PDF="$ROOT/data/pdf/$TAG.pdf"
+    PDF="${PDF_FILE:-$ROOT/data/pdf/$TAG.pdf}"      # PDF_FILE: another copy (pages map:id=page)
     START_TS=$(date +%s)
 
     # shellcheck disable=SC1091

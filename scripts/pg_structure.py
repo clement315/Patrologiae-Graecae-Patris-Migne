@@ -173,9 +173,12 @@ def page_image(args, run, rec):
         import pymupdf as fitz
     except ImportError:
         import fitz
-    if not hasattr(page_image, "doc"):
-        page_image.doc = fitz.open(str(args.pdf))
-    page = page_image.doc[rec["page"] - 1]
+    if not hasattr(page_image, "docs"):
+        page_image.docs = {}
+    path = rec.get("pdf") or str(args.pdf)       # a page taken from another copy (map:)
+    if path not in page_image.docs:
+        page_image.docs[path] = fitz.open(path)
+    page = page_image.docs[path][rec.get("pdf_page", rec["page"]) - 1]
     zoom = H / page.rect.height
     pix = page.get_pixmap(matrix=fitz.Matrix(zoom, zoom), colorspace=fitz.csGRAY, alpha=False)
     img = Image.frombytes("L", (pix.width, pix.height), pix.samples)

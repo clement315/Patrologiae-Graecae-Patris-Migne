@@ -23,7 +23,7 @@ import sys
 import unicodedata
 from pathlib import Path
 
-VERSION = "2.4 (word-level combination; false copies detected; excluded pages left out)"
+VERSION = "2.5 (word-level combination; pages of another copy added; excluded pages left out)"
 
 
 EXCLUDED = set()
@@ -181,6 +181,10 @@ def main():
     args = ap.parse_args()
 
     tag = f"PG{args.vol:03d}"
+    # "v4,v5+gb": runs after "+" only add pages the two main runs do not have (pages of
+    # another copy filling gaps of the scan, ids 20000 + Migne column)
+    args.tags, _, extra = args.tags.partition("+")
+    extra = [t for t in extra.split(",") if t]
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     from pg_ocr_volume import excluded_pages
     EXCLUDED.update(excluded_pages(args.root, tag))
@@ -306,6 +310,30 @@ def main():
         reading.append(f"[{tag} p.{p}]")
         reading += join_hyphens([(args.mark + s) if cf < args.mark_conf else s for _, _, cf, s in merged])
 
+    added_pages = []
+    for t in extra:
+        d = args.root / "output" / tag / t
+        pages_t, _ = load(d, tag)
+        for p in sorted(pages_t):
+            if p in runs[tags[0]] or p in runs[tags[1]] or p in EXCLUDED or not pages_t[p]:
+                continue
+            ls = pages_t[p]
+            wins[t] += 1
+            added_pages.append(p)
+            report.append(f"{p}\t{t}\t" + "\t".join("0\t0.000" for _ in tags) + "\t0\t0\t0")
+            col, num = None, collections.Counter()
+            for l in ls:
+                num[l["col"]] += 1
+                if l["col"] != col:
+                    txt.append(f"$0={args.vol} $8={p} $9={num[l['col']]}")
+                    col = l["col"]
+                txt.append(l["text"])
+                tsv.append(f"{p}\t{l['col']}\t{num[l['col']]}\t{l['conf']:.3f}\t{l['text']}")
+            reading.append(f"[{tag} p.{p} ({t})]")
+            reading += join_hyphens([(args.mark + l["text"]) if l["conf"] < args.mark_conf else l["text"] for l in ls])
+    if added_pages:
+        print(f"{len(added_pages)} page(s) added from {', '.join(extra)}: {', '.join(map(str, added_pages))}")
+
     (outdir / f"{tag}_lines.tsv").write_text("\n".join(tsv) + "\n", encoding="utf-8")
     (outdir / f"{tag}_text.txt").write_text("\n".join(txt) + "\n", encoding="utf-8")
     (outdir / f"{tag}_reading.txt").write_text("\n".join(reading) + "\n", encoding="utf-8")
@@ -313,6 +341,7 @@ def main():
     confs = [float(r.split("\t")[3]) for r in tsv[1:]]
     summary = {"version": VERSION, "runs": tags, "word_level": all(has_words.values()),
                "pages": sum(wins.values()), "pages_excluded": len(EXCLUDED), "base_run_per_page": dict(wins),
+               "pages_added_from_other_copy": added_pages,
                "words_taken_from_other_run": total_taken,
                "lines_added_from_other_run": total_added,
                "pages_read_differently_by_the_runs": different, "duplicate_pages_skipped": dups,

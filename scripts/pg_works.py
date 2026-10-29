@@ -35,7 +35,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.3"
+VERSION = "1.4"
 
 WORKS = {
     94: [
@@ -130,16 +130,36 @@ WORKS = {
 SCAN_FIXES = {
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
-        "order": [[490, 491, 501, 493, 494, 495, 492, 497, 498, 502],
-                  [325, 326, 327, 330],
-                  [655, 656, 657, 654]],         # p654 holds cols. 1265-6 (p658 is its copy)
+        # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
+        # "patch" below; they are put in place by these sequences
+        "order": [[490, 491, 501, 493, 494, 495, 492, 20955, 20957, 20959, 20961, 20963, 497, 498,
+                   20969, 20971, 20973, 502],
+                  [325, 20617, 20619, 326, 327, 330],
+                  [618, 21209, 620, 21213, 622, 21217, 624, 21221, 626],
+                  [653, 21257, 655, 656, 657, 654]],         # p654 holds cols. 1265-6 (p658 is its copy)
+        "drop": [621],          # photographed blank (its column 1213 comes from the other copy)
         "cols": {326: 621, 490: 941, 501: 945, 492: 953, 497: 965, 502: 975,
                  620: 1211, 621: 1213, 622: 1215, 624: 1219, 626: 1223, 655: 1259, 654: 1265},
-        "missing": ["617-620 (In I Cor.)", "955-964 (In Hebr.)", "969-974 (In Hebr.)",
-                    "1209-1210 (Sacra Parallela)", "1213-1214 (Sacra Parallela; page photographed blank)",
-                    "1217-1218 (Sacra Parallela)", "1221-1222 (Sacra Parallela)", "1257-1258 (Sacra Parallela)"],
+        "missing": [("617-620 (In I Cor.)", [20617, 20619]),
+                    ("955-964 (In Hebr.)", [20955, 20957, 20959, 20961, 20963]),
+                    ("969-974 (In Hebr.)", [20969, 20971, 20973]),
+                    ("1209-1210 (Sacra Parallela)", [21209]),
+                    ("1213-1214 (Sacra Parallela; page photographed blank)", [21213]),
+                    ("1217-1218 (Sacra Parallela)", [21217]),
+                    ("1221-1222 (Sacra Parallela)", [21221]),
+                    ("1257-1258 (Sacra Parallela)", [21257])],
+        # the missing pages in the other copy: PDF page there -> page id here
+        "patch": {"pdf": "Patrologiae_cursus_completus_seu_Bibliot.pdf", "source": "Google Books TM1DAQAAMAAJ",
+                  "pages": {20617: 318, 20619: 319, 20955: 487, 20957: 488, 20959: 489, 20961: 490,
+                            20963: 491, 20969: 494, 20971: 495, 20973: 496, 21209: 614, 21213: 616,
+                            21217: 618, 21221: 620, 21257: 638}},
     },
 }
+
+
+def patch_ids(vol):
+    """Page ids 2xxxx: Migne column xxxx taken from another copy."""
+    return set(SCAN_FIXES.get(vol, {}).get("patch", {}).get("pages", {}))
 
 
 # ----------------------------------------------------------------- helpers
@@ -655,6 +675,10 @@ def main():
     extra = sorted(p for p in best if p > n_pdf)        # leaves added from the second scan
     order, dropped = order_pages(list(range(1, n_pdf + 1)) + extra, best, altmap, report, known_dups=known,
                                  text_jaccard=0.25 if same else None)
+    drop = [p for p in fixes.get("drop", []) if p in order]
+    if drop:
+        order = [p for p in order if p not in drop]
+        report.append(f"left out (blank or unusable page): {', '.join('p%d' % p for p in drop)}")
     for seq in fixes.get("order", []):
         seq = [p for p in seq if p in order]
         if seq:
@@ -664,8 +688,9 @@ def main():
             report.append(f"page order fixed from the running heads: {', '.join('p%d' % p for p in seq)}")
     anchors = {w["pages"][0]: w["col"] for w in all_table if w.get("col")}
     anchors.update(fixes.get("cols", {}))
+    anchors.update({p: p - 20000 for p in patch_ids(args.vol) if p in order})
     cols, steps = fit_columns_ordered(order, main_text, main_index, alt_text, alt_index, altmap, anchors=anchors,
-                                      exact=set(fixes.get("cols", {})), sparse=same)
+                                      exact=set(fixes.get("cols", {})) | patch_ids(args.vol), sparse=same)
     vocab_pages = collections.defaultdict(set)
     for p, lines in best.items():
         for x in greek_words(" ".join(l[3] for l in lines)):
@@ -777,8 +802,21 @@ def main():
                    + " + = pages missing in the scan, or a page without running head; - = an extra"
                    " page, e.g. a plate or table)")
     if fixes.get("missing"):
-        cov += ["", "Migne columns missing in the scan (checked on the page images; another copy of",
-                f"PG {args.vol} is needed for them):"] + [f"  cols. {m}" for m in fixes["missing"]]
+        still = [m for m, ids in fixes["missing"] if not all(p in best for p in ids)]
+        filled = [m for m, ids in fixes["missing"] if all(p in best for p in ids)]
+        if still:
+            cov += ["", "Migne columns missing in the scan (checked on the page images; another copy of",
+                    f"PG {args.vol} is needed for them):"] + [f"  cols. {m}" for m in still]
+        if filled:
+            src = fixes.get("patch", {}).get("source", "another copy")
+            cov += ["", f"Migne columns missing in the scan, filled from {src}:"] + [f"  cols. {m}" for m in filled]
+        pm = fixes.get("patch", {})
+        if still and pm:
+            todo = {p: q for p, q in pm["pages"].items() if p not in best}
+            cov += ["", "To fill them (the other copy in data/pdf/), then merge and run this step again:",
+                    f"  PDF_FILE=$PG_ROOT/data/pdf/{pm['pdf']} RUN=patch bash pg_ocr.sh {args.vol} map:"
+                    + ",".join(f"{p}={q}" for p, q in sorted(todo.items())),
+                    f"  bash pg_ocr.sh {args.vol} merge v4,v5+patch"]
     add = [l for _, _, _, leaves in gaps for l in leaves]
     if add:
         cov += ["", "To add them, then merge and run this step again:",
