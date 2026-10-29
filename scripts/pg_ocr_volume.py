@@ -34,7 +34,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-VERSION = "2.9 (second scan: _jp2.tar or _jp2.zip; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
+VERSION = "3.0 (second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
 GREEK_CLASS = "MainText_ColGreek"
 LATIN_CLASS = "MainText_ColLatin"
 NOTE_CLASSES = ("MainText_ColLatin", "Marginalia_Footnote")
@@ -126,11 +126,11 @@ def dedupe(boxes, thr=0.5):
 # With --source alt the page images come from the other copy.  The leaf numbers differ
 # (other front matter, duplicated pages), so each PDF page is matched to an alt leaf by
 # comparing the words of an earlier OCR run (--ref-lines) with the alt item's own OCR.
-def ia_get(url, dest=None, tries=4):
+def ia_get(url, dest=None, tries=4, timeout=120):
     req = urllib.request.Request(url, headers={"User-Agent": "pg-ocr/2.5 (research; kraken)"})
     for k in range(tries):
         try:
-            with urllib.request.urlopen(req, timeout=120) as r:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
                 data = r.read()
             if dest is not None:
                 tmp = Path(str(dest) + ".part")
@@ -161,7 +161,7 @@ def build_altmap(args, pages, work):
     page that cannot be matched itself (over-inked, no Greek) is interpolated from its
     direct neighbours on both sides.
     """
-    MAP_VERSION = 3
+    MAP_VERSION = 4
     mf = work / "altmap.json"
     amap = json.loads(mf.read_text()) if mf.exists() else {}
     if amap.get("_version") == MAP_VERSION and all(str(p) in amap for p in pages):
@@ -213,6 +213,26 @@ def build_altmap(args, pages, work):
         if p in found:
             leaf = min(found[p], key=lambda c: abs((c - p) - local))
             result[p] = {"leaf": leaf, "how": "matched"}
+    # a single page matched far away from its neighbours (a passage repeated elsewhere in
+    # the volume, e.g. PG 95 p219 -> leaf 65) is a false match: interpolate it instead.
+    # Re-scanned pages of the main scan (PG 94: shifted by 7-24 leaves, mostly in pairs or
+    # blocks) are kept; a false match lies far away (> 25 leaves) with no neighbour agreeing.
+    off = {p: result[p]["leaf"] - p for p in matched}
+    false_match = []
+    for p in matched:
+        nb = sorted((x for x in matched if x != p), key=lambda x: abs(x - p))[:4]
+        if not nb:
+            continue
+        agree = sum(1 for x in nb if abs(off[x] - off[p]) <= 3)
+        med = sorted(off[x] for x in nb)[len(nb) // 2]
+        if agree == 0 and abs(off[p] - med) > 25:
+            false_match.append(p)
+    for p in false_match:
+        del result[p]
+    matched = [p for p in matched if p not in false_match]
+    if false_match:
+        print(f"[alt] {len(false_match)} isolated false match(es) replaced by interpolation: "
+              + ", ".join(f"p{p}" for p in false_match))
     # a page the reference run skipped as a second scan (PG 94: p483 = p481) gets the
     # leaf of its original, so it is recognised as a duplicate again
     ref_dups = {}
@@ -247,6 +267,33 @@ def build_altmap(args, pages, work):
     return {int(k): v for k, v in amap.items() if not k.startswith("_")}
 
 
+def jp2_kinds(args, pre):
+    """Which archive holds the page images of this volume: ["zip"], ["tar"] or both to try.
+
+    Read once from the item's file list (cached in data/alt/PGxxx/files.json).
+    """
+    if getattr(args, "_jp2_kind", None):
+        return [args._jp2_kind]
+    if getattr(args, "_jp2_order", None):
+        return args._jp2_order
+    cache = args.root / "data" / "alt" / f"PG{args.vol:03d}" / "files.json"
+    names = []
+    try:
+        if not cache.exists():
+            meta = json.loads(ia_get(f"https://archive.org/metadata/{args.alt_item}/files", timeout=300))
+            names = [x["name"] for x in meta.get("result", []) if x["name"].startswith(pre)]
+            cache.write_text(json.dumps(names, indent=1), encoding="utf-8")
+        names = json.loads(cache.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"[alt] file list of {args.alt_item} not available ({e}) - trying both archive forms")
+    args._alt_files = names
+    has = [k for k in ("zip", "tar") if f"{pre}_jp2.{k}" in names]
+    args._jp2_order = has or ["tar", "zip"]
+    print(f"[alt] page images of {pre}: {', '.join(f'_jp2.{k}' for k in args._jp2_order)}"
+          + ("" if has else " (not in the file list - trying anyway)"), flush=True)
+    return args._jp2_order
+
+
 def alt_image(args, leaf):
     """One leaf of the second scan as a greyscale page image (cached as data/alt/PGxxx/leaf_NNNN.jpg).
 
@@ -260,10 +307,11 @@ def alt_image(args, leaf):
     if not f.exists():
         pre = alt_prefix(args)
         inner = urllib.parse.quote(f"{pre}_jp2/{pre}_{leaf:04d}.jp2", safe="")
-        kinds = [args._jp2_kind] if getattr(args, "_jp2_kind", None) else ["tar", "zip"]
+        kinds = jp2_kinds(args, pre)
         for kind in kinds:
             try:
-                ia_get(f"{IA}/{args.alt_item}/{urllib.parse.quote(pre)}_jp2.{kind}/{inner}&ext=jpg", f)
+                ia_get(f"{IA}/{args.alt_item}/{urllib.parse.quote(pre)}_jp2.{kind}/{inner}&ext=jpg", f,
+                       tries=5, timeout=300)
                 args._jp2_kind = kind
                 break
             except urllib.error.HTTPError as e:
@@ -272,15 +320,9 @@ def alt_image(args, leaf):
         else:
             if getattr(args, "_jp2_kind", None):
                 raise SystemExit(f"[alt] leaf {leaf} of {pre} not found in the second scan")
-            # neither form exists: show what the item has for this volume
-            names = []
-            try:
-                meta = json.loads(ia_get(f"https://archive.org/metadata/{args.alt_item}/files"))
-                names = [x["name"] for x in meta.get("result", []) if x["name"].startswith(pre)]
-            except Exception as e:
-                names = [f"(file list not available: {e})"]
-            raise SystemExit(f"[alt] no page images for {pre!r} in {args.alt_item} (tried _jp2.tar and _jp2.zip).\n"
-                             f"Files of this volume in the item:\n  " + "\n  ".join(names or ["(none)"]))
+            names = getattr(args, "_alt_files", None) or ["(file list not available)"]
+            raise SystemExit(f"[alt] no page images for {pre!r} in {args.alt_item} (tried {', '.join(kinds)}).\n"
+                             f"Files of this volume in the item:\n  " + "\n  ".join(names))
         time.sleep(args.alt_delay)
     img = Image.open(f).convert("L")
     h = args.target_height
@@ -369,10 +411,21 @@ def stage_layout(args, pages, work):
     doc = fitz.open(str(args.pdf))
     altmap = build_altmap(args, todo, work) if args.source == "alt" else {}
     t0 = time.time()
+    net_fail, net_skipped = 0, []
     with open(layout_file, "a", encoding="utf-8") as out:
         for i, pno in enumerate(todo, 1):
             if args.source == "alt":
-                img = alt_image(args, altmap[pno]["leaf"])
+                try:
+                    img = alt_image(args, altmap[pno]["leaf"])
+                    net_fail = 0
+                except Exception as e:      # network: skip the page, a re-run fills it in
+                    net_fail += 1
+                    net_skipped.append(pno)
+                    print(f"[alt] p{pno} (leaf {altmap[pno]['leaf']}) skipped: {e}", flush=True)
+                    if net_fail >= 5:
+                        raise SystemExit("[alt] archive.org does not answer (5 pages in a row) - "
+                                         "finished pages are kept; run the same command again later")
+                    continue
             else:
                 page = doc[pno - 1]
                 zoom = args.target_height / page.rect.height
@@ -450,6 +503,9 @@ def stage_layout(args, pages, work):
             if i % 10 == 0 or i == len(todo):
                 el = time.time() - t0
                 print(f"[layout] {i}/{len(todo)} pages  ({el / i:.1f} s/page)  last: p{pno} -> {len(kept)} Greek column(s)")
+    if net_skipped:
+        print(f"[alt] WARNING: {len(net_skipped)} page(s) could not be downloaded ({', '.join(f'p{p}' for p in net_skipped[:20])}"
+              f"{' ...' if len(net_skipped) > 20 else ''}) - run the same command again to add them", flush=True)
 
 
 # ----------------------------------------------------------------- stage 2: kraken
