@@ -193,7 +193,9 @@ for row in open(sys.argv[1], encoding="utf-8").read().splitlines()[1:]:
         c[int(f[0])].append(float(f[3]))
 # pages with a real Greek text column: at least 15 lines, mean confidence >= 0.93
 good = sorted(p for p in n if n[p] >= 15 and sum(c[p]) / len(c[p]) >= 0.93)
-# the largest block of such pages, allowing gaps of up to 12 pages (plates, Latin, blanks)
+# blocks of such pages (gaps of up to 12 pages: plates, Latin prefaces, blanks); a
+# volume can hold several works separated by a long Latin text, so every block of at
+# least 10 pages counts, and the range runs from the first to the last of them
 blocks, cur = [], []
 for p in good:
     if cur and p - cur[-1] > 12:
@@ -201,10 +203,10 @@ for p in good:
     cur.append(p)
 if cur:
     blocks.append(cur)
-blocks.sort(key=len, reverse=True)
-for b in blocks[:3]:
+big = [b for b in blocks if len(b) >= 10] or sorted(blocks, key=len)[-1:]
+for b in big:
     print(f"  block of Greek pages {b[0]}-{b[-1]} ({len(b)} pages)", file=sys.stderr)
-print(f"{blocks[0][0]}-{blocks[0][-1] + 2}" if blocks else "")
+print(f"{max(1, big[0][0] - 2)}-{big[-1][-1] + 3}" if big else "")
 PY
 )"
         [ -n "$ALT_PAGES" ] || die "could not find pages with Greek text in v4 - give --alt-pages A-B"

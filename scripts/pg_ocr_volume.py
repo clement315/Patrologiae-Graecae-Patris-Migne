@@ -34,7 +34,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-VERSION = "2.8 (excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
+VERSION = "2.9 (second scan: _jp2.tar or _jp2.zip; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
 GREEK_CLASS = "MainText_ColGreek"
 LATIN_CLASS = "MainText_ColLatin"
 NOTE_CLASSES = ("MainText_ColLatin", "Marginalia_Footnote")
@@ -138,7 +138,7 @@ def ia_get(url, dest=None, tries=4):
                 tmp.replace(dest)
             return data
         except Exception as e:          # network hiccup / rate limit -> wait and retry
-            if k == tries - 1:
+            if k == tries - 1 or getattr(e, "code", None) == 404:      # 404: no point retrying
                 raise
             print(f"[alt] retry {k + 1} for {url.rsplit('/', 1)[-1]}: {e}")
             time.sleep(5 * (k + 1))
@@ -248,13 +248,39 @@ def build_altmap(args, pages, work):
 
 
 def alt_image(args, leaf):
+    """One leaf of the second scan as a greyscale page image (cached as data/alt/PGxxx/leaf_NNNN.jpg).
+
+    The page images of a volume sit in "<prefix>_jp2.tar" (PG 94) or "<prefix>_jp2.zip"
+    (other uploads); the first form that answers is remembered for the rest of the run.
+    """
     from PIL import Image
+    import urllib.error
     cache = args.root / "data" / "alt" / f"PG{args.vol:03d}"
     f = cache / f"leaf_{leaf:04d}.jpg"
     if not f.exists():
         pre = alt_prefix(args)
         inner = urllib.parse.quote(f"{pre}_jp2/{pre}_{leaf:04d}.jp2", safe="")
-        ia_get(f"{IA}/{args.alt_item}/{urllib.parse.quote(pre)}_jp2.tar/{inner}&ext=jpg", f)
+        kinds = [args._jp2_kind] if getattr(args, "_jp2_kind", None) else ["tar", "zip"]
+        for kind in kinds:
+            try:
+                ia_get(f"{IA}/{args.alt_item}/{urllib.parse.quote(pre)}_jp2.{kind}/{inner}&ext=jpg", f)
+                args._jp2_kind = kind
+                break
+            except urllib.error.HTTPError as e:
+                if e.code != 404:
+                    raise
+        else:
+            if getattr(args, "_jp2_kind", None):
+                raise SystemExit(f"[alt] leaf {leaf} of {pre} not found in the second scan")
+            # neither form exists: show what the item has for this volume
+            names = []
+            try:
+                meta = json.loads(ia_get(f"https://archive.org/metadata/{args.alt_item}/files"))
+                names = [x["name"] for x in meta.get("result", []) if x["name"].startswith(pre)]
+            except Exception as e:
+                names = [f"(file list not available: {e})"]
+            raise SystemExit(f"[alt] no page images for {pre!r} in {args.alt_item} (tried _jp2.tar and _jp2.zip).\n"
+                             f"Files of this volume in the item:\n  " + "\n  ".join(names or ["(none)"]))
         time.sleep(args.alt_delay)
     img = Image.open(f).convert("L")
     h = args.target_height
