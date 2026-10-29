@@ -22,6 +22,8 @@ SOURCE=alt RUN=v5 bash scripts/pg_ocr.sh 94 215-834     # second scan (IA "Patro
 bash scripts/pg_ocr.sh 94 merge v4,v5                   # word-level merge -> output/PG094/best/
 bash scripts/pg_ocr.sh 94 works                         # split into works, check page order -> output/PG094/works/
 SOURCE=alt RUN=v5 bash scripts/pg_ocr.sh 94 leaf:487,488  # add leaves missing from the main scan
+SOURCE=pdf2 ALT_PDF=other_copy.pdf RUN=v6 bash scripts/pg_ocr.sh 95 10-825  # second scan from a local PDF (e.g. Google Books)
+bash scripts/pg_ocr.sh 95 merge v4,v6+patch             # '+patch': pages taken from another copy (map:)
 ```
 
 Pages without Greek text (Latin prefaces, title pages, index) can be listed in

@@ -34,7 +34,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-VERSION = "3.1 (map: pages of another copy; second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
+VERSION = "3.2 (pdf2: second scan from a local PDF; map: pages of another copy; second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
 GREEK_CLASS = "MainText_ColGreek"
 LATIN_CLASS = "MainText_ColLatin"
 NOTE_CLASSES = ("MainText_ColLatin", "Marginalia_Footnote")
@@ -165,6 +165,49 @@ def alt_prefix(args):
     return args.alt_prefix or f"Patrologia Graeca Vol. {args.vol:03d}"
 
 
+def alt_text_index(args):
+    """OCR text of the second scan and the [start, end] offsets of each leaf in it.
+
+    --source alt:  the Internet Archive OCR of the item (downloaded once);
+    --source pdf2: the text layer of the local PDF --alt-pdf (leaf n = PDF page n + 1),
+                   e.g. a Google Books copy, which carries Google's OCR."""
+    if args.source == "pdf2":
+        cache = args.root / "data" / "pdf2" / f"PG{args.vol:03d}_{args.alt_pdf.stem[:40]}"
+    else:
+        cache = args.root / "data" / "alt" / f"PG{args.vol:03d}"
+    cache.mkdir(parents=True, exist_ok=True)
+    st, pi = cache / "searchtext.txt.gz", cache / "pageindex.json.gz"
+    if args.source == "pdf2":
+        if not (st.exists() and pi.exists()):
+            try:
+                import pymupdf as fitz
+            except ImportError:
+                import fitz
+            parts, index, pos = [], [], 0
+            for page in fitz.open(str(args.alt_pdf)):
+                t = " ".join(page.get_text().split()) + " "
+                parts.append(t)
+                index.append([pos, pos + len(t)])
+                pos += len(t)
+            st.write_bytes(gzip.compress("".join(parts).encode("utf-8")))
+            pi.write_bytes(gzip.compress(json.dumps(index).encode("utf-8")))
+            print(f"[alt] text layer of {args.alt_pdf.name}: {len(index)} pages")
+    else:
+        pre = alt_prefix(args)
+        q = urllib.parse.quote(pre)
+        for f, suffix in ((st, "_hocr_searchtext.txt.gz"), (pi, "_hocr_pageindex.json.gz")):
+            if not f.exists():
+                print(f"[alt] downloading {pre}{suffix}")
+                ia_get(f"{IA}/{args.alt_item}/{q}{suffix}", f)
+    return (gzip.decompress(st.read_bytes()).decode("utf-8", "replace"),
+            json.loads(gzip.decompress(pi.read_bytes())))
+
+
+def alt_label(args, leaf):
+    """How a page's image source is recorded in layout.jsonl."""
+    return f"pdf2 page {leaf + 1}" if args.source == "pdf2" else f"alt leaf {leaf}"
+
+
 def build_altmap(args, pages, work):
     """PDF page -> leaf number in the alternative scan (cached in work/altmap.json).
 
@@ -178,17 +221,7 @@ def build_altmap(args, pages, work):
     if amap.get("_version") == MAP_VERSION and all(str(p) in amap for p in pages):
         return {int(k): v for k, v in amap.items() if not k.startswith("_")}
     work.mkdir(parents=True, exist_ok=True)
-    cache = args.root / "data" / "alt" / f"PG{args.vol:03d}"
-    cache.mkdir(parents=True, exist_ok=True)
-    pre = alt_prefix(args)
-    q = urllib.parse.quote(pre)
-    st, pi = cache / "searchtext.txt.gz", cache / "pageindex.json.gz"
-    for f, suffix in ((st, "_hocr_searchtext.txt.gz"), (pi, "_hocr_pageindex.json.gz")):
-        if not f.exists():
-            print(f"[alt] downloading {pre}{suffix}")
-            ia_get(f"{IA}/{args.alt_item}/{q}{suffix}", f)
-    text = gzip.decompress(st.read_bytes()).decode("utf-8", "replace")
-    index = json.loads(gzip.decompress(pi.read_bytes()))
+    text, index = alt_text_index(args)
     leaf_words = [plain_words(text[a[0]:a[1]]) for a in index]
 
     ref = collections.defaultdict(set)
@@ -262,7 +295,12 @@ def build_altmap(args, pages, work):
         after = [x for x in matched if x > p]
         ob = result[before[-1]]["leaf"] - before[-1] if before else None
         oa = result[after[0]]["leaf"] - after[0] if after else None
-        off = ob if ob is not None else oa
+        # offsets differ on the two sides: take the nearer matched page (PG 95 p236 is the
+        # page after a long Latin stretch, and belongs with the page that follows it)
+        if ob is not None and oa is not None and ob != oa:
+            off = ob if p - before[-1] <= after[0] - p else oa
+        else:
+            off = ob if ob is not None else oa
         result[p] = {"leaf": p + off, "how": "interpolated" + ("" if ob == oa else " (uncertain)")}
     old = amap if amap.get("_version") == MAP_VERSION else {}
     amap = dict(old)                    # keep pages mapped in earlier calls
@@ -303,6 +341,21 @@ def jp2_kinds(args, pre):
     print(f"[alt] page images of {pre}: {', '.join(f'_jp2.{k}' for k in args._jp2_order)}"
           + ("" if has else " (not in the file list - trying anyway)"), flush=True)
     return args._jp2_order
+
+
+def pdf2_image(args, leaf):
+    """Page leaf+1 of the local second PDF as a greyscale image of the working height."""
+    from PIL import Image
+    try:
+        import pymupdf as fitz
+    except ImportError:
+        import fitz
+    if not hasattr(pdf2_image, "doc"):
+        pdf2_image.doc = fitz.open(str(args.alt_pdf))
+    page = pdf2_image.doc[leaf]
+    zoom = args.target_height / page.rect.height
+    pix = page.get_pixmap(matrix=fitz.Matrix(zoom, zoom), colorspace=fitz.csGRAY, alpha=False)
+    return Image.frombytes("L", (pix.width, pix.height), pix.samples)
 
 
 def alt_image(args, leaf):
@@ -398,12 +451,12 @@ def stage_layout(args, pages, work):
         for line in layout_file.read_text(encoding="utf-8").splitlines():
             if line.strip():
                 done.add(json.loads(line)["page"])
-    if args.source == "alt" and done:
+    if args.source in ("alt", "pdf2") and done:
         altmap = build_altmap(args, pages, work)
         recs = [json.loads(l) for l in layout_file.read_text(encoding="utf-8").splitlines() if l.strip()]
         req = set(pages)                # only pages of this run can be redone
         stale = {r["page"] for r in recs if r["page"] in req and r["page"] in altmap
-                 and r.get("source") != f"alt leaf {altmap[r['page']]['leaf']}"}
+                 and r.get("source") != alt_label(args, altmap[r["page"]]["leaf"])}
         if stale:
             print(f"[layout] page map changed for {sorted(stale)} -> these pages are redone")
             layout_file.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n"
@@ -420,14 +473,14 @@ def stage_layout(args, pages, work):
     model = YOLO(str(args.layout_model))
     names = model.names
     doc = fitz.open(str(args.pdf))
-    altmap = build_altmap(args, todo, work) if args.source == "alt" else {}
+    altmap = build_altmap(args, todo, work) if args.source in ("alt", "pdf2") else {}
     t0 = time.time()
     net_fail, net_skipped = 0, []
     with open(layout_file, "a", encoding="utf-8") as out:
         for i, pno in enumerate(todo, 1):
-            if args.source == "alt":
+            if args.source in ("alt", "pdf2"):
                 try:
-                    img = alt_image(args, altmap[pno]["leaf"])
+                    img = (pdf2_image if args.source == "pdf2" else alt_image)(args, altmap[pno]["leaf"])
                     net_fail = 0
                 except Exception as e:      # network: skip the page, a re-run fills it in
                     net_fail += 1
@@ -508,7 +561,9 @@ def stage_layout(args, pages, work):
 
             rec = {"page": pno, "size": [img.width, img.height], "greek": kept,
                    **({"pdf": str(args.pdf), "pdf_page": PAGE_MAP[pno]} if pno in PAGE_MAP else {}),
-                   "source": (f"alt leaf {altmap[pno]['leaf']}" if altmap else "pdf"),
+                   "source": (alt_label(args, altmap[pno]["leaf"]) if altmap else "pdf"),
+                   **({"pdf": str(args.alt_pdf), "pdf_page": altmap[pno]["leaf"] + 1}
+                      if args.source == "pdf2" and pno in altmap else {}),
                    "rejected_greek": rejected, "detections": dets}
             out.write(json.dumps(rec, ensure_ascii=False) + "\n")
             out.flush()
@@ -753,8 +808,10 @@ def main():
                     help="lines inside a full-width Latin band are set aside below this confidence")
     ap.add_argument("--weak-page-conf", type=float, default=0.93,
                     help="pages whose mean line confidence is below this are listed for checking")
-    ap.add_argument("--source", choices=["pdf", "alt"], default="pdf",
-                    help="pdf = --pdf file; alt = second scan in the Internet Archive item --alt-item")
+    ap.add_argument("--source", choices=["pdf", "alt", "pdf2"], default="pdf",
+                    help="pdf = --pdf file; alt = second scan in the Internet Archive item --alt-item; "
+                         "pdf2 = second scan in the local PDF --alt-pdf (pages matched through its text layer)")
+    ap.add_argument("--alt-pdf", type=Path, default=None, help="local PDF of another copy (--source pdf2)")
     ap.add_argument("--alt-item", default="PatrologiaGraeca")
     ap.add_argument("--alt-prefix", default=None, help='default "Patrologia Graeca Vol. 094"')
     ap.add_argument("--alt-delay", type=float, default=1.0, help="pause between image downloads (s)")
@@ -773,6 +830,8 @@ def main():
     ap.add_argument("--chunk", type=int, default=40, help="column images per kraken call")
     ap.add_argument("--stages", default="layout,ocr,text")
     args = ap.parse_args()
+    if args.source == "pdf2" and not (args.alt_pdf and args.alt_pdf.exists()):
+        sys.exit(f"--source pdf2 needs --alt-pdf <file> (not found: {args.alt_pdf})")
     if args.layout_model is None:
         args.layout_model = args.root / "models" / "REG-YOLOv12s.pt"
 
@@ -796,7 +855,8 @@ def main():
     outdir = args.root / "output" / tag / args.tag
     print(f"pg_ocr_volume.py version {VERSION}")
     print(f"{tag}: {n_pages} PDF pages, processing {len(pages)} ({pages[0]}-{pages[-1]}) -> work/{tag}/{args.tag}"
-          f"  [image source: {args.source}{' / ' + args.alt_item if args.source == 'alt' else ''}]")
+          f"  [image source: {args.source}{' / ' + args.alt_item if args.source == 'alt' else ''}"
+          f"{' / ' + args.alt_pdf.name if args.source == 'pdf2' else ''}]")
     stages = set(args.stages.split(","))
     if "layout" in stages:
         stage_layout(args, pages, work)

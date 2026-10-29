@@ -17,6 +17,9 @@
 #    PDF_FILE=/mnt/e/PG_OCR/data/pdf/<other copy>.pdf RUN=patch bash pg_ocr.sh 95 map:20955=487,...
 #                                                     pages missing in both scans, from another copy
 #    bash pg_ocr.sh 95 merge v4,v5+patch              merge, adding those pages
+#    SOURCE=pdf2 ALT_PDF=/mnt/e/PG_OCR/data/pdf/<other copy>.pdf RUN=v6 bash pg_ocr.sh 95 10-825
+#                                                     second scan from a local PDF (e.g. Google Books);
+#                                                     pages matched through its text layer
 #    bash pg_ocr.sh 94 structure                      (older: one work only)
 #  Optional:
 #    RUN=v6 ...      name of the result folder (default v4)
@@ -92,8 +95,12 @@ main() {
     echo "recognition model: $MODEL"
     [ -f "$ROOT/models/REG-YOLOv12s.pt" ] || die "layout model $ROOT/models/REG-YOLOv12s.pt missing"
     echo "image source: $SOURCE   result folder: $RUN"
-    if [ "$SOURCE" = "alt" ] && [ "$RUN" = "v4" ]; then
-        die "SOURCE=alt needs its own result folder, e.g.  SOURCE=alt RUN=v5 bash pg_ocr.sh $VOL $PAGES"
+    if [ "$SOURCE" != "pdf" ] && [ "$RUN" = "v4" ]; then
+        die "SOURCE=$SOURCE needs its own result folder, e.g.  SOURCE=$SOURCE RUN=v6 bash pg_ocr.sh $VOL $PAGES"
+    fi
+    if [ "$SOURCE" = "pdf2" ]; then
+        [ -n "${ALT_PDF:-}" ] && [ -s "$ALT_PDF" ] || die "SOURCE=pdf2 needs ALT_PDF=<the other copy's PDF>"
+        echo "second copy: $ALT_PDF"
     fi
 
     step "2/4  Volume PDF"
@@ -111,7 +118,8 @@ main() {
     mkdir -p "$ROOT/work/$TAG"
     local log="$ROOT/work/$TAG/ocr_${RUN}_$(date +%Y%m%d_%H%M%S).log"
     PYTHONUNBUFFERED=1 python "$ROOT/scripts/pg_ocr_volume.py" --vol "$VOL" --pdf "$PDF" --pages "$PAGES" \
-        --root "$ROOT" --model "$MODEL" --tag "$RUN" --source "$SOURCE" --stages "${STAGES:-layout,ocr,text}" 2>&1 | tee "$log"
+        --root "$ROOT" --model "$MODEL" --tag "$RUN" --source "$SOURCE" ${ALT_PDF:+--alt-pdf "$ALT_PDF"} \
+        --stages "${STAGES:-layout,ocr,text}" 2>&1 | tee "$log"
 
     step "4/4  Done"
     echo "text:      $ROOT/output/$TAG/$RUN/${TAG}_text.txt"
