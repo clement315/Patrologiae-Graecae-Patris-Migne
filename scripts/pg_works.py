@@ -35,7 +35,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.2"
+VERSION = "1.3"
 
 WORKS = {
     94: [
@@ -192,11 +192,28 @@ def main_scan_ocr(args, best):
         return "", [[0, 0]] * pdf_pages(args, best)
 
 
-def title_split(items):
-    """Index of the work title on a page: the topmost title block that is not a chapter heading."""
-    blocks = [k for k, it in enumerate(items) if it["kind"] == "block"
-              and not any(S.heading_like(t) for t, _ in it["lines"])]
-    return min(blocks, key=lambda k: items[k]["y"]) if blocks else None
+def title_gap(rec, min_gap=300):
+    """Where a new work starts on a page: (gap start, gap end) in page pixels, or None.
+
+    Works that begin in mid-page start under a title that the layout model often does not
+    see as a whole, but the Greek text always breaks there: the text above and below the
+    title are separate Greek boxes.  The gap chosen is the first one (also the one above
+    the first box) that contains a detected title; else the largest gap between Greek
+    boxes, if it is at least `min_gap` px."""
+    if not rec or not rec.get("greek"):
+        return None
+    boxes = sorted((g["box"] for g in rec["greek"]), key=lambda b: b[1])
+    titles = [d["box"] for d in rec.get("detections", []) if d["cls"] == "MainText_Title" and d["conf"] >= 0.25]
+    gaps, prev = [], 0
+    for b in boxes:
+        gaps.append((prev, b[1]))
+        prev = max(prev, b[3])
+    gaps.append((prev, rec["size"][1]))          # a title below the last box: nothing follows it
+    for a, b in gaps:
+        if any(a - 20 <= (t[1] + t[3]) / 2 <= b + 20 for t in titles):
+            return (a, b)
+    inner = [(b - a, a, b) for a, b in gaps[1:-1] if b - a >= min_gap]
+    return (max(inner)[1], max(inner)[2]) if inner else None
 
 
 # ----------------------------------------------------------------- 1: order and duplicates
@@ -701,18 +718,22 @@ def main():
         items_w = dict(items_of)
         first, last = w["pages"]
         if w.get("cut") and first in items_w:
-            k = title_split(items_of[first])
-            if k is not None:
-                # chapter-numbered works: the work title is not a chapter heading
-                items_w[first] = items_of[first][k + (1 if kind in ("books", "chapters") else 0):]
-            else:
-                wrep.append(f"p{first}: title of the work not found on its first page - whole page kept")
+            g = title_gap(layouts.get(base.get(first), {}).get(first))
+            if g:
+                # the text below the title; title blocks inside the gap are section headings
+                # of a work in sections, but not chapter headings
+                lo = g[1] if kind in ("books", "chapters") else g[0]
+                items_w[first] = [it for it in items_of[first] if it["y"] >= lo]
+            elif len(layouts.get(base.get(first), {}).get(first, {}).get("greek", [])) > 1:
+                wrep.append(f"p{first}: no break before the work's title found - whole page kept")
         i = next((j for j, x in enumerate(all_works) if x["slug"] == w["slug"]), None)
         nxt = all_works[i + 1] if i is not None and i + 1 < len(all_works) else None
         if nxt and nxt.get("cut") and nxt["pages"][0] == last and last in items_w:
-            k = title_split(items_of[last])
-            # the part above the next work's title; without a title the page goes to the next work
-            items_w[last] = items_of[last][:k] if k is not None else []
+            g = title_gap(layouts.get(base.get(last), {}).get(last))
+            if g:
+                items_w[last] = [it for it in items_of[last] if it["y"] < g[0]]
+            else:
+                wrep.append(f"p{last}: shared with the next work, no break found - whole page kept in both")
         items_of_all, items_of = items_of, items_w
         if kind in ("books", "chapters"):
             books = S.fit_books(S.running_heads(args, max(best) + 20), wp) if kind == "books" else {p: 1 for p in wp}
