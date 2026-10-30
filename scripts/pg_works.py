@@ -28,6 +28,7 @@ import collections
 import gzip
 import json
 import re
+import subprocess
 import sys
 import unicodedata
 from pathlib import Path
@@ -41,10 +42,17 @@ WORKS = {
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
-        {"slug": "dialectica", "title": "Dialectica (Capita philosophica)",
+        {"slug": "testimonia_veterum", "title": "Testimonia selecta veterum de S. Joanne Damasceno et eius scriptis",
+         "pages": [257, 261], "kind": "sections"},
+        # Fons scientiae (Pege gnoseos): Migne prints its three parts as separate works;
+        # the dedication to Cosmas of Maiuma (p. 266) opens part I
+        {"slug": "fons_scientiae_1_dialectica",
+         "title": "Fons scientiae (Pege gnoseos), pars I: Dialectica (Capita philosophica)",
          "pages": [264, 355], "kind": "chapters"},
-        {"slug": "de_haeresibus", "title": "De haeresibus", "pages": [356, 407], "kind": "numbered"},
-        {"slug": "expositio_fidei", "title": "Expositio fidei (Ekdosis akribes tes orthodoxou pisteos)",
+        {"slug": "fons_scientiae_2_de_haeresibus", "title": "Fons scientiae (Pege gnoseos), pars II: De haeresibus",
+         "pages": [356, 407], "kind": "numbered"},
+        {"slug": "fons_scientiae_3_expositio_fidei",
+         "title": "Fons scientiae (Pege gnoseos), pars III: Expositio fidei (Ekdosis akribes tes orthodoxou pisteos)",
          "pages": [412, 633], "kind": "books"},
         {"slug": "orationes_de_imaginibus", "title": "Orationes de imaginibus I-III",
          "pages": [634, 739], "kind": "orations", "run_key": "ORATIO"},
@@ -225,7 +233,8 @@ def head_numbers(text):
     return [int(x) for x in re.findall(r"(?<!\d)(\d{%s})(?!\d)" % HEAD_DIGITS, text[:160])]
 
 
-def pdf_pages(args, best):
+def pdf_pages(args, best=None):
+    """Number of pages of the main PDF (None if it cannot be read)."""
     try:
         try:
             import pymupdf as fitz
@@ -233,7 +242,11 @@ def pdf_pages(args, best):
             import fitz
         return len(fitz.open(str(args.pdf)))
     except Exception:
-        return max(p for p in best if p < 10000)
+        try:
+            out = subprocess.run(["pdfinfo", str(args.pdf)], capture_output=True, text=True).stdout
+            return int(re.search(r"^Pages:\s+(\d+)", out, re.M).group(1))
+        except Exception:
+            return None
 
 
 def main_scan_ocr(args, best):
@@ -249,7 +262,7 @@ def main_scan_ocr(args, best):
     except Exception as e:
         print(f"[works] no IA OCR for the main scan {args.main_item} ({e})", flush=True)
         text, index = "", None
-    if index is not None and len(index) == n:
+    if index is not None and (n is None or len(index) == n):
         return text, index
     # the IA OCR counts other leaves than the PDF (PG 96: 796 entries, 792 PDF pages) or is
     # missing: use the PDF's own text layer, which is aligned page by page
@@ -262,7 +275,7 @@ def main_scan_ocr(args, best):
     if index is not None:
         print(f"[works] IA OCR has {len(index)} pages, the PDF {n}, and the PDF has no text layer: "
               f"column numbers from the second scan only", flush=True)
-    return "", [[0, 0]] * n
+    return "", [[0, 0]] * (n or max(p for p in best if p < 10000))
 
 
 def pdf_text_index(args, min_share=0.5):
