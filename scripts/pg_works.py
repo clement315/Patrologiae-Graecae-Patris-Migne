@@ -36,9 +36,46 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.5"
+VERSION = "1.6"
 
 WORKS = {
+    25: [
+        # S. Athanasius, Opera, pars I (historica et dogmatica).  "col": first Migne column
+        # (Ordo rerum and running heads of the Oxford copy, checked on the page images); the
+        # Latin Monita between the works are left out (work/PG025/exclude_pages.txt).
+        # The chapter numerals (Αʹ., Βʹ., ...) are printed in small capitals and read too
+        # unreliably to number the chapters: the works are kept as running text.
+        {"slug": "contra_gentes", "title": "Oratio contra gentes", "col": 3, "pages": [295, 341],
+         "kind": "sections"},
+        {"slug": "de_incarnatione", "title": "Oratio de incarnatione Verbi", "col": 95, "pages": [341, 396],
+         "kind": "sections", "cut": True},
+        {"slug": "expositio_fidei", "title": "Expositio fidei", "col": 199, "pages": [397, 401], "kind": "sections"},
+        {"slug": "in_illud_omnia_mihi_tradita", "title": "In illud: Omnia mihi tradita sunt (Mt 11:27)",
+         "col": 209, "pages": [402, 407], "kind": "sections"},
+        {"slug": "epistola_encyclica", "title": "Epistola encyclica ad episcopos", "col": 221, "pages": [408, 417],
+         "kind": "sections"},
+        {"slug": "apologia_contra_arianos", "title": "Apologia contra Arianos (Apologia secunda)", "col": 247,
+         "pages": [421, 504], "kind": "sections"},
+        {"slug": "de_decretis", "title": "De decretis Nicaenae synodi", "col": 415, "pages": [507, 541],
+         "kind": "sections"},
+        {"slug": "de_sententia_dionysii", "title": "De sententia Dionysii", "col": 479, "pages": [543, 566],
+         "kind": "sections"},
+        {"slug": "epistola_ad_dracontium", "title": "Epistola ad Dracontium", "col": 523, "pages": [567, 574],
+         "kind": "sections"},
+        {"slug": "ad_episcopos_aegypti_et_libyae", "title": "Epistola encyclica ad episcopos Aegypti et Libyae",
+         "col": 537, "pages": [576, 604], "kind": "sections"},
+        {"slug": "apologia_ad_constantium", "title": "Apologia ad Constantium imperatorem", "col": 595,
+         "pages": [605, 642], "kind": "sections"},
+        # p643: Latin Admonitio, then the Greek title and the first lines of the text
+        {"slug": "apologia_de_fuga", "title": "Apologia de fuga sua", "col": 643, "pages": [643, 661],
+         "kind": "sections"},
+        {"slug": "de_morte_arii", "title": "Epistola ad Serapionem de morte Arii", "col": 685, "pages": [664, 666],
+         "kind": "sections"},
+        {"slug": "epistola_ad_monachos", "title": "Epistola ad monachos", "col": 691, "pages": [667, 668],
+         "kind": "sections"},
+        {"slug": "historia_arianorum", "title": "Historia Arianorum ad monachos", "col": 695, "pages": [669, 719],
+         "kind": "sections"},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -701,6 +738,8 @@ def main():
     ap.add_argument("--works", type=Path, default=None, help="JSON list of works (default: built-in table)")
     ap.add_argument("--only", default=None, help="comma-separated work slugs")
     ap.add_argument("--main-item", default=None)
+    ap.add_argument("--alt-run", default=None,
+                    help="run of the second scan (v5: Internet Archive item; v6: local PDF); default: the one with an altmap")
     ap.add_argument("--device", default="cuda:0")
     ap.add_argument("--mark-conf", type=float, default=0.80)
     ap.add_argument("--mark", default="⟦?⟧ ")
@@ -738,12 +777,21 @@ def main():
                 if l.strip():
                     d = json.loads(l)
                     layouts[r][d["page"]] = d
-    amf = args.root / "work" / tag / "v5" / "altmap.json"
+    # the second scan: the Internet Archive item (run v5, OCR in data/alt/) or a local PDF of
+    # another copy (run v6, --source pdf2, its text layer in data/pdf2/PGxxx_<file>/)
+    alt_run = args.alt_run or next((r for r in ("v5", "v6")
+                                    if (args.root / "work" / tag / r / "altmap.json").exists()), "v5")
+    amf = args.root / "work" / tag / alt_run / "altmap.json"
     altmap = {int(k): v for k, v in json.loads(amf.read_text()).items() if not k.startswith("_")} \
         if amf.exists() else {}
 
     main_text, main_index = main_scan_ocr(args, best)
     acache = args.root / "data" / "alt" / tag
+    if alt_run != "v5" or not (acache / "searchtext.txt.gz").exists():
+        cand = sorted((args.root / "data" / "pdf2").glob(f"{tag}_*/searchtext.txt.gz"))
+        if cand:
+            acache = cand[0].parent
+    print(f"[works] second scan: run {alt_run}, text from {acache.relative_to(args.root)}", flush=True)
     alt_text, alt_index = gz_text(acache / "searchtext.txt.gz"), gz_json(acache / "pageindex.json.gz")
 
     report = []
