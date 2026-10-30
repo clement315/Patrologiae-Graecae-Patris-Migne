@@ -117,6 +117,41 @@ WORKS = {
         {"slug": "sacra_parallela", "title": "Sacra Parallela (pars prima, PG 95)", "pages": [534, 825],
          "kind": "sections", "cut": True},
     ],
+    96: [
+        # "col": first Migne column (table of contents, PDF p. 8; page = (col + 9) / 2 in this scan)
+        {"slug": "sacra_parallela_continuatio", "title": "Sacra Parallela (continuatio)", "col": 9,
+         "pages": [9, 238], "kind": "sections"},
+        {"slug": "parallela_rupefucaldina", "title": "Excerpta ex Parallelis Rupefucaldinis", "col": 467,
+         "pages": [238, 277], "kind": "sections", "cut": True},
+        {"slug": "homiliae", "title": "Homiliae", "col": 545, "pages": [277, 412], "kind": "sections", "cut": True},
+        {"slug": "precationes", "title": "Precationes tres", "col": 815, "pages": [412, 413], "kind": "sections",
+         "cut": True},
+        {"slug": "carmina", "title": "Carmina et cantica", "col": 818, "pages": [413, 432], "kind": "sections",
+         "cut": True},
+        # from here: supplement of the Patrologia editor (not in Lequien's edition)
+        {"slug": "vita_barlaam_et_joasaph", "title": "Vita Barlaam et Joasaph", "col": 859, "pages": [434, 629],
+         "kind": "sections"},
+        {"slug": "passio_artemii", "title": "S. Artemii Passio", "col": 1249, "pages": [629, 664],
+         "kind": "sections", "cut": True},
+        {"slug": "disputatio_cum_manichaeo", "title": "Joannis Orthodoxi Disputatio cum Manichaeo", "col": 1319,
+         "pages": [664, 672], "kind": "dialogue", "cut": True,
+         "speakers": {"ΜΑΝ.": r"Μ[ΑΛ][ΝΒΕ]|ΚΑΝ|ΜΝ", "ΟΡΘ.": r"ΟΡ?Θ|Ο[ΕΞ]Θ|ΟΘΟΟΖ|ΟΕ"}},
+        {"slug": "disputatio_saraceni", "title": "Disputatio Saraceni cum Christiano", "col": 1335,
+         "pages": [672, 678], "kind": "dialogue", "speakers": {}, "cut": True},
+        {"slug": "adversus_iconoclastas", "title": "Liber adversus Iconoclastas", "col": 1347, "pages": [678, 685],
+         "kind": "sections", "cut": True},
+        {"slug": "hymni", "title": "Hymni", "col": 1363, "pages": [686, 708], "kind": "sections"},
+        {"slug": "fragmenta_in_matthaeum", "title": "Fragmenta in Matthaeum", "col": 1407, "pages": [708, 712],
+         "kind": "sections", "cut": True},
+        {"slug": "joannes_cp_ad_constantinum", "title": "Joannes CP. patriarcha: Epistola ad Constantinum papam",
+         "col": 1415, "pages": [712, 722], "kind": "sections", "cut": True},
+        {"slug": "joannes_nicaenus_de_nativitate", "title": "Joannes Nicaenus: De Nativitate Domini sermo",
+         "col": 1435, "pages": [722, 729], "kind": "sections", "cut": True},
+        {"slug": "joannes_euboeensis_in_conceptionem", "title": "Joannes Euboeensis: Sermo in Conceptionem Deiparae",
+         "col": 1459, "pages": [734, 754], "kind": "sections"},
+        {"slug": "joannes_euboeensis_in_innocentes", "title": "Joannes Euboeensis: Sermo in SS. Innocentes",
+         "col": 1501, "pages": [755, 757], "kind": "sections"},
+    ],
 }
 
 
@@ -125,9 +160,13 @@ WORKS = {
 #   order:   stretches of shuffled pages, each in its true sequence
 #   cols:    left Migne column of single pages (anchors for the column count)
 #   missing: Migne columns not contained in the scan (reported in coverage.txt)
+#   in_order: the main scan is complete and in order (no reordering by the second scan)
 #   same_scan: the second scan is the same digitisation (copies found by their text; column
 #            numbers from sparse running heads of 2-4 digits, single changes confirmed by 3 of 4)
 SCAN_FIXES = {
+    # PG 96: main scan complete and in order (left column = 2 x page - 9 on every page, checked
+    # on the running heads); the second scan's page map is only used for its text
+    96: {"in_order": True},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
@@ -673,7 +712,8 @@ def main():
                 if r == args.text_tag or a not in best:
                     known.setdefault(a, b)
     extra = sorted(p for p in best if p > n_pdf)        # leaves added from the second scan
-    order, dropped = order_pages(list(range(1, n_pdf + 1)) + extra, best, altmap, report, known_dups=known,
+    order, dropped = order_pages(list(range(1, n_pdf + 1)) + extra, best,
+                                 {} if fixes.get("in_order") else altmap, report, known_dups=known,
                                  text_jaccard=0.25 if same else None)
     drop = [p for p in fixes.get("drop", []) if p in order]
     if drop:
