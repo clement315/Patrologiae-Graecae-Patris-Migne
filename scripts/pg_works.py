@@ -35,7 +35,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.4"
+VERSION = "1.5"
 
 WORKS = {
     94: [
@@ -241,14 +241,55 @@ def main_scan_ocr(args, best):
 
     Some Google scans on the Internet Archive (PG 95: patrologicursus50migngoog) carry no
     OCR; the column numbers then come from the running heads of the second scan alone."""
+    n = pdf_pages(args, best)
     try:
         S.running_heads(args, max(best) + 20)      # downloads and caches the IA OCR
         mcache = args.root / "data" / "ia" / args.main_item
-        return gz_text(mcache / "searchtext.txt.gz"), gz_json(mcache / "pageindex.json.gz")
+        text, index = gz_text(mcache / "searchtext.txt.gz"), gz_json(mcache / "pageindex.json.gz")
     except Exception as e:
-        print(f"[works] no IA OCR for the main scan {args.main_item} ({e}) - "
+        print(f"[works] no IA OCR for the main scan {args.main_item} ({e})", flush=True)
+        text, index = "", None
+    if index is not None and len(index) == n:
+        return text, index
+    # the IA OCR counts other leaves than the PDF (PG 96: 796 entries, 792 PDF pages) or is
+    # missing: use the PDF's own text layer, which is aligned page by page
+    own = pdf_text_index(args)
+    if own:
+        if index is not None:
+            print(f"[works] IA OCR has {len(index)} pages, the PDF {n}: running heads read from the "
+                  f"PDF's text layer instead", flush=True)
+        return own
+    if index is not None:
+        print(f"[works] IA OCR has {len(index)} pages, the PDF {n}, and the PDF has no text layer: "
               f"column numbers from the second scan only", flush=True)
-        return "", [[0, 0]] * pdf_pages(args, best)
+    return "", [[0, 0]] * n
+
+
+def pdf_text_index(args, min_share=0.5):
+    """Text layer of the main PDF as (text, [start, end] per page), or None if it has none."""
+    cache = args.root / "data" / "ia" / f"{args.main_item}_pdftext"
+    st, pi = cache / "searchtext.txt.gz", cache / "pageindex.json.gz"
+    if not (st.exists() and pi.exists()):
+        try:
+            try:
+                import pymupdf as fitz
+            except ImportError:
+                import fitz
+            parts, index, pos, full = [], [], 0, 0
+            for page in fitz.open(str(args.pdf)):
+                t = " ".join(page.get_text().split()) + " "
+                full += len(t) > 200
+                parts.append(t)
+                index.append([pos, pos + len(t)])
+                pos += len(t)
+        except Exception:
+            return None
+        if full < min_share * max(1, len(index)):
+            return None
+        cache.mkdir(parents=True, exist_ok=True)
+        st.write_bytes(gzip.compress("".join(parts).encode("utf-8")))
+        pi.write_bytes(gzip.compress(json.dumps(index).encode("utf-8")))
+    return gz_text(st), gz_json(pi)
 
 
 def title_gap(rec, min_gap=300):
