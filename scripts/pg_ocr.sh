@@ -133,6 +133,9 @@ main() {
 default_url() {
     case "$1" in
         25) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_025/patrologiae_cursus_completus_gr_vol_025.pdf" ;;
+        26) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_026/patrologiae_cursus_completus_gr_vol_026.pdf" ;;
+        27) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_027/patrologiae_cursus_completus_gr_vol_027.pdf" ;;
+        28) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_028/patrologiae_cursus_completus_gr_vol_028.pdf" ;;
         94) echo "https://archive.org/download/patrologicursus53migngoog/patrologicursus53migngoog.pdf" ;;
         95) echo "https://archive.org/download/patrologicursus50migngoog/patrologicursus50migngoog.pdf" ;;
         96) echo "https://archive.org/download/patrologiaecursu96mign_0/patrologiaecursu96mign_0.pdf" ;;
