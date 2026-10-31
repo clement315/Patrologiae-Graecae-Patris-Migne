@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.7"
+VERSION = "1.8"
 
 WORKS = {
     25: [
@@ -75,6 +75,57 @@ WORKS = {
          "kind": "sections"},
         {"slug": "historia_arianorum", "title": "Historia Arianorum ad monachos", "col": 695, "pages": [669, 719],
          "kind": "sections"},
+    ],
+    26: [
+        # S. Athanasius, Opera, pars I (cont.) and pars II.  "col": first Migne column (running
+        # heads of the scan: left column = 2p - 15 up to p258, 2p - 35 from p269, after the ten
+        # pages the scan contains twice); Latin-only works and Monita are excluded
+        # (work/PG026/exclude_pages.txt): De Trinitate et Spiritu sancto, Ep. II ad Luciferum,
+        # the Latin version of the Epistolae heortasticae.  Kept as running text with the
+        # titled sections the layout model finds (the numerals are not read reliably).
+        {"slug": "oratio_1_contra_arianos", "title": "Oratio I contra Arianos", "col": 11, "pages": [13, 80],
+         "kind": "sections", "cut": True},
+        {"slug": "oratio_2_contra_arianos", "title": "Oratio II contra Arianos", "col": 145, "pages": [80, 167],
+         "kind": "sections", "cut": True},
+        {"slug": "oratio_3_contra_arianos", "title": "Oratio III contra Arianos", "col": 321, "pages": [168, 241],
+         "kind": "sections"},
+        {"slug": "oratio_4_contra_arianos", "title": "Oratio IV contra Arianos", "col": 468, "pages": [241, 280],
+         "kind": "sections", "cut": True},
+        {"slug": "epistolae_ad_serapionem", "title": "Epistolae IV ad Serapionem", "col": 529, "pages": [282, 355],
+         "kind": "sections"},
+        {"slug": "de_synodis", "title": "Epistola de synodis Arimini et Seleuciae", "col": 681, "pages": [358, 414],
+         "kind": "sections"},
+        {"slug": "tomus_ad_antiochenos", "title": "Tomus ad Antiochenos", "col": 796, "pages": [415, 422],
+         "kind": "sections"},
+        {"slug": "epistola_ad_jovianum", "title": "Epistola ad Jovianum imperatorem (with the Petitiones Arianorum)",
+         "col": 813, "pages": [424, 429], "kind": "sections"},
+        {"slug": "vita_antonii", "title": "Vita S. Antonii", "col": 837, "pages": [436, 505], "kind": "sections"},
+        {"slug": "ad_orsisium_et_ammonium", "title": "Epistolae II ad Orsisium; Narratio ad Ammonium", "col": 977,
+         "pages": [505, 508], "kind": "sections", "cut": True},
+        {"slug": "de_incarnatione_et_contra_arianos", "title": "De incarnatione Verbi et contra Arianos",
+         "col": 983, "pages": [509, 531], "kind": "sections"},
+        {"slug": "epistola_ad_afros", "title": "Epistola ad Afros episcopos", "col": 1029, "pages": [532, 541],
+         "kind": "sections"},
+        {"slug": "epistola_ad_epictetum", "title": "Epistola ad Epictetum", "col": 1049, "pages": [542, 552],
+         "kind": "sections"},
+        {"slug": "epistola_ad_adelphium", "title": "Epistola ad Adelphium", "col": 1072, "pages": [553, 559],
+         "kind": "sections"},
+        {"slug": "epistola_ad_maximum", "title": "Epistola ad Maximum philosophum", "col": 1085, "pages": [560, 562],
+         "kind": "sections"},
+        {"slug": "contra_apollinarium_1", "title": "Contra Apollinarium liber I", "col": 1093, "pages": [564, 583],
+         "kind": "sections"},
+        {"slug": "contra_apollinarium_2", "title": "Contra Apollinarium liber II", "col": 1131, "pages": [583, 600],
+         "kind": "sections", "cut": True},
+        {"slug": "epistolae_minores", "title": "Epistolae minores (ad Amunem, ep. heort. XXXIX fragm., ad Rufinianum, "
+         "ad Luciferum I, ad monachos)", "col": 1165, "pages": [600, 611], "kind": "sections", "cut": True},
+        {"slug": "fragmenta_varia", "title": "Fragmenta varia", "col": 1217, "pages": [626, 647], "kind": "sections"},
+        {"slug": "sermo_maior_de_fide", "title": "Sermo maior de fide (with the pieces printed after it)", "col": 1265,
+         "pages": [650, 665], "kind": "sections"},
+        {"slug": "sermones_varii", "title": "Sermones et fragmenta (de patientia, in ramos palmarum, contra "
+         "Macedonianos, contra Novatianos, de amuletis, de azymis)", "col": 1297, "pages": [666, 683],
+         "kind": "sections"},
+        {"slug": "epistolae_heortasticae_graece", "title": "Epistolae heortasticae: fragmenta Graeca", "col": 1433,
+         "pages": [734, 739], "kind": "sections"},
     ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
