@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.6"
+VERSION = "1.7"
 
 WORKS = {
     25: [
@@ -813,6 +813,12 @@ def main():
                 a, b = int(a[1:]), int(b[1:])
                 if r == args.text_tag or a not in best:
                     known.setdefault(a, b)
+    # pages the second-scan run already recognised as a copy of an earlier page (PG 25: pairs
+    # of pages photographed twice, e.g. p199-200 = p197-198)
+    for p, v in altmap.items():
+        m = re.match(r"duplicate of p(\d+)", str(v.get("how", "")))
+        if m and p not in best:
+            known.setdefault(p, int(m.group(1)))
     extra = sorted(p for p in best if p > n_pdf)        # leaves added from the second scan
     order, dropped = order_pages(list(range(1, n_pdf + 1)) + extra, best,
                                  {} if fixes.get("in_order") else altmap, report, known_dups=known,
