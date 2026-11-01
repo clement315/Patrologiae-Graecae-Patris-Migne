@@ -39,7 +39,7 @@ VERSION = "2.1 (headings checked against the IA OCR of both scans; unread subjec
 IA = "https://archive.org/download"
 MAIN_ITEMS = {25: "patrologiae_cursus_completus_gr_vol_025", 26: "patrologiae_cursus_completus_gr_vol_026",
               27: "patrologiae_cursus_completus_gr_vol_027", 28: "patrologiae_cursus_completus_gr_vol_028",
-              29: "patrologiae_cursus_completus_gr_vol_029", 31: "patrologiae_cursus_completus_gr_vol_031",
+              29: "patrologiae_cursus_completus_gr_vol_029", 30: "PatrologiaGraeca", 31: "patrologiae_cursus_completus_gr_vol_031",
               32: "patrologiae_cursus_completus_gr_vol_032",
               94: "patrologicursus53migngoog", 95: "patrologicursus50migngoog",
               96: "patrologiaecursu96mign_0"}       # IA item of data/pdf/PGxxx.pdf
