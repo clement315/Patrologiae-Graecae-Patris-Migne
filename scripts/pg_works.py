@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.9"
+VERSION = "1.10"
 
 WORKS = {
     25: [
@@ -279,6 +279,11 @@ SCAN_FIXES = {
     # PG 96: main scan complete and in order (left column = 2 x page - 9 on every page, checked
     # on the running heads); the second scan's page map is only used for its text
     96: {"in_order": True},
+    # PG 27: main scan in order (running heads); the IA "PatrologiaGraeca" copy has other
+    # leaves and its own repeated pages, so it must not reorder the pages.  The pages the
+    # scan contains twice are left out of the column count; p332/p333 (Ps. 1 twice, the
+    # second time with the commentary) are different pages.
+    27: {"in_order": True, "drop": [53, 54] + list(range(523, 533)) + list(range(673, 683))},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
