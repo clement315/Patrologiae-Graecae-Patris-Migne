@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.10"
+VERSION = "1.11"
 
 WORKS = {
     25: [
@@ -142,6 +142,62 @@ WORKS = {
          "pages": [331, 699], "kind": "sections"},
         {"slug": "fragmenta_exegetica", "title": "Fragmenta exegetica (in Job, in Cantica, in Matthaeum, in Lucam, "
          "in I ad Corinthios)", "col": 1345, "pages": [700, 731], "kind": "sections"},
+    ],
+    28: [
+        # S. Athanasius, Opera, pars IV (dubia et spuria).  Works from the running heads of the
+        # scan and the titles the layout model finds; "col": left column of the first page
+        # (2p - 15 before, 2p - 19 after the copy pp. 407-408); Latin-only pieces excluded
+        # (work/PG028/exclude_pages.txt).  A work starting under a title in mid-page is "cut".
+        {"slug": "de_incarnatione_dei_verbi", "title": "De incarnatione Dei Verbi", "col": 25, "pages": [20, 21], "kind": "sections", "cut": True},
+        {"slug": "de_communi_essentia", "title": "De communi essentia Patris et Filii et Spiritus sancti", "col": 29, "pages": [22, 46], "kind": "sections", "cut": True},
+        {"slug": "epistola_catholica", "title": "Epistola catholica", "col": 79, "pages": [47, 49], "kind": "sections", "cut": True},
+        {"slug": "refutatio_hypocriseos_meletii", "title": "Refutatio hypocriseos Meletii et Eusebii", "col": 85, "pages": [50, 51], "kind": "sections"},
+        {"slug": "de_incarnatione_2", "title": "De incarnatione Dei Verbi (second piece in the running heads)", "col": 89, "pages": [52, 54], "kind": "sections", "cut": True},
+        {"slug": "contra_sabellianos", "title": "Contra Sabellianos", "col": 95, "pages": [55, 67], "kind": "sections", "cut": True},
+        {"slug": "quod_unus_sit_christus", "title": "Quod unus sit Christus", "col": 121, "pages": [68, 73], "kind": "sections", "cut": True},
+        {"slug": "de_sabbatis_et_circumcisione", "title": "De sabbatis et circumcisione", "col": 133, "pages": [74, 78], "kind": "sections", "cut": True},
+        {"slug": "homilia_de_semente", "title": "Homilia de semente", "col": 143, "pages": [79, 91], "kind": "sections", "cut": True},
+        {"slug": "in_illud_profecti_in_pagum", "title": "In illud: Profecti in pagum", "col": 169, "pages": [92, 99], "kind": "sections"},
+        {"slug": "de_passione_et_cruce", "title": "De passione et cruce Domini", "col": 185, "pages": [100, 132], "kind": "sections", "cut": True},
+        {"slug": "de_virginitate", "title": "De virginitate", "col": 251, "pages": [133, 147], "kind": "sections", "cut": True},
+        {"slug": "synopsis_scripturae", "title": "Synopsis Scripturae sacrae", "col": 281, "pages": [148, 226], "kind": "sections", "cut": True},
+        {"slug": "disputatio_contra_arium", "title": "Disputatio contra Arium (in concilio Nicaeno)", "col": 439, "pages": [227, 257], "kind": "sections", "cut": True},
+        {"slug": "sermo_contra_omnes_haereses", "title": "Sermo contra omnes haereses", "col": 501, "pages": [258, 269], "kind": "sections", "cut": True},
+        {"slug": "historia_de_melchisedech", "title": "Historia de Melchisedech", "col": 525, "pages": [270, 273], "kind": "sections", "cut": True},
+        {"slug": "liber_de_definitionibus", "title": "Liber de definitionibus", "col": 533, "pages": [274, 282], "kind": "sections", "cut": True},
+        {"slug": "doctrina_ad_antiochum", "title": "Doctrina ad Antiochum ducem", "col": 551, "pages": [283, 301], "kind": "sections", "cut": True},
+        {"slug": "quaestiones_ad_antiochum", "title": "Quaestiones ad Antiochum ducem", "col": 589, "pages": [302, 361], "kind": "sections", "cut": True},
+        {"slug": "quaestiones_aliae", "title": "Quaestiones in Scripturam, in N. T., in Psalmos, in epistolas Pauli, aliae", "col": 709, "pages": [362, 405], "kind": "sections"},
+        {"slug": "de_miraculo_beryti", "title": "De miraculo Beryti (imago Christi)", "col": 797, "pages": [406, 411], "kind": "sections"},
+        {"slug": "de_passione_imaginis", "title": "De passione imaginis D. N. Jesu Christi", "col": 805, "pages": [412, 415], "kind": "sections", "cut": True},
+        {"slug": "sermo_contra_latinos", "title": "Sermo contra Latinos", "col": 823, "pages": [421, 424], "kind": "sections", "cut": True},
+        {"slug": "syntagma_doctrinae", "title": "Syntagma doctrinae (ad monachos)", "col": 831, "pages": [425, 433], "kind": "sections", "cut": True},
+        {"slug": "epistolae_ad_castorem", "title": "Epistolae ad Castorem", "col": 849, "pages": [434, 461], "kind": "sections", "cut": True},
+        {"slug": "in_nativitatem_praecursoris", "title": "Homilia in nativitatem Praecursoris", "col": 905, "pages": [462, 465], "kind": "sections", "cut": True},
+        {"slug": "in_annuntiationem", "title": "Sermo in annuntiationem Deiparae", "col": 913, "pages": [466, 479], "kind": "sections"},
+        {"slug": "de_descriptione_deiparae", "title": "Sermo de descriptione Deiparae", "col": 943, "pages": [481, 488], "kind": "sections"},
+        {"slug": "in_nativitatem_christi", "title": "Sermo in nativitatem Christi", "col": 959, "pages": [489, 495], "kind": "sections"},
+        {"slug": "in_occursum_domini", "title": "Homilia in occursum Domini", "col": 973, "pages": [496, 509], "kind": "sections", "cut": True},
+        {"slug": "in_caecum_a_nativitate", "title": "Homilia in caecum a nativitate", "col": 1001, "pages": [510, 520], "kind": "sections", "cut": True},
+        {"slug": "in_illud_euntes_in_castellum", "title": "Homilia in illud: Euntes in castellum", "col": 1023, "pages": [521, 532], "kind": "sections", "cut": True},
+        {"slug": "in_feriam_quartam", "title": "Sermo in feriam IV", "col": 1047, "pages": [533, 535], "kind": "sections", "cut": True},
+        {"slug": "in_passionem_domini", "title": "Sermo in passionem Domini", "col": 1053, "pages": [536, 539], "kind": "sections", "cut": True},
+        {"slug": "in_patres_et_prophetas", "title": "Homilia in SS. Patres et prophetas", "col": 1061, "pages": [540, 545], "kind": "sections", "cut": True},
+        {"slug": "in_sanctum_pascha", "title": "Sermo in sanctum Pascha", "col": 1073, "pages": [546, 554], "kind": "sections", "cut": True},
+        {"slug": "in_assumptionem_domini", "title": "Sermo in assumptionem Domini", "col": 1091, "pages": [555, 559], "kind": "sections", "cut": True},
+        {"slug": "in_andream_et_exhortatorius", "title": "Encomium in S. Andream; Sermo exhortatorius", "col": 1101, "pages": [560, 565], "kind": "sections"},
+        {"slug": "de_trinitate_dialogi", "title": "De sancta Trinitate dialogi V", "col": 1113, "pages": [566, 653], "kind": "sections", "cut": True},
+        {"slug": "contra_macedonianos_dialogi", "title": "Contra Macedonianos dialogi II", "col": 1289, "pages": [654, 677], "kind": "sections"},
+        {"slug": "confutationes_propositionum", "title": "Confutationes quarumdam propositionum", "col": 1337, "pages": [678, 709], "kind": "sections", "cut": True},
+        {"slug": "syntagma_ad_politicum", "title": "Syntagma ad quemdam politicum", "col": 1401, "pages": [710, 713], "kind": "sections", "cut": True},
+        {"slug": "sermo_pro_renuntiantibus", "title": "Sermo pro iis qui saeculo renuntiarunt", "col": 1409, "pages": [714, 719], "kind": "sections", "cut": True},
+        {"slug": "doctrina_ad_monachos", "title": "Doctrina ad monachos", "col": 1421, "pages": [720, 726], "kind": "sections"},
+        {"slug": "epistolae_liberii_athanasii", "title": "Epistolae Liberii et Athanasii (Greek)", "col": 1441, "pages": [730, 731], "kind": "sections"},
+        {"slug": "vita_syncleticae", "title": "Vita S. Syncleticae", "col": 1487, "pages": [753, 787], "kind": "sections"},
+        {"slug": "epistola_ad_episcopum_persarum", "title": "Epistola ad episcopum Persarum", "col": 1557, "pages": [788, 793], "kind": "sections", "cut": True},
+        {"slug": "symbolum_quicumque", "title": "Symbolum Quicumque (Greek forms)", "col": 1581, "pages": [800, 810], "kind": "sections"},
+        {"slug": "de_ratione_paschali", "title": "De ratione Paschali; fragmenta", "col": 1603, "pages": [811, 812], "kind": "sections", "cut": True},
+        {"slug": "addenda", "title": "Addenda", "col": 1637, "pages": [828, 831], "kind": "sections"},
     ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
@@ -284,6 +340,8 @@ SCAN_FIXES = {
     # scan contains twice are left out of the column count; p332/p333 (Ps. 1 twice, the
     # second time with the commentary) are different pages.
     27: {"in_order": True, "drop": [53, 54] + list(range(523, 533)) + list(range(673, 683))},
+    # PG 28: main scan in order (running heads 2p - 15, then 2p - 19); pp. 407-408 repeat pp. 405-406
+    28: {"in_order": True, "drop": [407, 408]},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
