@@ -383,8 +383,9 @@ SCAN_FIXES = {
         "order": [[361, 20715, 20717, 362], [403, 20803, 20805, 404]],
         "cols": {362: 719, 404: 807},
         "missing": [("715-718 (De virginitate)", [20715, 20717]), ("803-806 (De virginitate)", [20803, 20805])],
-        # the four leaves (360, 361, 404, 405 of the microfilm copy) as a 4-page PDF
-        "patch": {"pdf": "PG030_bim4.pdf", "source": "archive.org bim_early-english-books-1641-1700_1857_30",
+        # the four leaves (360, 361, 404, 405 of the microfilm copy) as a 4-page PDF: border cropped,
+        # contrast raised, and on leaves 360 and 404 (Latin left in that copy) the columns swapped
+        "patch": {"pdf": "PG030_bim4c.pdf", "source": "archive.org bim_early-english-books-1641-1700_1857_30",
                   "pages": {20715: 1, 20717: 2, 20803: 3, 20805: 4}},
     },
     95: {
