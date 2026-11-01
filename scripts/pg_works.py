@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.11"
+VERSION = "1.12"
 
 WORKS = {
     25: [
@@ -199,6 +199,18 @@ WORKS = {
         {"slug": "de_ratione_paschali", "title": "De ratione Paschali; fragmenta", "col": 1603, "pages": [811, 812], "kind": "sections", "cut": True},
         {"slug": "addenda", "title": "Addenda", "col": 1637, "pages": [828, 831], "kind": "sections"},
     ],
+    29: [
+        # S. Basilius, Opera, tomus I.  "col": first Migne column (running heads: left column =
+        # 2p - 823, from p693 2p - 843 after the copy pp. 683-692).  The Greek Acoluthia triplicis
+        # festi and Historia institutionis in the Prolegomena (pp. 341-411, Roman column numbers)
+        # are in the merged text but not split as works.
+        {"slug": "hexaemeron", "title": "Homiliae IX in Hexaemeron", "col": 3, "pages": [413, 515],
+         "kind": "sections"},
+        {"slug": "homiliae_in_psalmos", "title": "Homiliae in Psalmos", "col": 209, "pages": [516, 658],
+         "kind": "sections"},
+        {"slug": "adversus_eunomium", "title": "Adversus Eunomium libri V (IV-V dubii)", "col": 497,
+         "pages": [660, 808], "kind": "sections"},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -342,6 +354,9 @@ SCAN_FIXES = {
     27: {"in_order": True, "drop": [53, 54] + list(range(523, 533)) + list(range(673, 683))},
     # PG 28: main scan in order (running heads 2p - 15, then 2p - 19); pp. 407-408 repeat pp. 405-406
     28: {"in_order": True, "drop": [407, 408]},
+    # PG 29: main scan in order; pp. 683-692 repeat pp. 673-682 (the IA "PatrologiaGraeca" copy
+    # has its own extra leaves, so it must not reorder the pages)
+    29: {"in_order": True, "drop": list(range(683, 693))},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
