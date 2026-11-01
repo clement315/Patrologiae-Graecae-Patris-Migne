@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.12"
+VERSION = "1.13"
 
 WORKS = {
     25: [
@@ -211,6 +211,23 @@ WORKS = {
         {"slug": "adversus_eunomium", "title": "Adversus Eunomium libri V (IV-V dubii)", "col": 497,
          "pages": [660, 808], "kind": "sections"},
     ],
+    30: [
+        # S. Basilius, Appendix tomi I (opera dubia et spuria) and Eunomius' Apologia.  Main scan:
+        # IA PatrologiaGraeca, Vol. 030 (a Google scan); "col": left column = 2p - 9 (cols. 715-718
+        # and 803-806 are missing in the scan, see SCAN_FIXES).
+        {"slug": "de_hominis_structura_et_de_paradiso", "title": "De hominis structura orationes I-II; De paradiso oratio",
+         "col": 11, "pages": [10, 39], "kind": "sections"},
+        {"slug": "homiliae_in_psalmos_spuriae", "title": "Homiliae in Psalmos (spuriae)", "col": 71, "pages": [40, 62],
+         "kind": "sections", "cut": True},
+        {"slug": "commentarius_in_isaiam", "title": "Enarratio in prophetam Isaiam (dubia)", "col": 117,
+         "pages": [63, 338], "kind": "sections"},
+        {"slug": "de_virginitate", "title": "De vera virginitate (ad Letoium)", "col": 669, "pages": [339, 405],
+         "kind": "sections"},
+        {"slug": "sermo_de_contubernalibus", "title": "Sermo de contubernalibus", "col": 809, "pages": [405, 414],
+         "kind": "sections", "cut": True},
+        {"slug": "eunomii_apologia", "title": "Eunomius, Liber apologeticus", "col": 835, "pages": [418, 434],
+         "kind": "sections", "cut": True},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -357,6 +374,18 @@ SCAN_FIXES = {
     # PG 29: main scan in order; pp. 683-692 repeat pp. 673-682 (the IA "PatrologiaGraeca" copy
     # has its own extra leaves, so it must not reorder the pages)
     29: {"in_order": True, "drop": list(range(683, 693))},
+    # PG 30: one scan (IA PatrologiaGraeca Vol. 030); two leaves are missing in it (running heads on
+    # the page images: p361 = cols. 713-714, p362 = 719-720; p403 = 801-802, p404 = 807-808),
+    # filled from the microfilm copy on archive.org (bim_early-english-books-1641-1700_1857_30,
+    # left column = 2 x leaf - 5)
+    30: {
+        "in_order": True,
+        "order": [[361, 20715, 20717, 362], [403, 20803, 20805, 404]],
+        "cols": {362: 719, 404: 807},
+        "missing": [("715-718 (De virginitate)", [20715, 20717]), ("803-806 (De virginitate)", [20803, 20805])],
+        "patch": {"pdf": "PG030_bim.pdf", "source": "archive.org bim_early-english-books-1641-1700_1857_30",
+                  "pages": {20715: 360, 20717: 361, 20803: 404, 20805: 405}},
+    },
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
@@ -936,8 +965,13 @@ def main():
         cand = sorted((args.root / "data" / "pdf2").glob(f"{tag}_*/searchtext.txt.gz"))
         if cand:
             acache = cand[0].parent
-    print(f"[works] second scan: run {alt_run}, text from {acache.relative_to(args.root)}", flush=True)
-    alt_text, alt_index = gz_text(acache / "searchtext.txt.gz"), gz_json(acache / "pageindex.json.gz")
+    if (acache / "searchtext.txt.gz").exists():
+        print(f"[works] second scan: run {alt_run}, text from {acache.relative_to(args.root)}", flush=True)
+        alt_text, alt_index = gz_text(acache / "searchtext.txt.gz"), gz_json(acache / "pageindex.json.gz")
+    else:
+        # one scan only (PG 30): no second scan to check the page order and coverage with
+        print("[works] no second scan: page order and columns from the main scan alone", flush=True)
+        alt_text, alt_index = "", []
 
     report = []
     # the whole volume is ordered (also pages without Greek), so that column numbers
