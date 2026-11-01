@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.8"
+VERSION = "1.9"
 
 WORKS = {
     25: [
@@ -126,6 +126,22 @@ WORKS = {
          "kind": "sections"},
         {"slug": "epistolae_heortasticae_graece", "title": "Epistolae heortasticae: fragmenta Graeca", "col": 1433,
          "pages": [734, 739], "kind": "sections"},
+    ],
+    27: [
+        # S. Athanasius, Opera, pars III (exegetica).  "col": first Migne column (running heads:
+        # left column = 2p - 11 before the copy pp. 53-54, 2p - 15 up to p522, 2p - 35 after
+        # the copy pp. 523-532, 2p - 55 after the copy pp. 673-682)
+        {"slug": "epistola_ad_marcellinum", "title": "Epistola ad Marcellinum in interpretationem Psalmorum",
+         "col": 11, "pages": [11, 28], "kind": "sections"},
+        {"slug": "expositiones_in_psalmos", "title": "Argumentum in Psalmos; Expositiones in Psalmos", "col": 55,
+         "pages": [33, 281], "kind": "sections"},
+        {"slug": "fragmenta_in_psalmos", "title": "Fragmenta commentarii in Psalmos", "col": 547,
+         "pages": [281, 302], "kind": "sections", "cut": True},
+        # Greek lemmata with Latin in the same lines on many pages (lower confidence there)
+        {"slug": "de_titulis_psalmorum", "title": "De titulis Psalmorum (ed. Antonelli)", "col": 647,
+         "pages": [331, 699], "kind": "sections"},
+        {"slug": "fragmenta_exegetica", "title": "Fragmenta exegetica (in Job, in Cantica, in Matthaeum, in Lucam, "
+         "in I ad Corinthios)", "col": 1345, "pages": [700, 731], "kind": "sections"},
     ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",

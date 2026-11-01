@@ -23,7 +23,7 @@ import sys
 import unicodedata
 from pathlib import Path
 
-VERSION = "2.5 (word-level combination; pages of another copy added; excluded pages left out)"
+VERSION = "2.6 (word-level combination; pages of another copy added; excluded pages left out; keep_pages.txt: pages that are not copies)"
 
 
 EXCLUDED = set()
@@ -190,6 +190,16 @@ def main():
     EXCLUDED.update(excluded_pages(args.root, tag))
     if EXCLUDED:
         print(f"{len(EXCLUDED)} page(s) left out as listed in work/{tag}/exclude_pages.txt")
+    # pages that look like a copy of the page before but are not (PG 27 p333: Ps. 1 again,
+    # now with the commentary): work/PGxxx/keep_pages.txt, same format as exclude_pages.txt
+    KEEP = set()
+    kf = args.root / "work" / tag / "keep_pages.txt"
+    if kf.exists():
+        for line in kf.read_text(encoding="utf-8").splitlines():
+            for part in filter(None, (x.strip() for x in line.split("#", 1)[0].split(","))):
+                a, _, b = part.partition("-")
+                KEEP.update(range(int(a), int(b or a) + 1))
+        print(f"{len(KEEP)} page(s) never taken for copies, as listed in work/{tag}/keep_pages.txt")
     tags = args.tags.split(",")
     if len(tags) != 2:
         raise SystemExit("give exactly two runs, e.g. --tags v4,v5")
@@ -285,7 +295,9 @@ def main():
         # duplicate scans of the same page
         words = {w for _, _, c, s in merged if c >= 0.9 for w in s.split()}
         dup = next((q for q, w in recent if words and len(words & w) / len(words | w) > args.dup_jaccard), None)
-        if dup is None and p in known_dups:
+        if p in KEEP:
+            dup = None
+        elif dup is None and p in known_dups:
             # a run said 'copy of an earlier page': accept only if the texts agree
             q = known_dups[p]
             w = page_words_of.get(q, set())
