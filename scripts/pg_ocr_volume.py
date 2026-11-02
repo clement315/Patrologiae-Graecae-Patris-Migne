@@ -34,7 +34,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-VERSION = "3.2 (pdf2: second scan from a local PDF; map: pages of another copy; second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
+VERSION = "3.3 (kraken runs stopped when they hang; pdf2: second scan from a local PDF; map: pages of another copy; second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
 GREEK_CLASS = "MainText_ColGreek"
 LATIN_CLASS = "MainText_ColLatin"
 NOTE_CLASSES = ("MainText_ColLatin", "Marginalia_Footnote")
@@ -587,6 +587,23 @@ def xml_complete(path):
     except OSError:
         return False
 
+def run_limited(cmd, timeout):
+    """Run a command; stop it (with all its child processes) after `timeout` seconds.
+    Returns the exit code, or "timeout"."""
+    import os
+    import signal
+    p = subprocess.Popen(cmd, start_new_session=True)
+    try:
+        return p.wait(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        try:
+            os.killpg(p.pid, signal.SIGKILL)
+        except OSError:
+            p.kill()
+        p.wait()
+        return "timeout"
+
+
 def stage_ocr(args, pages, work):
     crops_dir = work / "crops"
     page_set = set(pages)
@@ -600,9 +617,24 @@ def stage_ocr(args, pages, work):
         for c in chunk:
             cmd += ["-i", str(c), str(c.with_suffix(".xml"))]
         cmd += ["segment", "-bl", "ocr", "-m", str(args.model), "-B", str(args.ocr_batch)]
-        r = subprocess.run(cmd)
-        if r.returncode != 0:
-            print(f"[ocr] kraken returned {r.returncode} for chunk starting {chunk[0].name}", file=sys.stderr)
+        # kraken can hang for good on a single column (PG 28 p763, PG 31 p207 and p813: the
+        # line polygonizer never returns); a chunk that takes far longer than usual is stopped
+        # and its columns are run one by one, each with its own time limit
+        limit = args.col_timeout * len(chunk) // 8 + 120      # ~30 s per column; normal is a few seconds
+        rc = run_limited(cmd, limit)
+        if rc == "timeout":
+            print(f"[ocr] kraken stopped after {limit} s on the chunk starting "
+                  f"{chunk[0].name} - recognising its columns one by one", flush=True)
+            for c in chunk:
+                if xml_complete(c.with_suffix(".xml")):
+                    continue
+                one = ["kraken", "-d", args.device, "-x", "-i", str(c), str(c.with_suffix(".xml")),
+                       "segment", "-bl", "ocr", "-m", str(args.model), "-B", str(args.ocr_batch)]
+                if run_limited(one, args.col_timeout) == "timeout":
+                    print(f"[ocr] {c.name}: kraken hangs on this column - left out (see the WARNING below)",
+                          flush=True)
+        elif rc != 0:
+            print(f"[ocr] kraken returned {rc} for chunk starting {chunk[0].name}", file=sys.stderr)
         n = min(i + args.chunk, len(todo))
         el = time.time() - t0
         print(f"[ocr] {n}/{len(todo)} columns  ({el / max(n, 1):.1f} s/column)")
@@ -825,6 +857,8 @@ def main():
                     help="lines below this confidence are marked in the reading text")
     ap.add_argument("--mark", default="⟦?⟧ ", help="marker put before uncertain lines in the reading text")
     ap.add_argument("--device", default="cuda:0")
+    ap.add_argument("--col-timeout", type=int, default=240,
+                    help="seconds per column before a hanging kraken run is stopped (normal: a few seconds)")
     ap.add_argument("--yolo-device", default="0")
     ap.add_argument("--ocr-batch", type=int, default=8)
     ap.add_argument("--chunk", type=int, default=40, help="column images per kraken call")
