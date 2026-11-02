@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.14"
+VERSION = "1.15"
 
 WORKS = {
     25: [
@@ -283,6 +283,16 @@ WORKS = {
         {"slug": "de_misericordia_et_judicio", "title": "De misericordia et judicio", "col": 1705, "pages": [869, 873], "kind": "sections", "cut": True},
         {"slug": "homilia_consolatoria_ad_aegrotum", "title": "Homilia consolatoria ad aegrotum", "col": 1713, "pages": [873, 877], "kind": "sections", "cut": True},
     ],
+    32: [
+        # S. Basilius, tomus III: De Spiritu sancto, Epistolae (classes I-III, ep. 1-366), Appendix:
+        # Symeon Metaphrastes, Sermones XXIV ex Basilio.  Main scan: IA patrologiae_cursus_completus_gr_vol_032.
+        # Running heads: left column = 2p - 11 (pp. 39-198), 2p - 15 (201-264), 2p - 19 (267-372),
+        # 2p - 23 (375-638), 2p - 27 (641-704); the steps are the four pairs of pages photographed twice.
+        {"slug": "de_spiritu_sancto", "title": "De Spiritu sancto (ad Amphilochium)", "col": 67, "pages": [39, 114], "kind": "sections"},
+        {"slug": "epistolae", "title": "Epistolae I-CCCLXVI (classes I-III)", "col": 219, "pages": [115, 567], "kind": "sections"},
+        {"slug": "symeon_metaphrastes_sermones", "title": "Appendix: Symeon Metaphrastes, Sermones XXIV de moribus ex Basilio",
+         "col": 1115, "pages": [569, 704], "kind": "sections"},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -447,6 +457,10 @@ SCAN_FIXES = {
     # pages before them (each step of 4 in the running heads)
     31: {"in_order": True, "drop": [400, 401, 576, 577, 630, 631, 818, 819],
          "cols": {90: 163, 402: 783, 578: 1131, 632: 1235, 820: 1607}},
+    # PG 32: main scan in order; the pairs pp. 199-200, 265-266, 373-374, 639-640 repeat the two
+    # pages before them (each step of 4 in the running heads)
+    32: {"in_order": True, "drop": [199, 200, 265, 266, 373, 374, 639, 640],
+         "cols": {39: 67, 201: 387, 267: 515, 375: 727, 641: 1255}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
