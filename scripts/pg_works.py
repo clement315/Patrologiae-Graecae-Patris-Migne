@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.13"
+VERSION = "1.14"
 
 WORKS = {
     25: [
@@ -228,6 +228,61 @@ WORKS = {
         {"slug": "eunomii_apologia", "title": "Eunomius, Liber apologeticus", "col": 835, "pages": [418, 434],
          "kind": "sections", "cut": True},
     ],
+    31: [
+        # S. Basilius, tomus II: Homiliae et sermones, Ascetica, Appendix.  Main scan: IA
+        # patrologiae_cursus_completus_gr_vol_031 (Google ZhfZAAAAMAA).  "col": first column from the
+        # volume's index (Ordo rerum, PDF pp. 938-940) and the Greek titles in the IA OCR; running heads:
+        # left column = 2p - 17 (pp. 90-399), 2p - 21 (402-575), 2p - 25 (578-629), 2p - 29 (632-817),
+        # 2p - 33 (820-877); the steps are the four pairs of pages photographed twice (SCAN_FIXES).
+        # Latin-only pieces (Liturgia Coptica, De consolatione in adversis, ...) are excluded pages.
+        {"slug": "hom_01_de_jejunio_1", "title": "Homilia I de jejunio", "col": 163, "pages": [90, 101], "kind": "sections"},
+        {"slug": "hom_02_de_jejunio_2", "title": "Homilia II de jejunio", "col": 185, "pages": [101, 107], "kind": "sections", "cut": True},
+        {"slug": "hom_03_attende_tibi_ipsi", "title": "Homilia III in illud: Attende tibi ipsi", "col": 197, "pages": [107, 117], "kind": "sections", "cut": True},
+        {"slug": "hom_04_de_gratiarum_actione", "title": "Homilia IV de gratiarum actione", "col": 217, "pages": [117, 127], "kind": "sections", "cut": True},
+        {"slug": "hom_05_in_julittam", "title": "Homilia V in martyrem Julittam", "col": 237, "pages": [127, 139], "kind": "sections", "cut": True},
+        {"slug": "hom_06_destruam_horrea", "title": "Homilia VI in illud Lucae: Destruam horrea mea", "col": 261, "pages": [139, 147], "kind": "sections", "cut": True},
+        {"slug": "hom_07_in_divites", "title": "Homilia VII in divites", "col": 277, "pages": [147, 160], "kind": "sections", "cut": True},
+        {"slug": "hom_08_in_famem", "title": "Homilia VIII dicta tempore famis et siccitatis", "col": 304, "pages": [160, 173], "kind": "sections", "cut": True},
+        {"slug": "hom_09_deus_non_auctor_malorum", "title": "Homilia IX quod Deus non est auctor malorum", "col": 329, "pages": [173, 185], "kind": "sections", "cut": True},
+        {"slug": "hom_10_adversus_iratos", "title": "Homilia X adversus eos qui irascuntur", "col": 353, "pages": [185, 194], "kind": "sections", "cut": True},
+        {"slug": "hom_11_de_invidia", "title": "Homilia XI de invidia", "col": 372, "pages": [194, 201], "kind": "sections", "cut": True},
+        {"slug": "hom_12_in_principium_proverbiorum", "title": "Homilia XII in principium Proverbiorum", "col": 385, "pages": [201, 220], "kind": "sections", "cut": True},
+        {"slug": "hom_13_exhortatoria_ad_baptismum", "title": "Homilia XIII exhortatoria ad sanctum baptisma", "col": 424, "pages": [220, 230], "kind": "sections", "cut": True},
+        {"slug": "hom_14_in_ebriosos", "title": "Homilia XIV in ebriosos", "col": 444, "pages": [230, 240], "kind": "sections", "cut": True},
+        {"slug": "hom_15_de_fide", "title": "Homilia XV de fide", "col": 464, "pages": [240, 244], "kind": "sections", "cut": True},
+        {"slug": "hom_16_in_principio_erat_verbum", "title": "Homilia XVI in illud: In principio erat Verbum", "col": 472, "pages": [244, 250], "kind": "sections", "cut": True},
+        {"slug": "hom_17_in_barlaam", "title": "Homilia XVII in Barlaam martyrem", "col": 484, "pages": [250, 253], "kind": "sections", "cut": True},
+        {"slug": "hom_18_in_gordium", "title": "Homilia XVIII in Gordium martyrem", "col": 489, "pages": [253, 262], "kind": "sections", "cut": True},
+        {"slug": "hom_19_in_quadraginta_martyres", "title": "Homilia XIX in sanctos quadraginta martyres", "col": 508, "pages": [262, 271], "kind": "sections", "cut": True},
+        {"slug": "hom_20_de_humilitate", "title": "Homilia XX de humilitate", "col": 525, "pages": [271, 278], "kind": "sections", "cut": True},
+        {"slug": "hom_21_quod_rebus_mundanis", "title": "Homilia XXI quod rebus mundanis adhaerendum non sit", "col": 540, "pages": [278, 290], "kind": "sections", "cut": True},
+        {"slug": "hom_22_ad_adolescentes", "title": "Homilia XXII ad adolescentes (de legendis libris gentilium)", "col": 564, "pages": [290, 303], "kind": "sections", "cut": True},
+        {"slug": "hom_23_in_mamantem", "title": "Homilia XXIII in sanctum martyrem Mamantem", "col": 589, "pages": [303, 308], "kind": "sections", "cut": True},
+        {"slug": "hom_24_contra_sabellianos", "title": "Homilia XXIV contra Sabellianos, Arium et Anomoeos", "col": 600, "pages": [308, 318], "kind": "sections", "cut": True},
+        {"slug": "praevia_institutio_ascetica", "title": "Praevia institutio ascetica", "col": 619, "pages": [318, 321], "kind": "sections", "cut": True},
+        {"slug": "sermo_de_renuntiatione_saeculi", "title": "Sermo asceticus et exhortatio de renuntiatione saeculi", "col": 625, "pages": [321, 332], "kind": "sections", "cut": True},
+        {"slug": "sermo_de_ascetica_disciplina", "title": "Sermo de ascetica disciplina", "col": 648, "pages": [332, 335], "kind": "sections", "cut": True},
+        {"slug": "prooemium_de_judicio_dei", "title": "Prooemium de judicio Dei", "col": 653, "pages": [335, 346], "kind": "sections", "cut": True},
+        {"slug": "de_fide", "title": "De fide", "col": 676, "pages": [346, 354], "kind": "sections", "cut": True},
+        {"slug": "moralia", "title": "Moralia (with the index of the rules)", "col": 691, "pages": [354, 445], "kind": "sections", "cut": True},
+        {"slug": "sermones_ascetici", "title": "Sermones ascetici I-II", "col": 869, "pages": [445, 455], "kind": "sections", "cut": True},
+        {"slug": "regulae_fusius_tractatae", "title": "Regulae fusius tractatae", "col": 889, "pages": [455, 536], "kind": "sections", "cut": True},
+        {"slug": "regulae_brevius_tractatae", "title": "Regulae brevius tractatae (with the index of the rules)", "col": 1051, "pages": [536, 667], "kind": "sections", "cut": True},
+        {"slug": "poenae_et_epitimia", "title": "Poenae in monachos delinquentes; Epitimia in canonicas", "col": 1305, "pages": [667, 672], "kind": "sections", "cut": True},
+        {"slug": "constitutiones_monasticae", "title": "Constitutiones monasticae (with the index of the chapters)", "col": 1315, "pages": [672, 728], "kind": "sections", "cut": True},
+        {"slug": "app_de_spiritu_sancto", "title": "Appendix: Homilia de Spiritu sancto", "col": 1429, "pages": [729, 733], "kind": "sections", "cut": True},
+        {"slug": "app_in_lacizis", "title": "Appendix: Homilia dicta in Lacizis", "col": 1437, "pages": [733, 743], "kind": "sections", "cut": True},
+        {"slug": "app_in_christi_generationem", "title": "Appendix: Homilia in sanctam Christi generationem", "col": 1457, "pages": [743, 752], "kind": "sections", "cut": True},
+        {"slug": "app_de_poenitentia", "title": "Appendix: Homilia de poenitentia", "col": 1475, "pages": [752, 758], "kind": "sections", "cut": True},
+        {"slug": "app_adversus_calumniatores", "title": "Appendix: Homilia adversus eos qui per calumniam dicunt dici a nobis deos tres", "col": 1487, "pages": [758, 763], "kind": "sections", "cut": True},
+        {"slug": "app_ne_dederis_somnum", "title": "Appendix: Homilia in illud: Ne dederis somnum oculis tuis, and the piece after it", "col": 1497, "pages": [763, 771], "kind": "sections", "cut": True},
+        {"slug": "de_baptismo", "title": "De baptismo libri II", "col": 1513, "pages": [771, 831], "kind": "sections", "cut": True},
+        {"slug": "liturgia_alexandrina", "title": "Liturgia S. Basilii Alexandrina", "col": 1629, "pages": [831, 844], "kind": "sections", "cut": True},
+        {"slug": "orationes_sive_exorcismi", "title": "Orationes sive exorcismi", "col": 1679, "pages": [856, 859], "kind": "sections", "cut": True},
+        {"slug": "sermo_de_sacerdotum_institutione", "title": "Sermo de sacerdotum institutione; Precatio altera", "col": 1685, "pages": [859, 860], "kind": "sections", "cut": True},
+        {"slug": "de_misericordia_et_judicio", "title": "De misericordia et judicio", "col": 1705, "pages": [869, 873], "kind": "sections", "cut": True},
+        {"slug": "homilia_consolatoria_ad_aegrotum", "title": "Homilia consolatoria ad aegrotum", "col": 1713, "pages": [873, 877], "kind": "sections", "cut": True},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -388,6 +443,10 @@ SCAN_FIXES = {
         "patch": {"pdf": "PG030_bim4c.pdf", "source": "archive.org bim_early-english-books-1641-1700_1857_30",
                   "pages": {20715: 1, 20717: 2, 20803: 3, 20805: 4}},
     },
+    # PG 31: main scan in order; the pairs pp. 400-401, 576-577, 630-631, 818-819 repeat the two
+    # pages before them (each step of 4 in the running heads)
+    31: {"in_order": True, "drop": [400, 401, 576, 577, 630, 631, 818, 819],
+         "cols": {90: 163, 402: 783, 578: 1131, 632: 1235, 820: 1607}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
