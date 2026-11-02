@@ -1,0 +1,11 @@
+pg_works.py 1.8
+
+page order: 0 places where the scan order was corrected; 0 page(s) kept in PDF position (doubtful match: -)
+10 second copies of a page dropped: p259=p249, p260=p250, p261=p251, p262=p252, p263=p253, p264=p254, p265=p255, p266=p256, p267=p257, p268=p258
+
+Gaps in the Migne column sequence (running heads):
+  none
+  (column count re-synchronised at: p12/p13 (-7), p504/p505 (+0), p508/p509 (-1); + = pages missing in the scan, or a page without running head; - = an extra page, e.g. a plate or table)
+
+Greek leaves of the second scan whose words are found on no page (check):
+  none

@@ -5,9 +5,27 @@ OCR pipeline for the Greek text of J.-P. Migne, *Patrologia Graeca* (PG): a
 volumes from public-domain scans, word-level merging of two independent scans, and a structured
 text with books, chapters and Migne column numbers.
 
-First volume: **PG 94, John of Damascus** (*Expositio fidei*, *Dialectica*, *De haeresibus*,
-*Orationes de imaginibus*, *Contra Jacobitas*, *Dialogus contra Manichaeos*, …).
-The output is uncorrected OCR, intended as a reading and translation aid.
+## Texts
+
+Greek text of 10 volumes, split into 204 works with Migne column numbers, in
+[`texts/`](texts) (format described in [`texts/README.md`](texts/README.md)):
+
+| Volume | Contents | Works | PDF pages | Lines | Mean line confidence |
+|---|---|---|---|---|---|
+| [PG 25](texts/PG025) | Athanasius I | 15 | 457 | 21,531 | 0.9897 |
+| [PG 26](texts/PG026) | Athanasius II | 22 | 636 | 26,241 | 0.9885 |
+| [PG 27](texts/PG027) | Athanasius III | 5 | 668 | 32,750 | 0.9733 |
+| [PG 28](texts/PG028) | Athanasius IV (dubia et spuria) | 50 | 748 | 37,699 | 0.9860 |
+| [PG 29](texts/PG029) | Basil I | 3 | 455 | 20,285 | 0.9892 |
+| [PG 30](texts/PG030) | Basil II (dubia et spuria; Eunomius) | 6 | 426 | 20,330 | 0.9786 |
+| [PG 31](texts/PG031) | Basil III | 47 | 761 | 34,793 | 0.9853 |
+| [PG 94](texts/PG094) | John of Damascus I | 11 | 661 | 24,923 | 0.9763 |
+| [PG 95](texts/PG095) | John of Damascus II | 29 | 785 | 39,858 | 0.9755 |
+| [PG 96](texts/PG096) | John of Damascus III | 16 | 743 | 36,910 | 0.9804 |
+
+The texts are **uncorrected OCR** (about 0.5–1 % character errors on clean pages; lines marked
+⟦?⟧ in the works files are uncertain). They are meant as a searchable reading and translation
+aid, not as a critical text. Corrections are welcome (issues or pull requests).
 
 ## Usage
 
@@ -42,16 +60,27 @@ Pages without Greek text (Latin prefaces, title pages, index) can be listed in
 | `scripts/pg_works.py` | Splits the volume into its works, restores the page order, finds pages missing from the main scan, structures each work (books / chapters / sections / orations / dialogue) |
 | `scripts/pg_structure.py` | Chapter detection and numbering, Migne columns (used by `pg_works.py`) |
 
-## Results (PG 94)
+## Results
 
 - Recognition model, test set: **CER 0.96 %**, WER 4.66 %.
-- *Expositio fidei* (cols. 789–1228), two scans merged: mean line confidence 0.985,
-  about 0.5 % character errors in a manual sample; 99 of 100 chapters detected.
+- Most volumes are read from two independent scans, merged word by word (PG 30 from one scan,
+  with two missing leaves taken from a microfilm copy); pages missing from or repeated in the
+  scans are found from the Migne running heads and fixed (see each volume's `coverage.txt`).
+- PG 94, *Expositio fidei* (cols. 789–1228): about 0.5 % character errors in a manual sample;
+  99 of 100 chapters detected.
 
 Development notes: [`docs/NOTES.md`](docs/NOTES.md).
 
 ## Credits
 
-Ground truth: Calfa / GREgORI (Zenodo record 20008699). Layout model: Calfa REG-YOLOv12s.
-Scans: Internet Archive (`patrologicursus53migngoog`, `PatrologiaGraeca`). OCR: kraken;
-layout inference: Ultralytics YOLO. Data, models, scans and OCR output are not included here.
+Ground truth: Calfa / GREgORI, CGPG project (Zenodo record 20008699, CC BY 4.0). Layout model:
+Calfa REG-YOLOv12s. Scans: Google Books and Internet Archive (`patrologiae_cursus_completus_gr_vol_0NN`,
+`patrologicursus53migngoog`, `PatrologiaGraeca`). OCR: kraken; layout inference: Ultralytics YOLO.
+Scans, models and intermediate data are not included here.
+
+## License
+
+- Code (`scripts/`, `setup/`): MIT, see [`LICENSE`](LICENSE).
+- Texts (`texts/`): the edition of J.-P. Migne is in the public domain; the OCR, merging, page
+  repairs and division into works are released under CC BY-SA 4.0, see
+  [`texts/LICENSE.md`](texts/LICENSE.md).

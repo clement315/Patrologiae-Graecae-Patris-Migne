@@ -1,0 +1,58 @@
+{
+  "version": "2.5 (word-level combination; pages of another copy added; excluded pages left out)",
+  "runs": [
+    "v4",
+    "v6"
+  ],
+  "word_level": true,
+  "pages": 785,
+  "pages_excluded": 37,
+  "base_run_per_page": {
+    "v6": 726,
+    "v4": 44,
+    "patch": 15
+  },
+  "pages_added_from_other_copy": [
+    20617,
+    20619,
+    20955,
+    20957,
+    20959,
+    20961,
+    20963,
+    20969,
+    20971,
+    20973,
+    21209,
+    21213,
+    21217,
+    21221,
+    21257
+  ],
+  "words_taken_from_other_run": 16227,
+  "lines_added_from_other_run": 331,
+  "pages_read_differently_by_the_runs": [],
+  "duplicate_pages_skipped": [
+    "p102 = p100",
+    "p107 = p103",
+    "p108 = p104",
+    "p138 = p136",
+    "p171 = p169",
+    "p251 = p249",
+    "p259 = p257",
+    "p262 = p260",
+    "p328 = p326",
+    "p329 = p327",
+    "p335 = p333",
+    "p336 = p334",
+    "p496 = p492",
+    "p636 = p634",
+    "p709 = p707",
+    "p710 = p708",
+    "p759 = p757"
+  ],
+  "lines": 39858,
+  "mean_line_conf": 0.9755,
+  "lines_below_0.80": 425,
+  "lines_below_0.90": 1463
+}

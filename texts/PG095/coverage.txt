@@ -1,0 +1,26 @@
+pg_works.py 1.4
+
+page order: 6 places where the scan order was corrected; 0 page(s) kept in PDF position (doubtful match: -)
+40 second copies of a page dropped: p101=p99, p102=p100, p105=p99, p106=p100, p107=p103, p108=p104, p137=p135, p138=p136, p171=p169, p251=p249, p259=p257, p262=p260, p328=p326, p329=p327, p335=p333, p336=p334, p496=p492, p499=p490, p500=p491, p619=p609, p623=p613, p625=p615, p633=p644, p636=p634, p639=p628, p640=p629, p641=p630, p642=p631, p643=p632, p645=p634, p646=p635, p647=p637, p648=p638, p658=p654, p679=p677, p680=p678, p709=p707, p710=p708, p759=p757, p760=p758
+left out (blank or unusable page): p621
+page order fixed from the running heads: p490, p491, p501, p493, p494, p495, p492, p20955, p20957, p20959, p20961, p20963, p497, p498, p20969, p20971, p20973, p502
+page order fixed from the running heads: p325, p20617, p20619, p326, p327, p330
+page order fixed from the running heads: p618, p21209, p620, p21213, p622, p21217, p624, p21221, p626
+page order fixed from the running heads: p653, p21257, p655, p656, p657, p654
+
+Gaps in the Migne column sequence (running heads):
+  none
+  (column count re-synchronised at: p134/p135 (+1), p154/p155 (-1), p185/p186 (+1), p235/p236 (-2), p287/p288 (+1); + = pages missing in the scan, or a page without running head; - = an extra page, e.g. a plate or table)
+
+Migne columns missing in the scan, filled from Google Books TM1DAQAAMAAJ:
+  cols. 617-620 (In I Cor.)
+  cols. 955-964 (In Hebr.)
+  cols. 969-974 (In Hebr.)
+  cols. 1209-1210 (Sacra Parallela)
+  cols. 1213-1214 (Sacra Parallela; page photographed blank)
+  cols. 1217-1218 (Sacra Parallela)
+  cols. 1221-1222 (Sacra Parallela)
+  cols. 1257-1258 (Sacra Parallela)
+
+Greek leaves of the second scan whose words are found on no page (check):
+  none

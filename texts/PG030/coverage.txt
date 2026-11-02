@@ -1,0 +1,17 @@
+pg_works.py 1.13
+
+page order: 0 places where the scan order was corrected; 0 page(s) kept in PDF position (doubtful match: -)
+0 second copies of a page dropped: -
+page order fixed from the running heads: p361, p20715, p20717, p362
+page order fixed from the running heads: p403, p20803, p20805, p404
+
+Gaps in the Migne column sequence (running heads):
+  none
+  (column count re-synchronised at: p9/p10 (-4), p521/p522 (+2), p531/p532 (+2); + = pages missing in the scan, or a page without running head; - = an extra page, e.g. a plate or table)
+
+Migne columns missing in the scan, filled from archive.org bim_early-english-books-1641-1700_1857_30:
+  cols. 715-718 (De virginitate)
+  cols. 803-806 (De virginitate)
+
+Greek leaves of the second scan whose words are found on no page (check):
+  none

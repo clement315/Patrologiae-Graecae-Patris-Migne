@@ -1,0 +1,33 @@
+{
+  "version": "2.3 (word-level combination; different pages and false copies detected)",
+  "runs": [
+    "v4",
+    "v5"
+  ],
+  "word_level": true,
+  "pages": 661,
+  "base_run_per_page": {
+    "v4": 184,
+    "v5": 477
+  },
+  "words_taken_from_other_run": 8605,
+  "lines_added_from_other_run": 126,
+  "pages_read_differently_by_the_runs": [
+    713,
+    771,
+    787,
+    795,
+    818,
+    827,
+    831,
+    833
+  ],
+  "duplicate_pages_skipped": [
+    "p484 = p482",
+    "p813 = p811"
+  ],
+  "lines": 24923,
+  "mean_line_conf": 0.9763,
+  "lines_below_0.80": 540,
+  "lines_below_0.90": 967
+}
