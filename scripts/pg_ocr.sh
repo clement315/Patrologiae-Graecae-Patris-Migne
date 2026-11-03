@@ -140,6 +140,7 @@ default_url() {
         30) echo "https://archive.org/download/PatrologiaGraeca/Patrologia%20Graeca%20Vol.%20030.pdf" ;;   # not in the Google series
         31) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_031/patrologiae_cursus_completus_gr_vol_031.pdf" ;;
         32) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_032/patrologiae_cursus_completus_gr_vol_032.pdf" ;;
+        33) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_033/patrologiae_cursus_completus_gr_vol_033.pdf" ;;
         94) echo "https://archive.org/download/patrologicursus53migngoog/patrologicursus53migngoog.pdf" ;;
         95) echo "https://archive.org/download/patrologicursus50migngoog/patrologicursus50migngoog.pdf" ;;
         96) echo "https://archive.org/download/patrologiaecursu96mign_0/patrologiaecursu96mign_0.pdf" ;;

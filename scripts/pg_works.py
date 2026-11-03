@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.15"
+VERSION = "1.16"
 
 WORKS = {
     25: [
@@ -293,6 +293,25 @@ WORKS = {
         {"slug": "symeon_metaphrastes_sermones", "title": "Appendix: Symeon Metaphrastes, Sermones XXIV de moribus ex Basilio",
          "col": 1115, "pages": [569, 704], "kind": "sections"},
     ],
+    33: [
+        # S. Cyrillus Hierosolymitanus; Petrus II and Timotheus Alexandrini; Apollinaris; Diodorus Tarsensis.
+        # Main scan: IA patrologiae_cursus_completus_gr_vol_033.  Running heads: left column = 2p - 11
+        # (pp. 152-360), 2p - 15 (363-564), 2p - 19 (567-596), 2p - 23 (599-826); the steps are the three
+        # pairs of pages photographed twice.  Touttee's Dissertationes, Milles' preface and notes, the
+        # Descriptio ecclesiae Hierosolymitanae and the Latin notices are excluded pages.
+        {"slug": "testimonia_veterum", "title": "Cyrillus: Veterum testimonia; tituli catecheseon", "col": 293, "pages": [152, 170], "kind": "sections"},
+        {"slug": "procatechesis", "title": "Cyrillus: Procatechesis", "col": 331, "pages": [171, 190], "kind": "sections", "cut": True},
+        {"slug": "catecheses_i_xviii", "title": "Cyrillus: Catecheses illuminandorum I-XVIII", "col": 369, "pages": [190, 540], "kind": "sections", "cut": True},
+        {"slug": "catecheses_mystagogicae", "title": "Cyrillus: Catecheses mystagogicae I-V", "col": 1065, "pages": [540, 575], "kind": "sections", "cut": True},
+        {"slug": "homilia_in_paralyticum", "title": "Cyrillus: Homilia in paralyticum", "col": 1131, "pages": [575, 592], "kind": "sections", "cut": True},
+        {"slug": "epistola_ad_constantium_et_fragmenta", "title": "Cyrillus: Epistola ad Constantium imperatorem; Fragmenta", "col": 1165, "pages": [592, 605], "kind": "sections", "cut": True},
+        {"slug": "homilia_in_occursum_domini", "title": "Appendix: Homilia in occursum Domini (incerti)", "col": 1187, "pages": [605, 614], "kind": "sections", "cut": True},
+        {"slug": "epistola_ad_augustinum_spuria", "title": "Appendix: Epistola ad Augustinum (spuria)", "col": 1205, "pages": [614, 616], "kind": "sections", "cut": True},
+        {"slug": "petrus_ii_alexandrinus", "title": "Petrus II Alexandrinus: Epistola encyclica et alia", "col": 1275, "pages": [649, 657], "kind": "sections"},
+        {"slug": "timotheus_alexandrinus", "title": "Timotheus Alexandrinus: Responsa canonica; Epistola", "col": 1295, "pages": [659, 665], "kind": "sections"},
+        {"slug": "apollinaris_metaphrasis_psalmorum", "title": "Apollinaris Laodicenus: Metaphrasis Psalmorum", "col": 1313, "pages": [668, 784], "kind": "sections"},
+        {"slug": "diodorus_tarsensis_fragmenta", "title": "Diodorus Tarsensis: Fragmenta (in Genesin, in Psalmos, ...); Addenda", "col": 1553, "pages": [788, 826], "kind": "sections"},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -461,6 +480,9 @@ SCAN_FIXES = {
     # pages before them (each step of 4 in the running heads)
     32: {"in_order": True, "drop": [199, 200, 265, 266, 373, 374, 639, 640],
          "cols": {39: 67, 201: 387, 267: 515, 375: 727, 641: 1255}},
+    # PG 33: main scan in order; the pairs pp. 361-362, 565-566, 597-598 repeat the two pages before them
+    33: {"in_order": True, "drop": [361, 362, 565, 566, 597, 598],
+         "cols": {152: 293, 363: 711, 567: 1115, 599: 1175}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
