@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.17"
+VERSION = "1.18"
 
 WORKS = {
     25: [
@@ -344,6 +344,40 @@ WORKS = {
         {"slug": "oratio_25", "title": "Oratio XXV: In laudem Heronis philosophi", "col": 1197, "pages": [612, 627], "kind": "sections", "cut": True},
         {"slug": "oratio_26", "title": "Oratio XXVI: In seipsum, cum rure rediisset", "col": 1228, "pages": [627, 639], "kind": "sections", "cut": True},
     ],
+    36: [
+        # S. Gregorius Nazianzenus II: Orationes XXVII-XLV; opuscula; liturgiae; commentators (Elias Cretensis,
+        # Nicetas Serronius, Nonnus abbas, Basilius Minimus, scholia anonyma).  Main scan: IA
+        # patrologiae_cursus_completus_gr_vol_036.  Running heads: left column = 2p - 9 (pp. 9-37), 2p - 29 (48-189),
+        # 2p - 49 (200-507), 2p - 69 (518-665); the steps are three blocks of ten pages photographed twice
+        # (pp. 38-47 = 28-37, 190-199 = 180-189, 508-517 = 498-507), left out in work/PG036/exclude_pages.txt.
+        {"slug": "oratio_27", "title": "Oratio XXVII: Theologica I: Adversus Eunomianos", "col": 12, "pages": [10, 17], "kind": "sections"},
+        {"slug": "oratio_28", "title": "Oratio XXVIII: Theologica II: De theologia", "col": 25, "pages": [17, 51], "kind": "sections", "cut": True},
+        {"slug": "oratio_29", "title": "Oratio XXIX: Theologica III: De Filio I", "col": 73, "pages": [51, 66], "kind": "sections", "cut": True},
+        {"slug": "oratio_30", "title": "Oratio XXX: Theologica IV: De Filio II", "col": 104, "pages": [66, 81], "kind": "sections", "cut": True},
+        {"slug": "oratio_31", "title": "Oratio XXXI: Theologica V: De Spiritu sancto", "col": 133, "pages": [81, 101], "kind": "sections", "cut": True},
+        {"slug": "oratio_32", "title": "Oratio XXXII: De moderatione in disputando", "col": 173, "pages": [101, 121], "kind": "sections", "cut": True},
+        {"slug": "oratio_33", "title": "Oratio XXXIII: Contra Arianos et de seipso", "col": 213, "pages": [121, 135], "kind": "sections", "cut": True},
+        {"slug": "oratio_34", "title": "Oratio XXXIV: In Aegyptiorum adventum", "col": 241, "pages": [135, 143], "kind": "sections", "cut": True},
+        {"slug": "oratio_35", "title": "Oratio XXXV: In martyres et adversus Arianos (spuria)", "col": 257, "pages": [143, 147], "kind": "sections", "cut": True},
+        {"slug": "oratio_36", "title": "Oratio XXXVI: De seipso et ad eos qui ipsum cathedram Constantinopolitanam affectare dicebant", "col": 265, "pages": [147, 155], "kind": "sections", "cut": True},
+        {"slug": "oratio_37", "title": "Oratio XXXVII: In dictum Evangelii: Cum consummasset Jesus hos sermones", "col": 281, "pages": [155, 170], "kind": "sections", "cut": True},
+        {"slug": "oratio_38", "title": "Oratio XXXVIII: In Theophania (In Natalem Salvatoris)", "col": 312, "pages": [170, 182], "kind": "sections", "cut": True},
+        {"slug": "oratio_39", "title": "Oratio XXXIX: In sancta Lumina", "col": 336, "pages": [182, 204], "kind": "sections", "cut": True},
+        {"slug": "oratio_40", "title": "Oratio XL: In sanctum Baptisma", "col": 360, "pages": [204, 238], "kind": "sections", "cut": True},
+        {"slug": "oratio_41", "title": "Oratio XLI: In Pentecosten", "col": 428, "pages": [238, 253], "kind": "sections", "cut": True},
+        {"slug": "oratio_42", "title": "Oratio XLII: Supremum vale (coram 150 episcopis)", "col": 457, "pages": [253, 271], "kind": "sections", "cut": True},
+        {"slug": "oratio_43", "title": "Oratio XLIII: Funebris in laudem Basilii Magni", "col": 493, "pages": [271, 328], "kind": "sections", "cut": True},
+        {"slug": "oratio_44", "title": "Oratio XLIV: In novam Dominicam", "col": 608, "pages": [328, 336], "kind": "sections", "cut": True},
+        {"slug": "oratio_45", "title": "Oratio XLV: In sanctum Pascha", "col": 624, "pages": [336, 356], "kind": "sections", "cut": True},
+        {"slug": "opuscula_appendix", "title": "Significatio in Ezechielem; De fide orthodoxa (spuria); Fragmentum ex oratione contra astronomos", "col": 665, "pages": [357, 362], "kind": "sections", "cut": True},
+        {"slug": "liturgiae", "title": "Liturgia S. Gregorii Coptica (Greek parts) et Alexandrina; Precatio et exorcismus", "col": 677, "pages": [363, 391], "kind": "sections"},
+        {"slug": "elias_cretensis_commentarii", "title": "Elias Cretensis: Commentarii in XIX orationes S. Gregorii (with addenda)", "col": 757, "pages": [403, 475], "kind": "sections"},
+        {"slug": "scholia_varia", "title": "Scholia in S. Gregorii orationes (Basilius?)", "col": 903, "pages": [476, 482], "kind": "sections"},
+        {"slug": "nicetas_serronius_commentarii", "title": "Nicetas Serronius: Commentarii in orationes S. Gregorii (with notice)", "col": 933, "pages": [491, 526], "kind": "sections"},
+        {"slug": "nonnus_abbas", "title": "Nonnus abbas: Collectio et expositio historiarum in orationes S. Gregorii", "col": 985, "pages": [527, 570], "kind": "sections"},
+        {"slug": "basilius_minimus_scholia", "title": "Basilius Minimus: Scholia in orationes S. Gregorii", "col": 1073, "pages": [571, 636], "kind": "sections"},
+        {"slug": "scholia_anonyma_in_julianum", "title": "Anonymi scholia in orationes contra Julianum", "col": 1205, "pages": [637, 665], "kind": "sections"},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -518,6 +552,9 @@ SCAN_FIXES = {
     # PG 35: main scan in order; the pairs pp. 361-362 and 369-370 repeat the two pages before them
     35: {"in_order": True, "drop": [361, 362, 369, 370],
          "cols": {131: 243, 363: 703, 371: 715}},
+    # PG 36: main scan in order; three blocks of ten pages photographed twice (excluded pages)
+    36: {"in_order": True, "drop": list(range(38, 48)) + list(range(190, 200)) + list(range(508, 518)),
+         "cols": {9: 9, 48: 67, 200: 351, 518: 967}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
