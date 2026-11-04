@@ -7,7 +7,7 @@ text with books, chapters and Migne column numbers.
 
 ## Texts
 
-Greek text of 12 volumes, split into 219 works with Migne column numbers, in
+Greek text of 13 volumes, split into 246 works with Migne column numbers, in
 [`texts/`](texts) (format described in [`texts/README.md`](texts/README.md)):
 
 | Volume | Contents | Works | PDF pages | Lines | Mean line confidence |
@@ -21,6 +21,7 @@ Greek text of 12 volumes, split into 219 works with Migne column numbers, in
 | [PG 31](texts/PG031) | Basil III | 47 | 761 | 34,793 | 0.9853 |
 | [PG 32](texts/PG032) | Basil IV (De Spiritu sancto, Epistolae) | 3 | 657 | 28,858 | 0.9897 |
 | [PG 33](texts/PG033) | Cyril of Jerusalem; Peter II and Timothy of Alexandria; Apollinaris; Diodorus of Tarsus | 12 | 596 | 23,382 | 0.9826 |
+| [PG 35](texts/PG035) | Gregory of Nazianzus I (Vita; Orationes I-XXVI) | 27 | 451 | 17,842 | 0.9913 |
 | [PG 94](texts/PG094) | John of Damascus I | 11 | 661 | 24,923 | 0.9763 |
 | [PG 95](texts/PG095) | John of Damascus II | 29 | 785 | 39,858 | 0.9755 |
 | [PG 96](texts/PG096) | John of Damascus III | 16 | 743 | 36,910 | 0.9804 |
