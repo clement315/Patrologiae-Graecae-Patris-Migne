@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.16"
+VERSION = "1.17"
 
 WORKS = {
     25: [
@@ -312,6 +312,38 @@ WORKS = {
         {"slug": "apollinaris_metaphrasis_psalmorum", "title": "Apollinaris Laodicenus: Metaphrasis Psalmorum", "col": 1313, "pages": [668, 784], "kind": "sections"},
         {"slug": "diodorus_tarsensis_fragmenta", "title": "Diodorus Tarsensis: Fragmenta (in Genesin, in Psalmos, ...); Addenda", "col": 1553, "pages": [788, 826], "kind": "sections"},
     ],
+    35: [
+        # S. Gregorius Nazianzenus I: Vita (auctore Gregorio presbytero); Orationes I-XXVI.  Main scan: IA
+        # patrologiae_cursus_completus_gr_vol_035.  Running heads: left column = 2p - 19 (pp. 131-360), 2p - 23
+        # (363-368), 2p - 27 (371-639); the steps are the two pairs of pages photographed twice.
+        {"slug": "vita_gregorii", "title": "Vita S. Gregorii Theologi, auctore Gregorio presbytero", "col": 243, "pages": [131, 160], "kind": "sections"},
+        {"slug": "oratio_01", "title": "Oratio I: In sanctum Pascha et in tarditatem", "col": 395, "pages": [207, 213], "kind": "sections"},
+        {"slug": "oratio_02", "title": "Oratio II: Apologetica (de fuga)", "col": 407, "pages": [213, 268], "kind": "sections", "cut": True},
+        {"slug": "oratio_03", "title": "Oratio III: Ad eos qui ipsum acciverant nec occurrerant", "col": 517, "pages": [268, 275], "kind": "sections", "cut": True},
+        {"slug": "oratio_04", "title": "Oratio IV: Contra Julianum I", "col": 531, "pages": [275, 341], "kind": "sections", "cut": True},
+        {"slug": "oratio_05", "title": "Oratio V: Contra Julianum II", "col": 664, "pages": [341, 374], "kind": "sections", "cut": True},
+        {"slug": "oratio_06", "title": "Oratio VI: De pace I", "col": 721, "pages": [374, 391], "kind": "sections", "cut": True},
+        {"slug": "oratio_07", "title": "Oratio VII: In laudem Caesarii fratris", "col": 755, "pages": [391, 408], "kind": "sections", "cut": True},
+        {"slug": "oratio_08", "title": "Oratio VIII: In laudem sororis Gorgoniae", "col": 789, "pages": [408, 423], "kind": "sections", "cut": True},
+        {"slug": "oratio_09", "title": "Oratio IX: Apologetica ad patrem", "col": 819, "pages": [423, 427], "kind": "sections", "cut": True},
+        {"slug": "oratio_10", "title": "Oratio X: In seipsum, post reditum", "col": 828, "pages": [427, 429], "kind": "sections", "cut": True},
+        {"slug": "oratio_11", "title": "Oratio XI: Ad Gregorium Nyssenum", "col": 832, "pages": [429, 435], "kind": "sections", "cut": True},
+        {"slug": "oratio_12", "title": "Oratio XII: Ad patrem, cum ei curam ecclesiae commisisset", "col": 844, "pages": [435, 439], "kind": "sections", "cut": True},
+        {"slug": "oratio_13", "title": "Oratio XIII: In consecratione Eulalii Doarensis", "col": 852, "pages": [439, 442], "kind": "sections", "cut": True},
+        {"slug": "oratio_14", "title": "Oratio XIV: De pauperum amore", "col": 857, "pages": [442, 469], "kind": "sections", "cut": True},
+        {"slug": "oratio_15", "title": "Oratio XV: In laudem Machabaeorum", "col": 912, "pages": [469, 480], "kind": "sections", "cut": True},
+        {"slug": "oratio_16", "title": "Oratio XVI: In patrem tacentem propter plagam grandinis", "col": 933, "pages": [480, 495], "kind": "sections", "cut": True},
+        {"slug": "oratio_17", "title": "Oratio XVII: Ad cives Nazianzenos et praefectum irascentem", "col": 964, "pages": [495, 506], "kind": "sections", "cut": True},
+        {"slug": "oratio_18", "title": "Oratio XVIII: Funebris in patrem", "col": 985, "pages": [506, 535], "kind": "sections", "cut": True},
+        {"slug": "oratio_19", "title": "Oratio XIX: Ad Julianum tributorum exaequatorem", "col": 1044, "pages": [535, 546], "kind": "sections", "cut": True},
+        {"slug": "oratio_20", "title": "Oratio XX: De dogmate et constitutione episcoporum", "col": 1065, "pages": [546, 554], "kind": "sections", "cut": True},
+        {"slug": "oratio_21", "title": "Oratio XXI: In laudem Athanasii", "col": 1081, "pages": [554, 579], "kind": "sections", "cut": True},
+        {"slug": "oratio_22", "title": "Oratio XXII: De pace II", "col": 1132, "pages": [579, 589], "kind": "sections", "cut": True},
+        {"slug": "oratio_23", "title": "Oratio XXIII: De pace III", "col": 1152, "pages": [589, 598], "kind": "sections", "cut": True},
+        {"slug": "oratio_24", "title": "Oratio XXIV: In laudem Cypriani", "col": 1169, "pages": [598, 612], "kind": "sections", "cut": True},
+        {"slug": "oratio_25", "title": "Oratio XXV: In laudem Heronis philosophi", "col": 1197, "pages": [612, 627], "kind": "sections", "cut": True},
+        {"slug": "oratio_26", "title": "Oratio XXVI: In seipsum, cum rure rediisset", "col": 1228, "pages": [627, 639], "kind": "sections", "cut": True},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -483,6 +515,9 @@ SCAN_FIXES = {
     # PG 33: main scan in order; the pairs pp. 361-362, 565-566, 597-598 repeat the two pages before them
     33: {"in_order": True, "drop": [361, 362, 565, 566, 597, 598],
          "cols": {152: 293, 363: 711, 567: 1115, 599: 1175}},
+    # PG 35: main scan in order; the pairs pp. 361-362 and 369-370 repeat the two pages before them
+    35: {"in_order": True, "drop": [361, 362, 369, 370],
+         "cols": {131: 243, 363: 703, 371: 715}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
