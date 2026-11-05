@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.18"
+VERSION = "1.19"
 
 WORKS = {
     25: [
@@ -378,6 +378,20 @@ WORKS = {
         {"slug": "basilius_minimus_scholia", "title": "Basilius Minimus: Scholia in orationes S. Gregorii", "col": 1073, "pages": [571, 636], "kind": "sections"},
         {"slug": "scholia_anonyma_in_julianum", "title": "Anonymi scholia in orationes contra Julianum", "col": 1205, "pages": [637, 665], "kind": "sections"},
     ],
+    37: [
+        # S. Gregorius Nazianzenus III: Epistolae; Testamentum; Carmina, liber I (theologica: dogmatica,
+        # moralia) and liber II (historica: de seipso, quae spectant ad alios).  Main scan: IA
+        # patrologiae_cursus_completus_gr_vol_037, in order with no repeated pages.  Running heads: left
+        # column = 2p - 11 (pp. 16-805).  Pp. 1-15 (title, Latin prefaces) and 806-811 (Latin index) are
+        # excluded pages.  P. 266 holds the end of I.1.38 (left) and the title of I.2.1 (right): kept whole
+        # in the dogmatica, the moralia begin with p. 267.
+        {"slug": "epistolae", "title": "Epistolae (I-CCXLIX, with the Epistolae theologicae)", "col": 21, "pages": [16, 199], "kind": "sections"},
+        {"slug": "testamentum", "title": "Testamentum", "col": 389, "pages": [200, 203], "kind": "sections"},
+        {"slug": "carmina_dogmatica", "title": "Carmina, liber I, sectio I: Poemata dogmatica", "col": 397, "pages": [204, 266], "kind": "sections"},
+        {"slug": "carmina_moralia", "title": "Carmina, liber I, sectio II: Poemata moralia", "col": 523, "pages": [267, 489], "kind": "sections"},
+        {"slug": "carmina_de_seipso", "title": "Carmina, liber II, sectio I: Poemata de seipso", "col": 969, "pages": [490, 730], "kind": "sections"},
+        {"slug": "carmina_ad_alios", "title": "Carmina, liber II, sectio II: Poemata quae spectant ad alios", "col": 1451, "pages": [731, 805], "kind": "sections"},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -555,6 +569,8 @@ SCAN_FIXES = {
     # PG 36: main scan in order; three blocks of ten pages photographed twice (excluded pages)
     36: {"in_order": True, "drop": list(range(38, 48)) + list(range(190, 200)) + list(range(508, 518)),
          "cols": {9: 9, 48: 67, 200: 351, 518: 967}},
+    # PG 37: main scan in order, no repeated pages; left column = 2p - 11 throughout
+    37: {"in_order": True, "drop": [], "cols": {16: 21}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
