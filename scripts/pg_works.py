@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.19"
+VERSION = "1.20"
 
 WORKS = {
     25: [
@@ -392,6 +392,18 @@ WORKS = {
         {"slug": "carmina_de_seipso", "title": "Carmina, liber II, sectio I: Poemata de seipso", "col": 969, "pages": [490, 730], "kind": "sections"},
         {"slug": "carmina_ad_alios", "title": "Carmina, liber II, sectio II: Poemata quae spectant ad alios", "col": 1451, "pages": [731, 805], "kind": "sections"},
     ],
+    38: [
+        # S. Gregorius Nazianzenus IV: Carmina II.2 (epitaphia, epigrammata); Christus patiens (appendix);
+        # Cosmas Hierosolymitanus, Nicetas David and an anonymous paraphrast on the Carmina; S. Caesarius
+        # (Pseudo-Caesarius), Dialogi IV.  Main scan: IA patrologiae_cursus_completus_gr_vol_038, in order
+        # with no repeated pages.  Running heads: left column = 2p - 11 (pp. 10-600).  Excluded pages: 1-9
+        # (title pages), the Latin notices pp. 71, 175, 346, 429-430, and the indexes pp. 601-657.
+        {"slug": "epitaphia_et_epigrammata", "title": "Carmina, liber II, sectio II (cont.): Epitaphia; Epigrammata", "col": 9, "pages": [10, 70], "kind": "sections"},
+        {"slug": "christus_patiens", "title": "Appendix: Christus patiens (tragoedia)", "col": 133, "pages": [72, 174], "kind": "sections"},
+        {"slug": "cosmas_hierosolymitanus_commentarii", "title": "Cosmas Hierosolymitanus: Collectio et expositio historiarum in carmina S. Gregorii (with index)", "col": 341, "pages": [176, 345], "kind": "sections"},
+        {"slug": "nicetas_david_paraphrasis", "title": "Nicetas David: Paraphrasis carminum arcanorum S. Gregorii (with an anonymous paraphrasis)", "col": 683, "pages": [347, 428], "kind": "sections"},
+        {"slug": "caesarius_dialogi", "title": "S. Caesarius (Pseudo-Caesarius): Dialogi IV (Quaestiones et responsiones)", "col": 851, "pages": [431, 600], "kind": "sections"},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -571,6 +583,8 @@ SCAN_FIXES = {
          "cols": {9: 9, 48: 67, 200: 351, 518: 967}},
     # PG 37: main scan in order, no repeated pages; left column = 2p - 11 throughout
     37: {"in_order": True, "drop": [], "cols": {16: 21}},
+    # PG 38: main scan in order, no repeated pages; left column = 2p - 11 throughout
+    38: {"in_order": True, "drop": [], "cols": {10: 9}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
