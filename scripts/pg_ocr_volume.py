@@ -34,7 +34,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-VERSION = "3.3 (kraken runs stopped when they hang; pdf2: second scan from a local PDF; map: pages of another copy; second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
+VERSION = "3.4 (second scan under a two-digit name for PG 41, 43, 44, 46-49; kraken runs stopped when they hang; pdf2: second scan from a local PDF; map: pages of another copy; second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
 GREEK_CLASS = "MainText_ColGreek"
 LATIN_CLASS = "MainText_ColLatin"
 NOTE_CLASSES = ("MainText_ColLatin", "Marginalia_Footnote")
@@ -161,8 +161,17 @@ def plain_words(text, min_len=7):
     return set(re.findall(r"[α-ω]{%d,}" % min_len, t))
 
 
+# volumes that the item "PatrologiaGraeca" holds only under a two-digit name ("Vol. 44", not "Vol. 044");
+# for PG 44 this is the same Google copy as the main scan, but its JP2 leaves are sharper than the PDF
+ALT_TWO_DIGIT = {41, 43, 44, 46, 47, 48, 49}
+
+
 def alt_prefix(args):
-    return args.alt_prefix or f"Patrologia Graeca Vol. {args.vol:03d}"
+    if args.alt_prefix:
+        return args.alt_prefix
+    if args.vol in ALT_TWO_DIGIT:
+        return f"Patrologia Graeca Vol. {args.vol}"
+    return f"Patrologia Graeca Vol. {args.vol:03d}"
 
 
 def alt_text_index(args):

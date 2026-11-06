@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.20"
+VERSION = "1.21"
 
 WORKS = {
     25: [
@@ -404,6 +404,24 @@ WORKS = {
         {"slug": "nicetas_david_paraphrasis", "title": "Nicetas David: Paraphrasis carminum arcanorum S. Gregorii (with an anonymous paraphrasis)", "col": 683, "pages": [347, 428], "kind": "sections"},
         {"slug": "caesarius_dialogi", "title": "S. Caesarius (Pseudo-Caesarius): Dialogi IV (Quaestiones et responsiones)", "col": 851, "pages": [431, 600], "kind": "sections"},
     ],
+    44: [
+        # S. Gregorius Nyssenus I: exegetical works.  Main scan: IA patrologiae_cursus_completus_gr_vol_044.
+        # Running heads: left column = 2p - 15 (pp. 38-258), 2p - 35 (269-689); pp. 259-268 are a second copy of
+        # pp. 249-258 (In inscriptiones Psalmorum), photographed twice, left out in work/PG044/exclude_pages.txt.
+        # Excluded too: pp. 1-37 (title pages, Latin prolegomena) and 690-727 (Variorum notae, indexes).
+        {"slug": "hexaemeron", "title": "Apologia in Hexaemeron", "col": 61, "pages": [38, 69], "kind": "sections"},
+        {"slug": "de_hominis_opificio", "title": "De hominis opificio (with Nicetas' epigram)", "col": 123, "pages": [69, 135], "kind": "sections", "cut": True},
+        {"slug": "in_verba_faciamus_hominem", "title": "In verba: Faciamus hominem ad imaginem et similitudinem nostram, orationes II (dubiae)", "col": 257, "pages": [136, 156], "kind": "sections"},
+        {"slug": "de_vita_moysis", "title": "De vita Moysis", "col": 297, "pages": [156, 222], "kind": "sections", "cut": True},
+        {"slug": "in_inscriptiones_psalmorum", "title": "In inscriptiones Psalmorum", "col": 431, "pages": [223, 321], "kind": "sections"},
+        {"slug": "in_sextum_psalmum", "title": "In sextum Psalmum, pro octava", "col": 607, "pages": [321, 325], "kind": "sections", "cut": True},
+        {"slug": "in_ecclesiasten", "title": "In Ecclesiasten homiliae VIII", "col": 616, "pages": [325, 394], "kind": "sections", "cut": True},
+        {"slug": "in_canticum_canticorum", "title": "In Canticum canticorum homiliae XV", "col": 755, "pages": [395, 577], "kind": "sections"},
+        {"slug": "de_oratione_dominica", "title": "De oratione dominica orationes V", "col": 1119, "pages": [577, 614], "kind": "sections", "cut": True},
+        {"slug": "de_beatitudinibus", "title": "De beatitudinibus orationes VIII", "col": 1193, "pages": [614, 668], "kind": "sections", "cut": True},
+        {"slug": "in_illud_tunc_et_ipse_filius", "title": "In illud: Tunc et ipse Filius subjicietur (1 Cor 15:28)", "col": 1303, "pages": [669, 680], "kind": "sections"},
+        {"slug": "de_eo_quid_sit_ad_imaginem", "title": "Appendix: De eo quid sit ad imaginem Dei et ad similitudinem (dubium)", "col": 1327, "pages": [681, 689], "kind": "sections"},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -585,6 +603,8 @@ SCAN_FIXES = {
     37: {"in_order": True, "drop": [], "cols": {16: 21}},
     # PG 38: main scan in order, no repeated pages; left column = 2p - 11 throughout
     38: {"in_order": True, "drop": [], "cols": {10: 9}},
+    # PG 44: main scan in order; pp. 259-268 repeat pp. 249-258 (excluded pages)
+    44: {"in_order": True, "drop": list(range(259, 269)), "cols": {38: 61, 269: 503}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
