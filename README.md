@@ -7,7 +7,7 @@ text with books, chapters and Migne column numbers.
 
 ## Texts
 
-Greek text of 16 volumes, split into 284 works with Migne column numbers, in
+Greek text of 17 volumes, split into 296 works with Migne column numbers, in
 [`texts/`](texts) (format described in [`texts/README.md`](texts/README.md)):
 
 | Volume | Contents | Works | PDF pages | Lines | Mean line confidence |
@@ -25,6 +25,7 @@ Greek text of 16 volumes, split into 284 works with Migne column numbers, in
 | [PG 36](texts/PG036) | Gregory of Nazianzus II (Orationes XXVII-XLV; commentators) | 27 | 588 | 28,945 | 0.9714 |
 | [PG 37](texts/PG037) | Gregory of Nazianzus III (Epistolae, Testamentum, Carmina I-II) | 6 | 790 | 23,359 | 0.9788 |
 | [PG 38](texts/PG038) | Gregory of Nazianzus IV (Epitaphia, Epigrammata, Christus patiens); Cosmas, Nicetas David; Caesarius | 5 | 584 | 29,226 | 0.9754 |
+| [PG 44](texts/PG044) | Gregory of Nyssa I (Hexaemeron, De hominis opificio, De vita Moysis, exegetical homilies) | 12 | 642 | 34,824 | 0.9854 |
 | [PG 94](texts/PG094) | John of Damascus I | 11 | 661 | 24,923 | 0.9763 |
 | [PG 95](texts/PG095) | John of Damascus II | 29 | 785 | 39,858 | 0.9755 |
 | [PG 96](texts/PG096) | John of Damascus III | 16 | 743 | 36,910 | 0.9804 |
