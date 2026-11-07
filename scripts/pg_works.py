@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.21"
+VERSION = "1.22"
 
 WORKS = {
     25: [
@@ -422,6 +422,39 @@ WORKS = {
         {"slug": "in_illud_tunc_et_ipse_filius", "title": "In illud: Tunc et ipse Filius subjicietur (1 Cor 15:28)", "col": 1303, "pages": [669, 680], "kind": "sections"},
         {"slug": "de_eo_quid_sit_ad_imaginem", "title": "Appendix: De eo quid sit ad imaginem Dei et ad similitudinem (dubium)", "col": 1327, "pages": [681, 689], "kind": "sections"},
     ],
+    45: [
+        # S. Gregorius Nyssenus II: dogmatic works.  Main scan: IA patrologiae_cursus_completus_gr_vol_045, in
+        # order with no repeated pages.  Running heads: left column = 2p - 15 (pp. 12-674).  Excluded pages: 1-11
+        # (title pages) and 675-689 (Variorum notae, index).  Contra Eunomium in Migne's twelve books plus
+        # liber XIIb (= book II in Jaeger's edition, against Eunomius' second Apology); each book with its
+        # list of chapters.
+        {"slug": "oratio_catechetica", "title": "Oratio catechetica magna", "col": 9, "pages": [12, 61], "kind": "sections"},
+        {"slug": "de_pythonissa", "title": "De pythonissa (De engastrimytho), ad Theodosium episcopum", "col": 107, "pages": [61, 65], "kind": "sections", "cut": True},
+        {"slug": "ad_ablabium_quod_non_sint_tres_dii", "title": "Ad Ablabium, quod non sint tres dii", "col": 115, "pages": [65, 75], "kind": "sections", "cut": True},
+        {"slug": "ad_simplicium_de_fide", "title": "Ad Simplicium, de fide", "col": 135, "pages": [75, 80], "kind": "sections", "cut": True},
+        {"slug": "contra_fatum", "title": "Contra fatum", "col": 145, "pages": [80, 95], "kind": "sections", "cut": True},
+        {"slug": "ad_graecos_ex_communibus_notionibus", "title": "Ad Graecos, ex communibus notionibus", "col": 175, "pages": [95, 101], "kind": "sections", "cut": True},
+        {"slug": "de_anima", "title": "De anima (dubium)", "col": 187, "pages": [101, 118], "kind": "sections", "cut": True},
+        {"slug": "epistola_canonica_ad_letoium", "title": "Epistola canonica ad Letoium Melitenes episcopum", "col": 221, "pages": [118, 125], "kind": "sections", "cut": True},
+        {"slug": "epistolae_ad_petrum", "title": "Contra Eunomium: Gregory's letter to Peter of Sebaste and Peter's reply", "col": 237, "pages": [126, 129], "kind": "sections"},
+        {"slug": "contra_eunomium_i", "title": "Contra Eunomium, liber I (Migne's numbering)", "col": 243, "pages": [129, 239], "kind": "sections", "cut": True},
+        {"slug": "contra_eunomium_ii", "title": "Contra Eunomium, liber II (Migne's numbering)", "col": 463, "pages": [239, 293], "kind": "sections", "cut": True},
+        {"slug": "contra_eunomium_iii", "title": "Contra Eunomium, liber III (Migne's numbering)", "col": 571, "pages": [293, 315], "kind": "sections", "cut": True},
+        {"slug": "contra_eunomium_iv", "title": "Contra Eunomium, liber IV (Migne's numbering)", "col": 615, "pages": [315, 346], "kind": "sections", "cut": True},
+        {"slug": "contra_eunomium_v", "title": "Contra Eunomium, liber V (Migne's numbering)", "col": 677, "pages": [346, 362], "kind": "sections", "cut": True},
+        {"slug": "contra_eunomium_vi", "title": "Contra Eunomium, liber VI (Migne's numbering)", "col": 709, "pages": [362, 376], "kind": "sections", "cut": True},
+        {"slug": "contra_eunomium_vii", "title": "Contra Eunomium, liber VII (Migne's numbering)", "col": 737, "pages": [376, 390], "kind": "sections", "cut": True},
+        {"slug": "contra_eunomium_viii", "title": "Contra Eunomium, liber VIII (Migne's numbering)", "col": 765, "pages": [390, 407], "kind": "sections", "cut": True},
+        {"slug": "contra_eunomium_ix", "title": "Contra Eunomium, liber IX (Migne's numbering)", "col": 799, "pages": [407, 420], "kind": "sections", "cut": True},
+        {"slug": "contra_eunomium_x", "title": "Contra Eunomium, liber X (Migne's numbering)", "col": 825, "pages": [420, 434], "kind": "sections", "cut": True},
+        {"slug": "contra_eunomium_xi", "title": "Contra Eunomium, liber XI (Migne's numbering)", "col": 853, "pages": [434, 449], "kind": "sections", "cut": True},
+        {"slug": "contra_eunomium_xii", "title": "Contra Eunomium, liber XII (Migne's numbering)", "col": 883, "pages": [449, 462], "kind": "sections", "cut": True},
+        {"slug": "contra_eunomium_xiib", "title": "Contra Eunomium, liber XIIb: In secundum Eunomii librum (Jaeger's book II)", "col": 909, "pages": [462, 568], "kind": "sections", "cut": True},
+        {"slug": "antirrheticus_adversus_apolinarium", "title": "Antirrheticus adversus Apolinarium", "col": 1123, "pages": [569, 642], "kind": "sections", "cut": True},
+        {"slug": "ad_theophilum_adversus_apollinaristas", "title": "Ad Theophilum, adversus Apollinaristas", "col": 1269, "pages": [642, 648], "kind": "sections", "cut": True},
+        {"slug": "adversus_arium_et_sabellium", "title": "Adversus Arium et Sabellium (dubium)", "col": 1281, "pages": [648, 658], "kind": "sections", "cut": True},
+        {"slug": "adversus_macedonianos", "title": "Adversus Macedonianos, de Spiritu sancto", "col": 1301, "pages": [658, 674], "kind": "sections", "cut": True},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -605,6 +638,8 @@ SCAN_FIXES = {
     38: {"in_order": True, "drop": [], "cols": {10: 9}},
     # PG 44: main scan in order; pp. 259-268 repeat pp. 249-258 (excluded pages)
     44: {"in_order": True, "drop": list(range(259, 269)), "cols": {38: 61, 269: 503}},
+    # PG 45: main scan in order, no repeated pages; left column = 2p - 15 throughout
+    45: {"in_order": True, "drop": [], "cols": {12: 9}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
