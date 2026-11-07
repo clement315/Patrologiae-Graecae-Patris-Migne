@@ -34,7 +34,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-VERSION = "3.4 (second scan under a two-digit name for PG 41, 43, 44, 46-49; kraken runs stopped when they hang; pdf2: second scan from a local PDF; map: pages of another copy; second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
+VERSION = "3.5 (Greek set across the full page width is read (wide blocks, not Latin crossing text); --redo-wide; second scan under a two-digit name for PG 41, 43, 44, 46-49; kraken runs stopped when they hang; pdf2: second scan from a local PDF; map: pages of another copy; second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
 GREEK_CLASS = "MainText_ColGreek"
 LATIN_CLASS = "MainText_ColLatin"
 NOTE_CLASSES = ("MainText_ColLatin", "Marginalia_Footnote")
@@ -112,11 +112,26 @@ def cover(a, b):
 
 
 def order_columns(boxes, page_width):
-    """Reading order of Greek boxes: left half top->bottom, then right half."""
+    """Reading order of Greek boxes: left half top->bottom, then right half.
+
+    Wide boxes (Greek set across the whole page width, e.g. where the Latin version is shorter, or the
+    last lines of a work below both columns) cut the page into bands: the columns above a wide box are
+    read first (left, then right), then the wide box, then the columns below it."""
     mid = page_width / 2.0
-    left = sorted([b for b in boxes if (b["box"][0] + b["box"][2]) / 2 < mid], key=lambda b: b["box"][1])
-    right = sorted([b for b in boxes if (b["box"][0] + b["box"][2]) / 2 >= mid], key=lambda b: b["box"][1])
-    return left + right
+    wide = sorted([b for b in boxes if b.get("wide")], key=lambda b: b["box"][1])
+    narrow = [b for b in boxes if not b.get("wide")]
+    out = []
+    for k in range(len(wide) + 1):
+        top = wide[k - 1]["box"][1] if k else -1
+        bot = wide[k]["box"][1] if k < len(wide) else float("inf")
+        zone = [b for b in narrow if top < (b["box"][1] + b["box"][3]) / 2 <= bot]
+        left = sorted([b for b in zone if (b["box"][0] + b["box"][2]) / 2 < mid], key=lambda b: b["box"][1])
+        right = sorted([b for b in zone if (b["box"][0] + b["box"][2]) / 2 >= mid], key=lambda b: b["box"][1])
+        out += left + right
+        if k < len(wide):
+            out.append(wide[k])
+    return out
+
 
 
 def dedupe(boxes, thr=0.5):
@@ -474,6 +489,23 @@ def stage_layout(args, pages, work):
                 for f in crops_dir.glob(f"p{p:04d}_c*.*"):
                     f.unlink()
             done -= stale
+    if getattr(args, "redo_wide", False) and done:
+        # pages laid out by an older version, where Greek set across the full width was rejected:
+        # their layout and column images are made again (only pages already in this run)
+        recs = [json.loads(l) for l in layout_file.read_text(encoding="utf-8").splitlines() if l.strip()]
+        req = set(pages)
+        redo = {r["page"] for r in recs if r["page"] in req and any(
+            d.get("why", "").startswith("full width") and d["conf"] >= args.wide_conf_box
+            for d in r.get("rejected_greek", []))}
+        print(f"[layout] --redo-wide: {len(redo)} page(s) with Greek set across the full width are laid out again")
+        if redo:
+            layout_file.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n"
+                                           for r in recs if r["page"] not in redo), encoding="utf-8")
+            for p in redo:
+                for f in crops_dir.glob(f"p{p:04d}_c*.*"):
+                    f.unlink()
+            done -= redo
+        pages = [p for p in pages if p in done or p in redo]     # no new pages in a redo
     todo = [p for p in pages if p not in done]
     print(f"[layout] {len(pages)} pages requested, {len(done & set(pages))} already done, {len(todo)} to do")
     if not todo:
@@ -518,9 +550,16 @@ def stage_layout(args, pages, work):
                     continue
                 w = d["box"][2] - d["box"][0]
                 if w > args.max_width_frac * img.width:
-                    # full-width bands are Latin text running across both columns
-                    d["why"] = "full width (Latin crossing text)"
-                    rejected.append(d)
+                    # a full-width box is either Greek set across both columns (kept: read as a "wide"
+                    # block, its lines checked more strictly) or a region where the model joined the
+                    # Greek and the Latin column (a Latin box lies inside it: rejected, as before)
+                    lat = max((cover(lt["box"], d["box"]) for lt in latin), default=0.0)
+                    if args.wide_greek and lat < 0.3 and d["conf"] >= args.wide_conf_box:
+                        d["wide"] = True
+                        greek.append(d)
+                    else:
+                        d["why"] = "full width (Latin crossing text)"
+                        rejected.append(d)
                 elif d["conf"] < args.greek_conf and any(
                         lt["conf"] > d["conf"] and cover(d["box"], lt["box"]) > 0.8 for lt in latin):
                     # weak 'Greek' guess lying (almost) entirely inside a stronger Latin box
@@ -743,6 +782,7 @@ def stage_text(args, pages, work, outdir):
         page_lines = []
         width = rec["size"][0]
         bands = [d["box"] for d in rec.get("rejected_greek", []) if d.get("why", "").startswith("full width")]
+        wide_crops = {g["crop"] for g in rec["greek"] if g.get("wide")}
         bands += [d["box"] for d in rec.get("detections", [])
                   if d["cls"] == LATIN_CLASS and d["box"][2] - d["box"][0] > 0.6 * width]
         # Latin columns and footnote blocks: a Greek box sometimes reaches into them
@@ -767,6 +807,9 @@ def stage_text(args, pages, work, outdir):
                 if conf < args.drop_conf:
                     # very uncertain: usually Latin or noise read as Greek -> kept aside
                     suspect.append(f"{pno}\t{col_idx}\t{conf:.3f}\tlow confidence\t{txt}")
+                elif g["crop"] in wide_crops and conf < args.wide_line_conf:
+                    # line of a full-width block that is not clearly Greek (Latin crossing text)
+                    suspect.append(f"{pno}\t{col_idx}\t{conf:.3f}\twide block, uncertain\t{txt}")
                 elif in_band and conf < args.band_conf:
                     # line sits in a Latin text band running across the page
                     suspect.append(f"{pno}\t{col_idx}\t{conf:.3f}\tin Latin band\t{txt}")
@@ -834,6 +877,15 @@ def main():
     ap.add_argument("--layout-conf", type=float, default=0.25)
     ap.add_argument("--greek-conf", type=float, default=0.60,
                     help="below this a Greek box is dropped only if it lies inside a stronger Latin box")
+    ap.add_argument("--no-wide-greek", dest="wide_greek", action="store_false",
+                    help="reject every full-width 'Greek' box as before 3.5 (Latin crossing text)")
+    ap.add_argument("--wide-conf-box", type=float, default=0.30,
+                    help="full-width Greek boxes below this layout confidence are not read")
+    ap.add_argument("--wide-line-conf", type=float, default=0.90,
+                    help="lines of a full-width block below this recognition confidence are set aside")
+    ap.add_argument("--redo-wide", action="store_true",
+                    help="lay out again the pages of this run where an older version rejected Greek set "
+                         "across the full width; then recognise them and rebuild the text")
     ap.add_argument("--max-width-frac", type=float, default=0.60,
                     help="reject 'Greek' boxes wider than this share of the page (Latin crossing text)")
     ap.add_argument("--pad-x", type=int, default=4, help="horizontal padding (keeps margin letters A-D out)")

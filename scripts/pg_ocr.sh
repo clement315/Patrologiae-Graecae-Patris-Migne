@@ -24,6 +24,8 @@
 #  Optional:
 #    RUN=v6 ...      name of the result folder (default v4)
 #    STAGES=text ... only rebuild the text files from finished OCR (seconds)
+#    REDO_WIDE=1 ... pages where an older version rejected Greek set across the full page width:
+#                    lay them out and recognise them again (bash run_pg_volume.sh N --redo-wide)
 #    MODEL=/mnt/e/PG_OCR/models/rec/run_xxx/best_0.9885.safetensors bash pg_ocr.sh 94 all
 #    PDF_URL=https://archive.org/download/<id>/<id>.pdf bash pg_ocr.sh 95 1-20
 #
@@ -119,7 +121,7 @@ main() {
     local log="$ROOT/work/$TAG/ocr_${RUN}_$(date +%Y%m%d_%H%M%S).log"
     PYTHONUNBUFFERED=1 python "$ROOT/scripts/pg_ocr_volume.py" --vol "$VOL" --pdf "$PDF" --pages "$PAGES" \
         --root "$ROOT" --model "$MODEL" --tag "$RUN" --source "$SOURCE" ${ALT_PDF:+--alt-pdf "$ALT_PDF"} \
-        --stages "${STAGES:-layout,ocr,text}" 2>&1 | tee "$log"
+        --stages "${STAGES:-layout,ocr,text}" ${REDO_WIDE:+--redo-wide} 2>&1 | tee "$log"
 
     step "4/4  Done"
     echo "text:      $ROOT/output/$TAG/$RUN/${TAG}_text.txt"

@@ -10,3 +10,6 @@ Gaps in the Migne column sequence (running heads):
 
 Greek leaves of the second scan whose words are found on no page (check):
   none
+
+Text supplied by hand from the page image (lines the layout model missed):
+  de_vita_moysis: p222, two blocks of Greek set across the full page width (cols. 429-430), 119 words

@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.22"
+VERSION = "1.23"
 
 WORKS = {
     25: [
@@ -637,7 +637,22 @@ SCAN_FIXES = {
     # PG 38: main scan in order, no repeated pages; left column = 2p - 11 throughout
     38: {"in_order": True, "drop": [], "cols": {10: 9}},
     # PG 44: main scan in order; pp. 259-268 repeat pp. 249-258 (excluded pages)
-    44: {"in_order": True, "drop": list(range(259, 269)), "cols": {38: 61, 269: 503}},
+    44: {"in_order": True, "drop": list(range(259, 269)), "cols": {38: 61, 269: 503},
+         # p222 (cols. 429-430): two blocks of Greek set across the full width (end of the De vita Moysis),
+         # missed by the layout model; transcribed from the page image (IA PatrologiaGraeca Vol. 44, leaf 220)
+         "supply": [
+             {"slug": "de_vita_moysis", "page": 222, "after": "πῶς ἂν ἁμαυρω",
+              "text": "θήσεται διὰ τοῦ σκότους, οὗ ἠλλοτρίωται; καὶ ὁ τὴν ἀφθαρσίαν ἐν πάσῃ τῇ ζωῇ κατορθώσας, "
+                      "οὐδεμίαν πάντως φθορὰν ἐφ´ ἑαυτοῦ παραδέχεται. Ὁ γὰρ ἀληθῶς κατ´ εἰκόνα Θεοῦ γεγονὼς, καὶ "
+                      "μηδαμοῦ παρατραπεὶς τοῦ θείου χαρακτῆρος· ἐφ´ ἑαυτοῦ τὰ γνωρίσματα φέρει, καὶ συμβαίνει διὰ "
+                      "πάντων τῇ ὁμοιώσει πρὸς τὸ ἀρχέτυπον, τῷ ἀφθάρτῳ τε καὶ ἀναλλοιώτῳ, καὶ πάσης ἀμιγεῖ κακίας "
+                      "τὴν ἰδίαν ψυχὴν καλλωπίζων.\n\n"},
+             {"slug": "de_vita_moysis", "page": 222, "after": "καὶ μόνον τίμιόν τε καὶ ἐράσμιον",
+              "text": " ἑαυτοῖς κρῖναι, τὸ φίλον γενέσθαι Θεῷ· ὅπερ ἐστὶ, κατά γε τὸν ἐμὸν λόγον, ἡ τελειότης τοῦ "
+                      "βίου. Ὅ τι δ´ ἂν παρὰ σοῦ πρὸς τὸ μεγαλοπρεπέστερόν τε καὶ θειότερον ἐπαρθείσης σοι τῆς "
+                      "διανοίας, εὑρεθῇ· πολλῶν δὲ..... εὑρεθήσεται· κοινὸν ἔσται πάντως τὸ κέρδος, ἐν Χριστῷ Ἰησοῦ "
+                      "τῷ Κυρίῳ ἡμῶν, ᾧ ἡ δόξα καὶ τὸ κράτος εἰς τοὺς αἰῶνας. Ἀμήν."},
+         ]},
     # PG 45: main scan in order, no repeated pages; left column = 2p - 15 throughout
     45: {"in_order": True, "drop": [], "cols": {12: 9}},
     95: {
@@ -1069,7 +1084,7 @@ def build_sections(order, items_of, heads, cols, mark_conf, oration=None):
     last_or = None
     for p in order:
         for k, it in enumerate(items_of[p]):
-            col = cols.get(p, (None, None))[0 if it["side"] == "L" else 1]
+            col = cols.get(p, (None, None))[0 if it["side"] in ("L", "W") else 1]
             if oration and oration.get(p) != last_or:
                 secs.append(cur)
                 last_or = oration.get(p)
@@ -1120,6 +1135,29 @@ def speaker_breaks(paras, speakers):
     return out
 
 
+SUPPLIED = []      # (slug, page, words) of the text supplied by SCAN_FIXES "supply", for coverage.txt
+
+
+def apply_supply(vol, slug, paras):
+    """Lines the layout model misses (Greek set across the whole page width below the two columns, e.g.
+    at the end of a work) are supplied from SCAN_FIXES[vol]["supply"], transcribed from the page image:
+    each entry inserts "text" right after the first occurrence of "after" in the work."""
+    out = []
+    whole = " ".join(paras)
+    for f in SCAN_FIXES.get(vol, {}).get("supply", []):
+        # already read by the OCR (pg_ocr_volume >= 3.5 reads Greek set across the full width)
+        if f["slug"] == slug and f["text"].strip()[:25] in whole:
+            f["_done"] = f["_read"] = True
+    for p in paras:
+        for f in SCAN_FIXES.get(vol, {}).get("supply", []):
+            if f["slug"] == slug and not f.get("_done") and f["after"] in p:
+                p = p.replace(f["after"], f["after"] + f["text"], 1)
+                f["_done"] = True
+                SUPPLIED.append((slug, f["page"], len(f["text"].split())))
+        out.append(p)
+    return out
+
+
 def write_work(w, units, outdir, vol, mark, mode):
     d = outdir / w["slug"]
     (d / "sections").mkdir(parents=True, exist_ok=True)
@@ -1133,6 +1171,7 @@ def write_work(w, units, outdir, vol, mark, mode):
     for u in units:
         paras = S.paragraphs(u["items"], mark)
         paras = speaker_breaks(paras, w.get("speakers"))
+        paras = apply_supply(vol, w["slug"], paras)
         if u.get("book") and u["book"] != last_book:
             label = {"books": "Liber", "orations": "Oratio"}.get(mode, "Pars")
             md += [f"## {label} {u['book']}", ""]
@@ -1403,6 +1442,12 @@ def main():
         cov += ["", "To add them, then merge and run this step again:",
                 f"  SOURCE=alt RUN=v5 bash pg_ocr.sh {args.vol} leaf:" + ",".join(map(str, add)),
                 f"  bash pg_ocr.sh {args.vol} merge v4,v5"]
+    sup = SCAN_FIXES.get(args.vol, {}).get("supply", [])
+    if sup:
+        cov += ["", "Text supplied by hand from the page image (lines the layout model missed, SCAN_FIXES \"supply\"):"]
+        cov += [f"  {f['slug']}: p{f['page']}, {len(f['text'].split())} words after \"...{f['after'][-30:]}\""
+                + ("  - not needed: the OCR has read it" if f.get("_read") else "" if f.get("_done")
+                   else "  - NOT APPLIED (anchor not found)") for f in sup]
     cov += ["", "Greek leaves of the second scan whose words are found on no page (check):"]
     cov += [f"  alt leaf {l} (matched to a page: {u}; {n} Greek words; best overlap {o})"
             for l, u, n, o in missing] or ["  none"]

@@ -35,7 +35,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-VERSION = "2.1 (headings checked against the IA OCR of both scans; unread subject lines at a column top)"
+VERSION = "2.2 (reading order with Greek set across the full page width; headings checked against the IA OCR of both scans; unread subject lines at a column top)"
 IA = "https://archive.org/download"
 MAIN_ITEMS = {25: "patrologiae_cursus_completus_gr_vol_025", 26: "patrologiae_cursus_completus_gr_vol_026",
               27: "patrologiae_cursus_completus_gr_vol_027", 28: "patrologiae_cursus_completus_gr_vol_028",
@@ -358,14 +358,24 @@ def page_items(p, best, layouts, base, titles):
     rec = layouts.get(base.get(p), {}).get(p)
     W = rec["size"][0] if rec else 2000
     cbox = {int(g["crop"].rsplit("_c", 1)[1]): g["box"] for g in rec["greek"]} if rec else {}
+    wide = {int(g["crop"].rsplit("_c", 1)[1]) for g in rec["greek"] if g.get("wide")} if rec else set()
+    # Greek set across the full page width (pg_ocr_volume >= 3.5) cuts the page into bands:
+    # the columns above a wide block, then the block, then the columns below it
+    wide_y = sorted(cbox[c][1] for c in wide)
+    zone = lambda y: sum(1 for wy in wide_y if wy < y)
     items = []
     for col, n, cf, text in best.get(p, []):
         b = cbox.get(col, [0, 0, W, 0])
-        items.append({"kind": "line", "side": "L" if (b[0] + b[2]) / 2 < W / 2 else "R",
-                      "y": b[1], "col": col, "n": n, "text": text, "conf": cf})
+        if col in wide:
+            z, side = wide_y.index(b[1]), "W"
+        else:
+            z, side = zone((b[1] + b[3]) / 2), "L" if (b[0] + b[2]) / 2 < W / 2 else "R"
+        items.append({"kind": "line", "side": side, "y": b[1], "col": col, "n": n, "text": text, "conf": cf,
+                      "zone": z})
     for t in titles.get(p, []):
-        items.append({"kind": "block", "side": t["side"], "y": t["y"], "col": 0, "n": 0, "lines": t["lines"]})
-    items.sort(key=lambda x: (x["side"] != "L", x["y"], x["col"], x["n"]))
+        items.append({"kind": "block", "side": t["side"], "y": t["y"], "col": 0, "n": 0, "lines": t["lines"],
+                      "zone": zone(t["y"])})
+    items.sort(key=lambda x: (x["zone"], {"L": 0, "R": 1, "W": 2}.get(x["side"], 0), x["y"], x["col"], x["n"]))
     return items
 
 
@@ -547,7 +557,7 @@ def build_chapters(pages, items_of, heads, cols, mark_conf):
         for k, it in enumerate(items):
             col = None
             if p in cols:
-                col = cols[p][0] if it["side"] == "L" else cols[p][1]
+                col = cols[p][0] if it["side"] in ("L", "W") else cols[p][1]
             if (p, k) in hk:
                 h = hk[(p, k)]
                 chapters.append(cur)
