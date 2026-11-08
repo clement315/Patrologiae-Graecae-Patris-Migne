@@ -12,12 +12,12 @@
     "v5": 5
   },
   "pages_added_from_other_copy": [],
-  "words_taken_from_other_run": 9988,
-  "lines_added_from_other_run": 117,
+  "words_taken_from_other_run": 10150,
+  "lines_added_from_other_run": 122,
   "pages_read_differently_by_the_runs": [],
   "duplicate_pages_skipped": [],
-  "lines": 34824,
-  "mean_line_conf": 0.9854,
-  "lines_below_0.80": 57,
-  "lines_below_0.90": 287
+  "lines": 35194,
+  "mean_line_conf": 0.9853,
+  "lines_below_0.80": 71,
+  "lines_below_0.90": 309
 }

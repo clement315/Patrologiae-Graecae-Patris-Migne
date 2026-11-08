@@ -1,4 +1,4 @@
-pg_works.py 1.21
+pg_works.py 1.23
 
 page order: 0 places where the scan order was corrected; 0 page(s) kept in PDF position (doubtful match: -)
 0 second copies of a page dropped: -
@@ -8,8 +8,9 @@ Gaps in the Migne column sequence (running heads):
   none
   (column count re-synchronised at: p37/p38 (-7); + = pages missing in the scan, or a page without running head; - = an extra page, e.g. a plate or table)
 
+Text supplied by hand from the page image (lines the layout model missed, SCAN_FIXES "supply"):
+  de_vita_moysis: p222, 61 words after "...πῶς ἂν ἁμαυρω"  - not needed: the OCR has read it
+  de_vita_moysis: p222, 58 words after "...ὶ μόνον τίμιόν τε καὶ ἐράσμιον"  - not needed: the OCR has read it
+
 Greek leaves of the second scan whose words are found on no page (check):
   none
-
-Text supplied by hand from the page image (lines the layout model missed):
-  de_vita_moysis: p222, two blocks of Greek set across the full page width (cols. 429-430), 119 words
