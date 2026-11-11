@@ -15,12 +15,18 @@
 #    bash /mnt/e/PG_OCR/scripts/redo_wide.sh 26 27 28      several volumes
 #
 #  Re-running continues where it stopped (finished pages are not redone).
+#
+#    TEXT_ONLY=1 bash .../redo_wide.sh all
+#        only rebuild text, merge and works from the finished OCR (minutes per volume): needed once
+#        after pg_ocr_volume 3.7, because 3.5/3.6 did not mark the full-width blocks for the text stage
 # =====================================================================
 set -uo pipefail
 
 ROOT="${PG_ROOT:-/mnt/e/PG_OCR}"
 SCRIPTS="$ROOT/scripts"
-ALL=(25 26 27 28 29 30 31 32 33 35 36 37 38 44 94 95 96)
+ALL=(25 26 27 28 29 30 31 32 33 35 36 37 38 44 45 94 95 96)
+MARK="redo_wide.done"; MODE=(REDO_WIDE=1)
+if [ -n "${TEXT_ONLY:-}" ]; then MARK="text37.done"; MODE=(STAGES=text); fi
 
 # second run of each volume: "tag|source|alt pdf" and the merge spec
 second() {
@@ -56,23 +62,28 @@ one() {
     t0=$(date +%s)
     printf '\n\033[1;36m===== %s: Greek across the full page width =====\033[0m\n' "$tag"
     [ -s "$ROOT/work/$tag/v4/layout.jsonl" ] || { echo "no v4 run for $tag - skipped"; return 0; }
+    if [ -f "$ROOT/work/$tag/$MARK" ]; then
+        echo "$tag already done ($(cat "$ROOT/work/$tag/$MARK")) - skipped (delete work/$tag/$MARK to redo)"
+        return 0
+    fi
 
     rng="$(range_of "$ROOT/work/$tag/v4/layout.jsonl")"
-    NOTIFY=0 REDO_WIDE=1 RUN=v4 bash "$SCRIPTS/pg_ocr.sh" "$vol" "$rng" || return 1
+    NOTIFY=0 env "${MODE[@]}" RUN=v4 bash "$SCRIPTS/pg_ocr.sh" "$vol" "$rng" || return 1
 
     IFS='|' read -r run src apdf <<< "$(second "$vol")"
     if [ -n "$run" ] && [ -s "$ROOT/work/$tag/$run/layout.jsonl" ]; then
         rng="$(range_of "$ROOT/work/$tag/$run/layout.jsonl")"
         if [ "$src" = "pdf2" ]; then
-            NOTIFY=0 REDO_WIDE=1 SOURCE=pdf2 ALT_PDF="$apdf" RUN="$run" bash "$SCRIPTS/pg_ocr.sh" "$vol" "$rng" || return 1
+            NOTIFY=0 env "${MODE[@]}" SOURCE=pdf2 ALT_PDF="$apdf" RUN="$run" bash "$SCRIPTS/pg_ocr.sh" "$vol" "$rng" || return 1
         else
-            NOTIFY=0 REDO_WIDE=1 SOURCE=alt RUN="$run" bash "$SCRIPTS/pg_ocr.sh" "$vol" "$rng" || return 1
+            NOTIFY=0 env "${MODE[@]}" SOURCE=alt RUN="$run" bash "$SCRIPTS/pg_ocr.sh" "$vol" "$rng" || return 1
         fi
     fi
 
     spec="$(merge_spec "$vol")"
     bash "$SCRIPTS/pg_ocr.sh" "$vol" merge "$spec" || return 1
     bash "$SCRIPTS/pg_ocr.sh" "$vol" works || return 1
+    date '+%Y-%m-%d %H:%M' > "$ROOT/work/$tag/$MARK"
     printf '\033[1;32m%s done in %d min\033[0m\n' "$tag" $(( ($(date +%s) - t0) / 60 ))
 }
 

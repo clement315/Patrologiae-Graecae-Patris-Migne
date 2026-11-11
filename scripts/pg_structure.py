@@ -35,7 +35,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-VERSION = "2.2 (reading order with Greek set across the full page width; headings checked against the IA OCR of both scans; unread subject lines at a column top)"
+VERSION = "2.3 (full-width blocks known by their width; reading order with Greek set across the full page width; headings checked against the IA OCR of both scans; unread subject lines at a column top)"
 IA = "https://archive.org/download"
 MAIN_ITEMS = {25: "patrologiae_cursus_completus_gr_vol_025", 26: "patrologiae_cursus_completus_gr_vol_026",
               27: "patrologiae_cursus_completus_gr_vol_027", 28: "patrologiae_cursus_completus_gr_vol_028",
@@ -358,7 +358,8 @@ def page_items(p, best, layouts, base, titles):
     rec = layouts.get(base.get(p), {}).get(p)
     W = rec["size"][0] if rec else 2000
     cbox = {int(g["crop"].rsplit("_c", 1)[1]): g["box"] for g in rec["greek"]} if rec else {}
-    wide = {int(g["crop"].rsplit("_c", 1)[1]) for g in rec["greek"] if g.get("wide")} if rec else set()
+    wide = {int(g["crop"].rsplit("_c", 1)[1]) for g in rec["greek"]
+            if g.get("wide") or g["box"][2] - g["box"][0] > 0.60 * W} if rec else set()
     # Greek set across the full page width (pg_ocr_volume >= 3.5) cuts the page into bands:
     # the columns above a wide block, then the block, then the columns below it
     wide_y = sorted(cbox[c][1] for c in wide)

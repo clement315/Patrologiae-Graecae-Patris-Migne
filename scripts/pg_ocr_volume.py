@@ -34,7 +34,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-VERSION = "3.5 (Greek set across the full page width is read (wide blocks, not Latin crossing text); --redo-wide; second scan under a two-digit name for PG 41, 43, 44, 46-49; kraken runs stopped when they hang; pdf2: second scan from a local PDF; map: pages of another copy; second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
+VERSION = "3.7 (full-width blocks known to the text stage (3.5/3.6 lost the mark); --redo-wide only for pages laid out before 3.5; Greek set across the full page width is read (wide blocks, not Latin crossing text); --redo-wide; second scan under a two-digit name for PG 41, 43, 44, 46-49; kraken runs stopped when they hang; pdf2: second scan from a local PDF; map: pages of another copy; second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
 GREEK_CLASS = "MainText_ColGreek"
 LATIN_CLASS = "MainText_ColLatin"
 NOTE_CLASSES = ("MainText_ColLatin", "Marginalia_Footnote")
@@ -494,9 +494,24 @@ def stage_layout(args, pages, work):
         # their layout and column images are made again (only pages already in this run)
         recs = [json.loads(l) for l in layout_file.read_text(encoding="utf-8").splitlines() if l.strip()]
         req = set(pages)
-        redo = {r["page"] for r in recs if r["page"] in req and any(
-            d.get("why", "").startswith("full width") and d["conf"] >= args.wide_conf_box
-            for d in r.get("rejected_greek", []))}
+        def would_keep(r, d):
+            # the rule of 3.5: a full-width Greek box is read unless a Latin box lies inside it
+            lat = max((cover(lt["box"], d["box"]) for lt in r.get("detections", [])
+                       if lt["cls"] == LATIN_CLASS), default=0.0)
+            return d.get("why", "").startswith("full width") and d["conf"] >= args.wide_conf_box and lat < 0.3
+        def broken(r):
+            # a column image left unreadable by an interrupted run (PG 31 p406_c3)
+            for g in r["greek"]:
+                f = crops_dir / f"{g['crop']}.png"
+                try:
+                    with Image.open(f) as im:
+                        im.verify()
+                except Exception:
+                    return True
+            return False
+        redo = {r["page"] for r in recs if r["page"] in req and (
+                (not r.get("wide_rule") and not any(g.get("wide") for g in r["greek"])
+                 and any(would_keep(r, d) for d in r.get("rejected_greek", []))) or broken(r))}
         print(f"[layout] --redo-wide: {len(redo)} page(s) with Greek set across the full width are laid out again")
         if redo:
             layout_file.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n"
@@ -591,7 +606,8 @@ def stage_layout(args, pages, work):
                     canvas.paste(crop, (0, 0))
                     crop = canvas
                 crop.save(crops_dir / f"{name}.png")
-                kept.append({"crop": name, "box": [x0, y0, x1, y1], "conf": d["conf"], "stroke": sw})
+                kept.append({"crop": name, "box": [x0, y0, x1, y1], "conf": d["conf"], "stroke": sw,
+                             **({"wide": True} if d.get("wide") else {})})
 
             # small preview for visual checking
             scale = 1000.0 / img.height
@@ -612,7 +628,8 @@ def stage_layout(args, pages, work):
                    "source": (alt_label(args, altmap[pno]["leaf"]) if altmap else "pdf"),
                    **({"pdf": str(args.alt_pdf), "pdf_page": altmap[pno]["leaf"] + 1}
                       if args.source == "pdf2" and pno in altmap else {}),
-                   "rejected_greek": rejected, "detections": dets}
+                   "rejected_greek": rejected, "detections": dets,
+                   "wide_rule": int(args.wide_greek)}       # laid out with the full-width rule of 3.5
             out.write(json.dumps(rec, ensure_ascii=False) + "\n")
             out.flush()
             if i % 10 == 0 or i == len(todo):
@@ -782,7 +799,9 @@ def stage_text(args, pages, work, outdir):
         page_lines = []
         width = rec["size"][0]
         bands = [d["box"] for d in rec.get("rejected_greek", []) if d.get("why", "").startswith("full width")]
-        wide_crops = {g["crop"] for g in rec["greek"] if g.get("wide")}
+        # full-width blocks (the mark was not written by 3.5/3.6: known by their width)
+        wide_crops = {g["crop"] for g in rec["greek"]
+                      if g.get("wide") or g["box"][2] - g["box"][0] > args.max_width_frac * rec["size"][0]}
         bands += [d["box"] for d in rec.get("detections", [])
                   if d["cls"] == LATIN_CLASS and d["box"][2] - d["box"][0] > 0.6 * width]
         # Latin columns and footnote blocks: a Greek box sometimes reaches into them
