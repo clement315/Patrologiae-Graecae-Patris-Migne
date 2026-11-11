@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.23"
+VERSION = "1.24"
 
 WORKS = {
     25: [
@@ -455,6 +455,48 @@ WORKS = {
         {"slug": "adversus_arium_et_sabellium", "title": "Adversus Arium et Sabellium (dubium)", "col": 1281, "pages": [648, 658], "kind": "sections", "cut": True},
         {"slug": "adversus_macedonianos", "title": "Adversus Macedonianos, de Spiritu sancto", "col": 1301, "pages": [658, 674], "kind": "sections", "cut": True},
     ],
+    46: [
+        # S. Gregorius Nyssenus III: ascetic and moral works, homilies, Lives, Letters.  Main scan: IA
+        # patrologiae_cursus_completus_gr_vol_046, in order with no repeated pages.  Running heads: left
+        # column = 2p - 15 (pp. 13-597).  Excluded pages: 1-12 (title pages, Monitum), 125 (notices on the Ad
+        # Eustathium de Trinitate = PG 32 Basil ep. 189, and the Ad Tatianum de anima), 277 (notices on three
+        # pieces printed in other volumes), 598-649 (Variorum notae, indexes).
+        {"slug": "de_anima_et_resurrectione", "title": "De anima et resurrectione (Macrinia)", "col": 11, "pages": [13, 88], "kind": "sections"},
+        {"slug": "de_infantibus_praemature_abreptis", "title": "De infantibus praemature abreptis", "col": 161, "pages": [88, 104], "kind": "sections", "cut": True},
+        {"slug": "testimonia_adversus_judaeos", "title": "Testimonia adversus Judaeos (dubium)", "col": 193, "pages": [104, 124], "kind": "sections", "cut": True},
+        {"slug": "ad_harmonium_de_professione_christiana", "title": "Ad Harmonium, quid nomen professiove Christianorum sibi velit", "col": 237, "pages": [126, 133], "kind": "sections"},
+        {"slug": "de_perfectione", "title": "De perfectione, ad Olympium monachum", "col": 251, "pages": [133, 151], "kind": "sections", "cut": True},
+        {"slug": "de_instituto_christiano", "title": "De instituto christiano", "col": 287, "pages": [151, 161], "kind": "sections", "cut": True},
+        {"slug": "adversus_eos_qui_castigationes_aegre_ferunt", "title": "Adversus eos qui castigationes aegre ferunt", "col": 307, "pages": [161, 166], "kind": "sections", "cut": True},
+        {"slug": "de_virginitate", "title": "De virginitate", "col": 317, "pages": [166, 215], "kind": "sections", "cut": True},
+        {"slug": "adversus_eos_qui_differunt_baptismum", "title": "Adversus eos qui differunt baptismum", "col": 415, "pages": [215, 224], "kind": "sections", "cut": True},
+        {"slug": "contra_usurarios", "title": "Contra usurarios", "col": 433, "pages": [224, 234], "kind": "sections", "cut": True},
+        {"slug": "de_beneficentia", "title": "De beneficentia (De pauperibus amandis I)", "col": 453, "pages": [234, 243], "kind": "sections", "cut": True},
+        {"slug": "in_illud_quatenus_uni_ex_his", "title": "In illud: Quatenus uni ex his fecistis (De pauperibus amandis II)", "col": 471, "pages": [243, 252], "kind": "sections", "cut": True},
+        {"slug": "contra_fornicarios", "title": "Contra fornicarios", "col": 489, "pages": [252, 256], "kind": "sections", "cut": True},
+        {"slug": "de_mortuis", "title": "De mortuis", "col": 497, "pages": [256, 276], "kind": "sections", "cut": True},
+        {"slug": "contra_manichaeos_syllogismi", "title": "Contra Manichaeos syllogismi decem", "col": 541, "pages": [278, 279], "kind": "sections"},
+        {"slug": "in_suam_ordinationem", "title": "In suam ordinationem", "col": 543, "pages": [279, 296], "kind": "sections", "cut": True},
+        {"slug": "in_diem_luminum", "title": "In diem luminum (In baptismum Christi)", "col": 577, "pages": [296, 307], "kind": "sections", "cut": True},
+        {"slug": "in_sanctum_pascha_orationes_v", "title": "In sanctum Pascha et de tridui spatio orationes V", "col": 599, "pages": [307, 352], "kind": "sections", "cut": True},
+        {"slug": "in_ascensionem_christi", "title": "In ascensionem Christi", "col": 689, "pages": [352, 355], "kind": "sections", "cut": True},
+        {"slug": "de_spiritu_sancto_in_pentecosten", "title": "De Spiritu sancto, sive in Pentecosten", "col": 695, "pages": [355, 358], "kind": "sections", "cut": True},
+        {"slug": "in_sanctum_stephanum_i", "title": "In sanctum Stephanum I", "col": 701, "pages": [358, 368], "kind": "sections", "cut": True},
+        {"slug": "in_sanctum_stephanum_ii", "title": "In sanctum Stephanum II", "col": 721, "pages": [368, 375], "kind": "sections", "cut": True},
+        {"slug": "de_sancto_theodoro", "title": "De sancto Theodoro martyre", "col": 735, "pages": [375, 382], "kind": "sections", "cut": True},
+        {"slug": "in_xl_martyres_i", "title": "In XL martyres I (Ia-Ib)", "col": 749, "pages": [382, 394], "kind": "sections", "cut": True},
+        {"slug": "in_xl_martyres_ii", "title": "In XL martyres II", "col": 773, "pages": [394, 401], "kind": "sections", "cut": True},
+        {"slug": "in_basilium_fratrem", "title": "In Basilium fratrem", "col": 787, "pages": [401, 417], "kind": "sections", "cut": True},
+        {"slug": "de_vita_ephraem", "title": "De vita S. Ephraem Syri", "col": 819, "pages": [417, 433], "kind": "sections", "cut": True},
+        {"slug": "in_meletium", "title": "Oratio funebris in Meletium episcopum", "col": 851, "pages": [433, 439], "kind": "sections", "cut": True},
+        {"slug": "in_pulcheriam", "title": "Oratio consolatoria in Pulcheriam", "col": 863, "pages": [439, 446], "kind": "sections", "cut": True},
+        {"slug": "in_flacillam", "title": "Oratio funebris in Flacillam imperatricem", "col": 877, "pages": [446, 454], "kind": "sections", "cut": True},
+        {"slug": "de_vita_gregorii_thaumaturgi", "title": "De vita S. Gregorii Thaumaturgi", "col": 893, "pages": [454, 487], "kind": "sections", "cut": True},
+        {"slug": "vita_macrinae", "title": "Vita S. Macrinae", "col": 959, "pages": [487, 507], "kind": "sections", "cut": True},
+        {"slug": "epistolae", "title": "Epistolae", "col": 1000, "pages": [507, 571], "kind": "sections", "cut": True},
+        {"slug": "in_diem_natalem_christi", "title": "In diem natalem Christi", "col": 1127, "pages": [571, 583], "kind": "sections", "cut": True},
+        {"slug": "in_occursum_domini", "title": "In occursum Domini (dubium)", "col": 1151, "pages": [583, 597], "kind": "sections", "cut": True},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -655,6 +697,8 @@ SCAN_FIXES = {
          ]},
     # PG 45: main scan in order, no repeated pages; left column = 2p - 15 throughout
     45: {"in_order": True, "drop": [], "cols": {12: 9}},
+    # PG 46: main scan in order, no repeated pages; left column = 2p - 15 throughout
+    46: {"in_order": True, "drop": [], "cols": {13: 11}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
