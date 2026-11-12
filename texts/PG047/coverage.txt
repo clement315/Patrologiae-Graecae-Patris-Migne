@@ -1,0 +1,16 @@
+pg_works.py 1.27
+
+page order: 0 places where the scan order was corrected; 0 page(s) kept in PDF position (doubtful match: -)
+0 second copies of a page dropped: -
+left out (blank or unusable page): p34, p36, p38, p40, p42, p44, p46, p48, p50, p52, p54, p56, p57, p58, p59, p60, p62, p63, p66, p67, p70, p71, p74, p75, p78, p79, p82, p83, p86, p87, p90, p91, p94, p95, p98, p99, p102, p103, p106, p107, p110, p111, p114, p115, p118, p119, p122, p123, p126, p127, p130, p131, p134, p135, p138, p139, p140, p141, p142, p143, p144, p145, p146, p147, p148, p149, p150, p151, p152, p153, p154, p155, p156, p157, p158, p159, p160, p161, p162, p163, p164, p165, p166, p167, p168, p169, p170, p171, p172, p173, p174, p175, p176, p177, p178, p179, p180, p181, p182, p183, p184, p185, p186, p187, p188, p189, p190, p191, p192, p193, p194, p195, p196, p197, p198, p199, p200, p201, p202, p203, p204, p205, p206, p207, p208, p209, p210, p211, p212, p213, p214, p215, p216, p217, p218, p219, p220, p221, p222, p223, p224, p225, p226, p227, p228, p229, p230, p231, p232, p233, p234, p235, p236, p238, p239, p242, p243, p246, p247, p250, p251, p254, p255, p258, p259, p262, p263, p266, p267, p270, p271, p274, p275, p277, p278, p279, p282, p283, p286, p287, p290, p291, p294, p295, p298, p299, p302, p303, p306, p307, p310, p311, p314, p315, p318, p319, p322, p323, p326, p327, p330, p331, p334, p335, p338, p339, p342, p343, p346, p347, p350, p351, p353, p354, p356, p357, p360, p361, p364, p365, p368, p369, p372, p373, p376, p377, p380, p381, p384, p385, p386, p388, p389, p392, p393, p396, p397, p400, p401, p404, p405, p408, p409, p412, p413, p416, p417, p420, p421, p424, p425, p428, p429, p432, p433, p436, p437, p440, p441, p444, p445, p448, p449, p452, p453, p456, p457, p460, p461, p464, p465, p468, p469, p472, p473, p476, p477, p480, p481, p484, p485, p488, p489, p492, p493, p495, p496, p497, p498, p499, p500
+
+Gaps in the Migne column sequence (running heads):
+  between p137 and p237: 97 page(s) missing in the main scan; second-scan leaves to add: 231
+  (column count re-synchronised at: p32/p33 (-11), p55/p61 (-31), p276/p280 (+1), p383/p387 (+1); + = pages missing in the scan, or a page without running head; - = an extra page, e.g. a plate or table)
+
+To add them, then merge and run this step again:
+  SOURCE=alt RUN=v5 bash pg_ocr.sh 47 leaf:231
+  bash pg_ocr.sh 47 merge v4,v5
+
+Greek leaves of the second scan whose words are found on no page (check):
+  none

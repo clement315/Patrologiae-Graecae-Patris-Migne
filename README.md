@@ -7,7 +7,7 @@ text with books, chapters and Migne column numbers.
 
 ## Texts
 
-Greek text of 19 volumes, split into 357 works with Migne column numbers, in
+Greek text of 20 volumes, split into 371 works with Migne column numbers, in
 [`texts/`](texts) (format described in [`texts/README.md`](texts/README.md)):
 
 | Volume | Contents | Works | PDF pages | Lines | Mean line confidence |
@@ -28,6 +28,7 @@ Greek text of 19 volumes, split into 357 works with Migne column numbers, in
 | [PG 44](texts/PG044) | Gregory of Nyssa I (Hexaemeron, De hominis opificio, De vita Moysis, exegetical homilies) | 12 | 642 | 35,176 | 0.9854 |
 | [PG 45](texts/PG045) | Gregory of Nyssa II (Oratio catechetica, Contra Eunomium I-XIIb, anti-Apollinarian works) | 26 | 660 | 35,352 | 0.9878 |
 | [PG 46](texts/PG046) | Gregory of Nyssa III (De anima et resurrectione, De virginitate, homilies, Lives, Epistolae) | 35 | 576 | 28,534 | 0.9887 |
+| [PG 47](texts/PG047) | John Chrysostom I (Palladius' Dialogus; Ad Theodorum, Adversus oppugnatores, De compunctione, Ad Stagirium, subintroductae) | 14 | 177 | 20,176 | 0.9820 |
 | [PG 94](texts/PG094) | John of Damascus I | 11 | 664 | 24,875 | 0.9763 |
 | [PG 95](texts/PG095) | John of Damascus II | 29 | 785 | 39,875 | 0.9755 |
 | [PG 96](texts/PG096) | John of Damascus III | 16 | 743 | 37,148 | 0.9803 |
