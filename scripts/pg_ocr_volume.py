@@ -178,7 +178,7 @@ def plain_words(text, min_len=7):
 
 # volumes that the item "PatrologiaGraeca" holds only under a two-digit name ("Vol. 44", not "Vol. 044");
 # for PG 44 this is the same Google copy as the main scan, but its JP2 leaves are sharper than the PDF
-ALT_TWO_DIGIT = {41, 43, 44, 46, 47, 48, 49}
+ALT_TWO_DIGIT = {41, 43, 44, 46, 47, 48, 49, 50}
 
 
 def alt_prefix(args):
