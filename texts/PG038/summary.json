@@ -5,21 +5,21 @@
     "v5"
   ],
   "word_level": true,
-  "pages": 584,
+  "pages": 585,
   "pages_excluded": 71,
   "base_run_per_page": {
-    "v4": 371,
-    "v5": 213
+    "v4": 373,
+    "v5": 212
   },
   "pages_added_from_other_copy": [],
-  "words_taken_from_other_run": 12091,
+  "words_taken_from_other_run": 12123,
   "lines_added_from_other_run": 143,
   "pages_read_differently_by_the_runs": [
     355
   ],
   "duplicate_pages_skipped": [],
-  "lines": 29226,
+  "lines": 29309,
   "mean_line_conf": 0.9754,
-  "lines_below_0.80": 267,
-  "lines_below_0.90": 1062
+  "lines_below_0.80": 270,
+  "lines_below_0.90": 1065
 }

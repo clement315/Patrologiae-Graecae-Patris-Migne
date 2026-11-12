@@ -8,16 +8,16 @@
   "pages": 761,
   "pages_excluded": 175,
   "base_run_per_page": {
-    "v4": 417,
-    "v5": 344
+    "v4": 382,
+    "v5": 379
   },
   "pages_added_from_other_copy": [],
-  "words_taken_from_other_run": 9551,
-  "lines_added_from_other_run": 155,
+  "words_taken_from_other_run": 8517,
+  "lines_added_from_other_run": 156,
   "pages_read_differently_by_the_runs": [],
   "duplicate_pages_skipped": [],
-  "lines": 34793,
-  "mean_line_conf": 0.9853,
-  "lines_below_0.80": 140,
-  "lines_below_0.90": 397
+  "lines": 35014,
+  "mean_line_conf": 0.9848,
+  "lines_below_0.80": 155,
+  "lines_below_0.90": 440
 }

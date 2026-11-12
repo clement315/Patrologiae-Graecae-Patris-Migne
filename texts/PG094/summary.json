@@ -1,33 +1,33 @@
 {
-  "version": "2.3 (word-level combination; different pages and false copies detected)",
+  "version": "2.6 (word-level combination; pages of another copy added; excluded pages left out; keep_pages.txt: pages that are not copies)",
   "runs": [
     "v4",
     "v5"
   ],
   "word_level": true,
-  "pages": 661,
+  "pages": 664,
+  "pages_excluded": 0,
   "base_run_per_page": {
-    "v4": 184,
-    "v5": 477
+    "v4": 188,
+    "v5": 476
   },
-  "words_taken_from_other_run": 8605,
-  "lines_added_from_other_run": 126,
+  "pages_added_from_other_copy": [],
+  "words_taken_from_other_run": 8551,
+  "lines_added_from_other_run": 108,
   "pages_read_differently_by_the_runs": [
     713,
-    771,
     787,
     795,
     818,
     827,
-    831,
-    833
+    831
   ],
   "duplicate_pages_skipped": [
     "p484 = p482",
     "p813 = p811"
   ],
-  "lines": 24923,
+  "lines": 24875,
   "mean_line_conf": 0.9763,
-  "lines_below_0.80": 540,
+  "lines_below_0.80": 539,
   "lines_below_0.90": 967
 }

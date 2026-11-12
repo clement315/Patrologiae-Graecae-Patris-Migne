@@ -21,8 +21,8 @@
   "lines_added_from_other_run": 0,
   "pages_read_differently_by_the_runs": [],
   "duplicate_pages_skipped": [],
-  "lines": 20330,
-  "mean_line_conf": 0.9786,
-  "lines_below_0.80": 30,
-  "lines_below_0.90": 191
+  "lines": 20463,
+  "mean_line_conf": 0.9785,
+  "lines_below_0.80": 33,
+  "lines_below_0.90": 194
 }

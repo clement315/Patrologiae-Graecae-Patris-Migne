@@ -5,19 +5,19 @@
     "v5"
   ],
   "word_level": true,
-  "pages": 748,
+  "pages": 749,
   "pages_excluded": 89,
   "base_run_per_page": {
-    "v5": 243,
-    "v4": 505
+    "v5": 246,
+    "v4": 503
   },
   "pages_added_from_other_copy": [],
-  "words_taken_from_other_run": 12621,
-  "lines_added_from_other_run": 136,
+  "words_taken_from_other_run": 12730,
+  "lines_added_from_other_run": 146,
   "pages_read_differently_by_the_runs": [],
   "duplicate_pages_skipped": [],
-  "lines": 37699,
+  "lines": 38037,
   "mean_line_conf": 0.986,
-  "lines_below_0.80": 39,
-  "lines_below_0.90": 233
+  "lines_below_0.80": 41,
+  "lines_below_0.90": 236
 }

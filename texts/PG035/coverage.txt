@@ -1,4 +1,4 @@
-pg_works.py 1.17
+pg_works.py 1.23
 
 page order: 0 places where the scan order was corrected; 0 page(s) kept in PDF position (doubtful match: -)
 4 second copies of a page dropped: p361=p359, p362=p360, p369=p367, p370=p368

@@ -1,11 +1,11 @@
-pg_works.py 1.6
+pg_works.py 1.23
 
-page order: 12 places where the scan order was corrected; 0 page(s) kept in PDF position (doubtful match: -)
-14 second copies of a page dropped: p627=p613, p628=p614, p629=p615, p630=p616, p631=p617, p632=p618, p633=p619, p634=p620, p635=p621, p636=p622, p637=p623, p638=p624, p639=p625, p640=p626
+page order: 1 places where the scan order was corrected; 0 page(s) kept in PDF position (doubtful match: -)
+36 second copies of a page dropped: p199=p197, p200=p198, p221=p219, p222=p220, p239=p237, p240=p238, p257=p255, p258=p256, p347=p345, p348=p346, p367=p365, p368=p366, p499=p497, p500=p498, p511=p509, p512=p510, p537=p535, p538=p536, p549=p547, p550=p548, p569=p567, p570=p568, p627=p613, p628=p614, p629=p615, p630=p616, p631=p617, p632=p618, p633=p619, p634=p620, p635=p621, p636=p622, p637=p623, p638=p624, p639=p625, p640=p626
 
 Gaps in the Migne column sequence (running heads):
   none
-  (column count re-synchronised at: p294/p295 (-293), p396/p397 (-4), p500/p502 (-2), p527/p528 (-2), p540/p541 (-2), p554/p555 (-2), p570/p572 (-2); + = pages missing in the scan, or a page without running head; - = an extra page, e.g. a plate or table)
+  (column count re-synchronised at: p294/p295 (-285); + = pages missing in the scan, or a page without running head; - = an extra page, e.g. a plate or table)
 
 Greek leaves of the second scan whose words are found on no page (check):
   none

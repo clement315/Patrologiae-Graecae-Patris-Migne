@@ -2,7 +2,7 @@ slug	title	pdf_pages	migne_cols	units	lines
 de_sancta_trinitate	De sancta Trinitate	10-14	9-18	1	157
 de_hymno_trisagio	Epistola de hymno Trisagio (ad Jordanem archimandritam)	16-36	21-62	1	932
 de_sacris_jejuniis	De sacris jejuniis	37-44	63-78	1	321
-de_octo_spiritibus_nequitiae	De octo spiritibus nequitiae	45-48	79-86	1	140
+de_octo_spiritibus_nequitiae	De octo spiritibus nequitiae	45-48	79-86	1	141
 de_virtutibus_et_vitiis	De virtutibus et vitiis	48-54	85-98	1	317
 institutio_elementaris	Institutio elementaris ad dogmata	55-61	99-112	11	302
 contra_acephalos	De natura composita contra Acephalos	61-68	111-126	1	340
@@ -12,12 +12,12 @@ fragmenta	Fragmenta (e codice S. Hilarii)	124-130	225-238	4	302
 epistola_quid_est_homo	Epistola de hoc: Quid est homo?	133-134	243-246	1	58
 de_his_qui_in_fide_dormierunt	Oratio de his qui in fide dormierunt	135-152	249-280	1	736
 epistola_de_confessione	Epistola de confessione	155-164	283-302	1	493
-adversus_constantinum_cabalinum	De sacris imaginibus adversus Constantinum Cabalinum	168-185	309-342	1	838
+adversus_constantinum_cabalinum	De sacris imaginibus adversus Constantinum Cabalinum	168-185	309-342	1	843
 epistola_ad_theophilum	Epistola ad Theophilum imperatorem de sacris imaginibus	186-206	345-386	1	1066
 de_azymis	De azymis	207-211	387-396	1	250
-de_corpore_et_sanguine	De corpore et sanguine Christi (ad Zachariam)	214-219	401-412	1	223
+de_corpore_et_sanguine	De corpore et sanguine Christi (ad Zachariam)	214-219	401-412	1	225
 fragmenta_dogmatica	Fragmenta dogmatica	220-221	413-416	1	62
-in_romanos	Expositio in Epistolam ad Romanos	236-302	441-570	13	3317
+in_romanos	Expositio in Epistolam ad Romanos	236-302	441-570	13	3319
 in_1_corinthios	Expositio in Epistolam I ad Corinthios	302-372	569-706	18	3605
 in_2_corinthios	Expositio in Epistolam II ad Corinthios	372-407	705-776	11	1874
 in_galatas	Expositio in Epistolam ad Galatas	407-430	775-822	6	1247
@@ -25,6 +25,6 @@ in_ephesios	Expositio in Epistolam ad Ephesios	430-447	821-856	7	913
 in_philippenses	Expositio in Epistolam ad Philippenses	447-461	855-884	3	767
 in_colossenses	Expositio in Epistolam ad Colossenses	461-471	883-904	3	573
 in_thessalonicenses	Expositio in Epistolas I-II ad Thessalonicenses	472-484	905-930	8	703
-in_hebraeos	Expositio in Epistolam ad Hebraeos	484-513	929-998	12	1806
+in_hebraeos	Expositio in Epistolam ad Hebraeos	484-513	929-998	12	1807
 in_timotheum_titum_philemonem	Expositio in Epistolas I-II ad Timotheum, ad Titum, ad Philemonem	513-531	997-1034	11	927
-sacra_parallela	Sacra Parallela (pars prima, PG 95)	534-825	1039-1588	22	14579
+sacra_parallela	Sacra Parallela (pars prima, PG 95)	534-825	1039-1588	22	14584

@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.24"
+VERSION = "1.25"
 
 WORKS = {
     25: [
@@ -493,8 +493,8 @@ WORKS = {
         {"slug": "in_flacillam", "title": "Oratio funebris in Flacillam imperatricem", "col": 877, "pages": [446, 454], "kind": "sections", "cut": True},
         {"slug": "de_vita_gregorii_thaumaturgi", "title": "De vita S. Gregorii Thaumaturgi", "col": 893, "pages": [454, 487], "kind": "sections", "cut": True},
         {"slug": "vita_macrinae", "title": "Vita S. Macrinae", "col": 959, "pages": [487, 507], "kind": "sections", "cut": True},
-        {"slug": "epistolae", "title": "Epistolae", "col": 1000, "pages": [507, 571], "kind": "sections", "cut": True},
-        {"slug": "in_diem_natalem_christi", "title": "In diem natalem Christi", "col": 1127, "pages": [571, 583], "kind": "sections", "cut": True},
+        {"slug": "epistolae", "title": "Epistolae", "col": 1000, "pages": [507, 570], "kind": "sections", "cut": True},
+        {"slug": "in_diem_natalem_christi", "title": "In diem natalem Christi", "col": 1127, "pages": [571, 583], "kind": "sections"},
         {"slug": "in_occursum_domini", "title": "In occursum Domini (dubium)", "col": 1151, "pages": [583, 597], "kind": "sections", "cut": True},
     ],
     94: [

@@ -7,28 +7,30 @@ text with books, chapters and Migne column numbers.
 
 ## Texts
 
-Greek text of 17 volumes, split into 296 works with Migne column numbers, in
+Greek text of 19 volumes, split into 357 works with Migne column numbers, in
 [`texts/`](texts) (format described in [`texts/README.md`](texts/README.md)):
 
 | Volume | Contents | Works | PDF pages | Lines | Mean line confidence |
 |---|---|---|---|---|---|
-| [PG 25](texts/PG025) | Athanasius I | 15 | 457 | 21,531 | 0.9897 |
-| [PG 26](texts/PG026) | Athanasius II | 22 | 636 | 26,241 | 0.9885 |
-| [PG 27](texts/PG027) | Athanasius III | 5 | 668 | 32,750 | 0.9733 |
-| [PG 28](texts/PG028) | Athanasius IV (dubia et spuria) | 50 | 748 | 37,699 | 0.9860 |
-| [PG 29](texts/PG029) | Basil I | 3 | 455 | 20,285 | 0.9892 |
-| [PG 30](texts/PG030) | Basil II (dubia et spuria; Eunomius) | 6 | 426 | 20,330 | 0.9786 |
-| [PG 31](texts/PG031) | Basil III | 47 | 761 | 34,793 | 0.9853 |
-| [PG 32](texts/PG032) | Basil IV (De Spiritu sancto, Epistolae) | 3 | 657 | 28,858 | 0.9897 |
-| [PG 33](texts/PG033) | Cyril of Jerusalem; Peter II and Timothy of Alexandria; Apollinaris; Diodorus of Tarsus | 12 | 596 | 23,382 | 0.9826 |
-| [PG 35](texts/PG035) | Gregory of Nazianzus I (Vita; Orationes I-XXVI) | 27 | 451 | 17,842 | 0.9913 |
-| [PG 36](texts/PG036) | Gregory of Nazianzus II (Orationes XXVII-XLV; commentators) | 27 | 588 | 28,945 | 0.9714 |
-| [PG 37](texts/PG037) | Gregory of Nazianzus III (Epistolae, Testamentum, Carmina I-II) | 6 | 790 | 23,359 | 0.9788 |
-| [PG 38](texts/PG038) | Gregory of Nazianzus IV (Epitaphia, Epigrammata, Christus patiens); Cosmas, Nicetas David; Caesarius | 5 | 584 | 29,226 | 0.9754 |
-| [PG 44](texts/PG044) | Gregory of Nyssa I (Hexaemeron, De hominis opificio, De vita Moysis, exegetical homilies) | 12 | 642 | 35,194 | 0.9853 |
-| [PG 94](texts/PG094) | John of Damascus I | 11 | 661 | 24,923 | 0.9763 |
-| [PG 95](texts/PG095) | John of Damascus II | 29 | 785 | 39,858 | 0.9755 |
-| [PG 96](texts/PG096) | John of Damascus III | 16 | 743 | 36,910 | 0.9804 |
+| [PG 25](texts/PG025) | Athanasius I | 15 | 458 | 21,799 | 0.9897 |
+| [PG 26](texts/PG026) | Athanasius II | 22 | 637 | 26,518 | 0.9885 |
+| [PG 27](texts/PG027) | Athanasius III | 5 | 669 | 33,355 | 0.9734 |
+| [PG 28](texts/PG028) | Athanasius IV (dubia et spuria) | 50 | 749 | 38,037 | 0.9860 |
+| [PG 29](texts/PG029) | Basil I | 3 | 455 | 20,474 | 0.9892 |
+| [PG 30](texts/PG030) | Basil II (dubia et spuria; Eunomius) | 6 | 426 | 20,463 | 0.9785 |
+| [PG 31](texts/PG031) | Basil III | 47 | 761 | 35,014 | 0.9848 |
+| [PG 32](texts/PG032) | Basil IV (De Spiritu sancto, Epistolae) | 3 | 657 | 29,106 | 0.9896 |
+| [PG 33](texts/PG033) | Cyril of Jerusalem; Peter II and Timothy of Alexandria; Apollinaris; Diodorus of Tarsus | 12 | 600 | 23,526 | 0.9825 |
+| [PG 35](texts/PG035) | Gregory of Nazianzus I (Vita; Orationes I-XXVI) | 27 | 451 | 17,844 | 0.9913 |
+| [PG 36](texts/PG036) | Gregory of Nazianzus II (Orationes XXVII-XLV; commentators) | 27 | 588 | 29,029 | 0.9714 |
+| [PG 37](texts/PG037) | Gregory of Nazianzus III (Epistolae, Testamentum, Carmina I-II) | 6 | 790 | 23,434 | 0.9789 |
+| [PG 38](texts/PG038) | Gregory of Nazianzus IV (Epitaphia, Epigrammata, Christus patiens); Cosmas, Nicetas David; Caesarius | 5 | 585 | 29,309 | 0.9754 |
+| [PG 44](texts/PG044) | Gregory of Nyssa I (Hexaemeron, De hominis opificio, De vita Moysis, exegetical homilies) | 12 | 642 | 35,176 | 0.9854 |
+| [PG 45](texts/PG045) | Gregory of Nyssa II (Oratio catechetica, Contra Eunomium I-XIIb, anti-Apollinarian works) | 26 | 660 | 35,352 | 0.9878 |
+| [PG 46](texts/PG046) | Gregory of Nyssa III (De anima et resurrectione, De virginitate, homilies, Lives, Epistolae) | 35 | 576 | 28,534 | 0.9887 |
+| [PG 94](texts/PG094) | John of Damascus I | 11 | 664 | 24,875 | 0.9763 |
+| [PG 95](texts/PG095) | John of Damascus II | 29 | 785 | 39,875 | 0.9755 |
+| [PG 96](texts/PG096) | John of Damascus III | 16 | 743 | 37,148 | 0.9803 |
 
 The texts are **uncorrected OCR** (about 0.5–1 % character errors on clean pages; lines marked
 ⟦?⟧ in the works files are uncertain). They are meant as a searchable reading and translation
