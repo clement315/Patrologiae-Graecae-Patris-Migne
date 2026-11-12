@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.25"
+VERSION = "1.26"
 
 WORKS = {
     25: [
@@ -497,6 +497,26 @@ WORKS = {
         {"slug": "in_diem_natalem_christi", "title": "In diem natalem Christi", "col": 1127, "pages": [571, 583], "kind": "sections"},
         {"slug": "in_occursum_domini", "title": "In occursum Domini (dubium)", "col": 1151, "pages": [583, 597], "kind": "sections", "cut": True},
     ],
+    47: [
+        # S. Joannes Chrysostomus I: prolegomena, Palladius' Dialogus, ascetic treatises.  Main scan: IA
+        # patrologiae_cursus_completus_gr_vol_047.  Greek and Latin on separate pages under the same column
+        # numbers; the Latin pages are excluded and dropped, so the Migne column is 2e + c over the Greek
+        # pages (e = index among them), re-anchored after each Latin Monitum (pp. 277-279, 384-386).
+        {"slug": "testimonia_de_vita", "title": "Prolegomena: Greek testimonies on Chrysostom's life (Martyrius of Antioch, Georgius etc.; Roman column numbers XLIII ff.)", "col": 43, "pages": [33, 55], "kind": "sections"},
+        {"slug": "palladii_dialogus", "title": "Palladius, Dialogus de vita S. Joannis Chrysostomi", "col": 5, "pages": [61, 137], "kind": "sections"},
+        {"slug": "ad_theodorum_lapsum_i", "title": "Ad Theodorum lapsum I", "col": 277, "pages": [237, 269], "kind": "sections"},
+        {"slug": "ad_theodorum_lapsum_ii", "title": "Ad Theodorum lapsum II", "col": 309, "pages": [269, 276], "kind": "sections", "cut": True},
+        {"slug": "adversus_oppugnatores_i", "title": "Adversus oppugnatores vitae monasticae I", "col": 319, "pages": [280, 292], "kind": "sections"},
+        {"slug": "adversus_oppugnatores_ii", "title": "Adversus oppugnatores vitae monasticae II: ad patrem infidelem", "col": 331, "pages": [292, 309], "kind": "sections", "cut": True},
+        {"slug": "adversus_oppugnatores_iii", "title": "Adversus oppugnatores vitae monasticae III: ad patrem fidelem", "col": 349, "pages": [309, 352], "kind": "sections", "cut": True},
+        {"slug": "de_compunctione_i", "title": "De compunctione I, ad Demetrium", "col": 393, "pages": [355, 374], "kind": "sections"},
+        {"slug": "de_compunctione_ii", "title": "De compunctione II, ad Stelechium", "col": 411, "pages": [374, 383], "kind": "sections", "cut": True},
+        {"slug": "ad_stagirium_i", "title": "Ad Stagirium a daemone vexatum I", "col": 425, "pages": [387, 410], "kind": "sections"},
+        {"slug": "ad_stagirium_ii", "title": "Ad Stagirium a daemone vexatum II", "col": 447, "pages": [410, 434], "kind": "sections", "cut": True},
+        {"slug": "ad_stagirium_iii", "title": "Ad Stagirium a daemone vexatum III", "col": 471, "pages": [434, 458], "kind": "sections", "cut": True},
+        {"slug": "contra_eos_qui_subintroductas_habent", "title": "Contra eos qui subintroductas habent virgines", "col": 495, "pages": [458, 475], "kind": "sections", "cut": True},
+        {"slug": "quod_regulares_feminae", "title": "Quod regulares feminae viris cohabitare non debeant", "col": 513, "pages": [475, 494], "kind": "sections", "cut": True},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -699,6 +719,10 @@ SCAN_FIXES = {
     45: {"in_order": True, "drop": [], "cols": {12: 9}},
     # PG 46: main scan in order, no repeated pages; left column = 2p - 15 throughout
     46: {"in_order": True, "drop": [], "cols": {13: 11}},
+    # PG 47: Greek pages only (the Latin pages are excluded and dropped); anchors from the page heads
+    47: {"in_order": True, "drop": [34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 57, 58, 59, 60, 62, 63, 66, 67, 70, 71, 74, 75, 78, 79, 82, 83, 86, 87, 90, 91, 94, 95, 98, 99, 102, 103, 106, 107, 110, 111, 114, 115, 118, 119, 122, 123, 126, 127, 130, 131, 134, 135, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 238, 239, 242, 243, 246, 247, 250, 251, 254, 255, 258, 259, 262, 263, 266, 267, 270, 271, 274, 275, 277, 278, 279, 282, 283, 286, 287, 290, 291, 294, 295, 298, 299, 302, 303, 306, 307, 310, 311, 314, 315, 318, 319, 322, 323, 326, 327, 330, 331, 334, 335, 338, 339, 342, 343, 346, 347, 350, 351, 353, 354, 356, 357, 360, 361, 364, 365, 368, 369, 372, 373, 376, 377, 380, 381, 384, 385, 386, 388, 389, 392, 393, 396, 397, 400, 401, 404, 405, 408, 409, 412, 413, 416, 417, 420, 421, 424, 425, 428, 429, 432, 433, 436, 437, 440, 441, 444, 445, 448, 449, 452, 453, 456, 457, 460, 461, 464, 465, 468, 469, 472, 473, 476, 477, 480, 481, 484, 485, 488, 489, 492, 493, 495, 496, 497, 498, 499, 500],
+         "cols": {33: 43, 61: 5, 237: 277, 280: 319, 309: 349, 355: 393, 374: 411, 383: 421, 387: 425,
+                  410: 447, 458: 495, 475: 513}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
