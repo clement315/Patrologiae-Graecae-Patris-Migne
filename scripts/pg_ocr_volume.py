@@ -34,7 +34,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-VERSION = "3.8 (small type: in PG 47-64 texts set in small type (spuria, appendices) that the layout model takes for footnotes are read (blocks high on the page or taller than 40%); --redo-small; full-width blocks known to the text stage (3.5/3.6 lost the mark); --redo-wide only for pages laid out before 3.5; Greek set across the full page width is read (wide blocks, not Latin crossing text); --redo-wide; second scan under a two-digit name for PG 41, 43, 44, 46-49; kraken runs stopped when they hang; pdf2: second scan from a local PDF; map: pages of another copy; second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
+VERSION = "3.8.1 (small type: in PG 47-64 texts set in small type (spuria, appendices) that the layout model takes for footnotes are read (blocks high on the page or taller than 40%, at least 15% high); --redo-small; full-width blocks known to the text stage (3.5/3.6 lost the mark); --redo-wide only for pages laid out before 3.5; Greek set across the full page width is read (wide blocks, not Latin crossing text); --redo-wide; second scan under a two-digit name for PG 41, 43, 44, 46-49; kraken runs stopped when they hang; pdf2: second scan from a local PDF; map: pages of another copy; second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
 GREEK_CLASS = "MainText_ColGreek"
 LATIN_CLASS = "MainText_ColLatin"
 NOTE_CLASSES = ("MainText_ColLatin", "Marginalia_Footnote")
@@ -43,6 +43,7 @@ FOOTNOTE_CLASS = "Marginalia_Footnote"
 # model labels those columns "footnote"; a footnote box high on the page or taller than 40% of it
 # is read as text there
 SMALL_TYPE_VOLS = set(range(47, 65))
+SMALL_MIN_H = 0.15          # (3.8.1) a small-type text block is at least this share of the page high
 
 
 def small_type_boxes(dets, width, height, greek, max_width_frac):
@@ -57,6 +58,8 @@ def small_type_boxes(dets, width, height, greek, max_width_frac):
             continue
         if not (y0 < 0.45 * height or y1 - y0 > 0.40 * height):
             continue
+        if y1 - y0 < SMALL_MIN_H * height:
+            continue                    # a short band: real notes, variant readings, chapter lists
         if any(cover(d["box"], g["box"]) > 0.5 for g in greek):
             continue
         out.append(d)
@@ -852,7 +855,10 @@ def stage_text(args, pages, work, outdir):
                   if d["cls"] == LATIN_CLASS and d["box"][2] - d["box"][0] > 0.6 * width]
         # Latin columns and footnote blocks: a Greek box sometimes reaches into them
         notes = [d["box"] for d in rec.get("detections", []) if d["cls"] in NOTE_CLASSES and not d.get("as_text")]
+        H = rec["size"][1]
         for g in drop_nested(rec["greek"]):       # older layouts may still contain nested boxes
+            if g.get("small") and g["box"][3] - g["box"][1] < SMALL_MIN_H * H:
+                continue                          # laid out by 3.8.0: a band of notes, not text
             col_idx = int(g["crop"].rsplit("_c", 1)[1])
             if g.get("stroke", 0) >= args.heavy_stroke:
                 heavy.append(f"{g['crop']} (stroke {g['stroke']:.0f})")
