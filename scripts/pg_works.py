@@ -37,7 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.31"
+VERSION = "1.32"
 
 WORKS = {
     25: [
@@ -689,6 +689,36 @@ WORKS = {
         {"slug": "non_esse_desperandum", "title": "Non esse desperandum", "col": 365, "pages": [369, 376], "kind": "sections"},
         {"slug": "in_illud_in_faciem_ei_restiti", "title": "In illud: In faciem ei restiti", "col": 371, "pages": [376, 392], "kind": "sections", "cut": True},
     ],
+    52: [
+        # S. Joannes Chrysostomus III/4: homilies on Eutropius and the exile, Quod nemo laeditur, Ad eos qui
+        # scandalizati sunt, letters (Innocent, Olympias, others), spuria.  Main scan IA
+        # patrologiae_cursus_completus_gr_vol_052; Latin pages excluded and dropped.  Column = 2e + c over the
+        # Greek pages, re-anchored after irregular Latin groups (monita): see SCAN_FIXES.
+        {"slug": "in_eutropium", "title": "Homilia in Eutropium eunuchum", "col": 391, "pages": [17, 21], "kind": "sections"},
+        {"slug": "de_capto_eutropio", "title": "De capto Eutropio et de divitiarum vanitate", "col": 395, "pages": [21, 38], "kind": "sections", "cut": True},
+        {"slug": "cum_saturninus_et_aurelianus", "title": "Homilia cum Saturninus et Aurelianus acti essent in exsilium", "col": 413, "pages": [38, 51], "kind": "sections", "cut": True},
+        {"slug": "sermo_antequam_iret_in_exsilium", "title": "Sermo antequam iret in exsilium", "col": 427, "pages": [51, 59], "kind": "sections", "cut": True},
+        {"slug": "sermo_cum_iret_in_exsilium", "title": "Sermo cum iret in exsilium", "col": 435, "pages": [59, 65], "kind": "sections", "cut": True},
+        {"slug": "post_reditum_a_priore_exsilio", "title": "Post reditum a priore exsilio (I-II)", "col": 439, "pages": [65, 69], "kind": "sections", "cut": True},
+        {"slug": "de_muliere_chananaea", "title": "Homilia de muliere Chananaea", "col": 449, "pages": [70, 81], "kind": "sections"},
+        {"slug": "quod_nemo_laeditur", "title": "Quod nemo laeditur nisi a seipso", "col": 459, "pages": [81, 101], "kind": "sections", "cut": True},
+        {"slug": "ad_eos_qui_scandalizati_sunt", "title": "Ad eos qui scandalizati sunt ob adversitates", "col": 479, "pages": [101, 150], "kind": "sections", "cut": True},
+        {"slug": "epistolae_ad_innocentium", "title": "Epistolae ad Innocentium papam, with Innocent's letters", "col": 529, "pages": [150, 162], "kind": "sections", "cut": True},
+        {"slug": "epistolae", "title": "Epistolae: ad Olympiadem XVII, ad diversos CCXLII (with the letter of Constantius presbyter)", "col": 549, "pages": [168, 364], "kind": "sections"},
+        {"slug": "ad_caesarium_monachum", "title": "Epistola ad Caesarium monachum (Greek fragments)", "col": 757, "pages": [374, 378], "kind": "sections"},
+        {"slug": "laus_diodori_episcopi", "title": "Laus Diodori episcopi", "col": 761, "pages": [378, 382], "kind": "sections", "cut": True},
+        {"slug": "in_sanctum_pascha", "title": "Spuria: In sanctum Pascha", "col": 765, "pages": [382, 390], "kind": "sections", "cut": True},
+        {"slug": "spuria_in_ascensionem_i", "title": "Spuria: In ascensionem D. N. Jesu Christi", "col": 773, "pages": [390, 409], "kind": "sections", "cut": True},
+        {"slug": "spuria_in_ascensionem_ii", "title": "Spuria: In ascensionem, homilia I", "col": 791, "pages": [409, 410], "kind": "sections", "cut": True},
+        {"slug": "spuria_in_ascensionem_iii", "title": "Spuria: In ascensionem", "col": 793, "pages": [410, 417], "kind": "sections", "cut": True},
+        {"slug": "spuria_in_ascensionem_iv", "title": "Spuria: In ascensionem, sermo", "col": 799, "pages": [417, 421], "kind": "sections", "cut": True},
+        {"slug": "spuria_in_pentecosten_i", "title": "Spuria: In Pentecosten, sermo I", "col": 803, "pages": [421, 425], "kind": "sections", "cut": True},
+        {"slug": "spuria_in_pentecosten_ii", "title": "Spuria: In sanctam Pentecosten, sermo II", "col": 807, "pages": [425, 430], "kind": "sections", "cut": True},
+        {"slug": "spuria_de_spiritu_sancto", "title": "Spuria: Homilia de Spiritu sancto", "col": 813, "pages": [430, 445], "kind": "sections", "cut": True},
+        {"slug": "spuria_in_memoriam_martyrum", "title": "Spuria: In memoriam martyrum", "col": 827, "pages": [445, 453], "kind": "sections", "cut": True},
+        {"slug": "spuria_in_adorationem_crucis", "title": "Spuria: In adorationem venerandae crucis", "col": 835, "pages": [453, 457], "kind": "sections", "cut": True},
+        {"slug": "spuria_de_cruce_non_erubescendo", "title": "Spuria: Non erubescendum esse de cruce", "col": 841, "pages": [458, 461], "kind": "sections"},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -912,6 +942,10 @@ SCAN_FIXES = {
     51: {"in_order": True, "min_gap": 150,
          "drop": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 20, 21, 24, 25, 28, 29, 32, 33, 36, 37, 40, 41, 44, 45, 48, 49, 52, 53, 56, 57, 60, 61, 64, 65, 67, 70, 71, 74, 75, 78, 79, 82, 83, 86, 87, 90, 91, 94, 95, 98, 99, 102, 103, 106, 107, 110, 111, 114, 115, 118, 119, 122, 123, 126, 127, 130, 131, 134, 135, 138, 139, 142, 143, 146, 147, 150, 151, 154, 155, 158, 159, 162, 163, 166, 167, 170, 171, 174, 175, 178, 179, 182, 183, 186, 187, 190, 191, 194, 195, 198, 199, 202, 203, 206, 207, 210, 211, 214, 215, 218, 219, 222, 223, 226, 227, 230, 231, 233, 234, 236, 237, 240, 241, 244, 245, 248, 249, 252, 253, 256, 257, 260, 261, 263, 264, 266, 267, 270, 271, 274, 275, 278, 279, 282, 283, 286, 287, 290, 291, 294, 295, 298, 299, 302, 303, 306, 307, 310, 311, 314, 315, 318, 319, 322, 323, 326, 327, 330, 331, 334, 335, 338, 339, 342, 343, 346, 347, 350, 351, 354, 355, 358, 359, 362, 363, 366, 367, 370, 371, 374, 375, 378, 379, 382, 383, 386, 387, 390, 391, 393, 394, 395, 396, 397, 398, 399],
          "cols": {16: 17}},
+    # PG 52: Greek pages only (Latin pages excluded and dropped); anchors from the page heads and known starts
+    52: {"in_order": True, "min_gap": 150,
+         "drop": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 19, 20, 23, 24, 27, 28, 31, 32, 35, 36, 39, 40, 43, 44, 46, 47, 48, 49, 50, 53, 54, 56, 57, 58, 61, 62, 63, 64, 67, 68, 71, 72, 75, 76, 79, 80, 83, 84, 87, 88, 91, 92, 95, 96, 99, 100, 103, 104, 107, 108, 111, 112, 115, 116, 119, 120, 123, 124, 127, 128, 131, 132, 135, 136, 139, 140, 143, 144, 147, 148, 151, 152, 155, 156, 159, 160, 161, 163, 164, 165, 166, 167, 169, 170, 173, 174, 177, 178, 181, 182, 185, 186, 189, 190, 193, 194, 197, 198, 201, 202, 205, 206, 209, 210, 213, 214, 217, 218, 221, 222, 225, 226, 229, 230, 233, 234, 237, 238, 241, 242, 245, 246, 249, 250, 253, 254, 257, 258, 261, 262, 265, 266, 269, 270, 273, 274, 277, 278, 281, 282, 285, 286, 289, 290, 293, 294, 297, 298, 299, 301, 302, 305, 306, 309, 310, 313, 314, 317, 318, 321, 322, 325, 326, 329, 330, 333, 334, 337, 338, 341, 342, 345, 346, 349, 350, 353, 354, 357, 358, 361, 362, 365, 366, 367, 368, 369, 370, 371, 372, 373, 375, 376, 379, 380, 383, 384, 387, 388, 391, 392, 395, 396, 399, 400, 403, 404, 407, 408, 411, 412, 415, 416, 419, 420, 423, 424, 427, 428, 431, 432, 435, 436, 439, 440, 443, 444, 447, 448, 451, 452, 455, 456, 459, 460, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482],
+         "cols": {17: 391, 51: 427, 59: 435, 70: 449, 101: 479, 150: 529, 168: 549, 374: 757}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
