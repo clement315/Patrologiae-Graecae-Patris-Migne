@@ -37,7 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.29"
+VERSION = "1.30"
 
 WORKS = {
     25: [
@@ -649,6 +649,46 @@ WORKS = {
         {"slug": "spuria_in_venerabilem_crucem", "title": "Spuria: In venerabilem crucem", "col": 815, "pages": [414, 418], "kind": "sections"},
         {"slug": "spuria_in_triduanam_resurrectionem", "title": "Spuria: In triduanam resurrectionem Domini", "col": 821, "pages": [418, 421], "kind": "sections", "cut": True},
     ],
+    51: [
+        # S. Joannes Chrysostomus III/3: homilies on passages of Scripture (De mutatione nominum, In principium
+        # Actorum, Habentes eundem spiritum...).  Main scan IA patrologiae_cursus_completus_gr_vol_051; Greek and
+        # Latin pages alternate (Latin excluded and dropped); p233 (a damaged copy of p235: its left column is
+        # misplaced) and p264 (a second copy of p262) are dropped.  Column = 2e + 17 over the Greek pages.
+        {"slug": "de_decem_millium_talentorum_debitore", "title": "De decem millium talentorum debitore", "col": 17, "pages": [16, 31], "kind": "sections"},
+        {"slug": "in_illud_pater_si_possibile_est", "title": "In illud: Pater, si possibile est, transeat", "col": 33, "pages": [34, 42], "kind": "sections"},
+        {"slug": "de_angusta_porta_et_oratione_dominica", "title": "In illud: Angusta est porta; et de oratione dominica", "col": 43, "pages": [43, 50], "kind": "sections"},
+        {"slug": "in_paralyticum_demissum_per_tectum", "title": "In paralyticum demissum per tectum", "col": 49, "pages": [50, 66], "kind": "sections", "cut": True},
+        {"slug": "in_principium_actorum_i", "title": "In inscriptionem altaris et in principium Actorum I", "col": 67, "pages": [68, 76], "kind": "sections"},
+        {"slug": "in_principium_actorum_ii", "title": "In principium Actorum II", "col": 77, "pages": [77, 88], "kind": "sections"},
+        {"slug": "in_principium_actorum_iii", "title": "In principium Actorum III: De utilitate lectionis Scripturarum", "col": 87, "pages": [88, 97], "kind": "sections", "cut": True},
+        {"slug": "in_principium_actorum_iv", "title": "In principium Actorum IV: Cur in Pentecoste Acta legantur", "col": 97, "pages": [97, 113], "kind": "sections", "cut": True},
+        {"slug": "de_mutatione_nominum_i", "title": "De mutatione nominum I", "col": 113, "pages": [113, 124], "kind": "sections", "cut": True},
+        {"slug": "de_mutatione_nominum_ii", "title": "De mutatione nominum II", "col": 123, "pages": [124, 132], "kind": "sections", "cut": True},
+        {"slug": "de_mutatione_nominum_iii", "title": "De mutatione nominum III", "col": 131, "pages": [132, 144], "kind": "sections", "cut": True},
+        {"slug": "de_mutatione_nominum_iv", "title": "De mutatione nominum IV", "col": 143, "pages": [144, 153], "kind": "sections", "cut": True},
+        {"slug": "de_gloria_in_tribulationibus", "title": "De gloria in tribulationibus", "col": 155, "pages": [156, 165], "kind": "sections"},
+        {"slug": "in_illud_scimus_quoniam_diligentibus_deum", "title": "In illud: Scimus quoniam diligentibus Deum omnia cooperantur in bonum", "col": 165, "pages": [165, 172], "kind": "sections", "cut": True},
+        {"slug": "in_illud_si_esurierit_inimicus", "title": "In illud: Si esurierit inimicus tuus", "col": 171, "pages": [172, 188], "kind": "sections", "cut": True},
+        {"slug": "in_illud_salutate_priscillam_i", "title": "In illud: Salutate Priscillam et Aquilam I", "col": 187, "pages": [188, 196], "kind": "sections", "cut": True},
+        {"slug": "in_illud_salutate_priscillam_ii", "title": "In illud: Salutate Priscillam et Aquilam II", "col": 195, "pages": [196, 208], "kind": "sections", "cut": True},
+        {"slug": "in_illud_propter_fornicationes", "title": "In illud: Propter fornicationes uxorem quisque suam habeat", "col": 207, "pages": [208, 217], "kind": "sections", "cut": True},
+        {"slug": "de_libello_repudii", "title": "De libello repudii", "col": 217, "pages": [217, 224], "kind": "sections", "cut": True},
+        {"slug": "quales_ducendae_sint_uxores", "title": "Quales ducendae sint uxores", "col": 225, "pages": [225, 243], "kind": "sections"},
+        {"slug": "in_illud_nolo_vos_ignorare", "title": "In illud: Nolo vos ignorare, fratres", "col": 241, "pages": [243, 254], "kind": "sections", "cut": True},
+        {"slug": "in_dictum_pauli_oportet_haereses_esse", "title": "In dictum Pauli: Oportet haereses esse", "col": 253, "pages": [255, 262], "kind": "sections"},
+        {"slug": "de_eleemosyna", "title": "De eleemosyna", "col": 261, "pages": [265, 276], "kind": "sections"},
+        {"slug": "in_illud_habentes_eundem_spiritum_i", "title": "In illud: Habentes eundem spiritum I", "col": 271, "pages": [276, 285], "kind": "sections", "cut": True},
+        {"slug": "in_illud_habentes_eundem_spiritum_ii", "title": "In illud: Habentes eundem spiritum II", "col": 281, "pages": [285, 293], "kind": "sections", "cut": True},
+        {"slug": "in_illud_habentes_eundem_spiritum_iii", "title": "In illud: Habentes eundem spiritum III", "col": 289, "pages": [293, 305], "kind": "sections", "cut": True},
+        {"slug": "in_illud_utinam_sustineretis_modicum", "title": "In illud: Utinam sustineretis modicum", "col": 301, "pages": [305, 316], "kind": "sections", "cut": True},
+        {"slug": "de_profectu_evangelii", "title": "De profectu Evangelii (In illud: Sive per occasionem sive per veritatem)", "col": 311, "pages": [316, 325], "kind": "sections", "cut": True},
+        {"slug": "in_illud_vidua_eligatur", "title": "In illud: Vidua eligatur", "col": 321, "pages": [325, 341], "kind": "sections", "cut": True},
+        {"slug": "in_eliam_et_viduam", "title": "In Eliam et viduam", "col": 337, "pages": [341, 352], "kind": "sections", "cut": True},
+        {"slug": "de_futurae_vitae_deliciis", "title": "De futurae vitae deliciis", "col": 347, "pages": [352, 357], "kind": "sections", "cut": True},
+        {"slug": "de_non_publicandis_fratrum_peccatis", "title": "De non publicandis fratrum peccatis", "col": 353, "pages": [357, 368], "kind": "sections", "cut": True},
+        {"slug": "non_esse_desperandum", "title": "Non esse desperandum", "col": 365, "pages": [369, 376], "kind": "sections"},
+        {"slug": "in_illud_in_faciem_ei_restiti", "title": "In illud: In faciem ei restiti", "col": 371, "pages": [376, 392], "kind": "sections", "cut": True},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -868,6 +908,10 @@ SCAN_FIXES = {
     50: {"in_order": True, "min_gap": 150,
          "drop": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 19, 20, 23, 24, 27, 28, 31, 32, 35, 36, 39, 40, 43, 44, 47, 48, 51, 52, 55, 56, 59, 60, 63, 64, 67, 69, 71, 72, 75, 76, 79, 80, 83, 84, 87, 88, 91, 92, 95, 96, 99, 100, 103, 104, 107, 108, 111, 112, 115, 116, 119, 120, 123, 124, 125, 127, 128, 131, 132, 135, 136, 139, 140, 143, 144, 147, 148, 151, 152, 155, 156, 159, 160, 163, 164, 167, 168, 171, 172, 175, 176, 179, 180, 182, 183, 184, 187, 188, 191, 192, 195, 196, 199, 200, 203, 204, 207, 208, 211, 212, 215, 216, 219, 220, 223, 224, 227, 228, 231, 232, 235, 236, 239, 240, 243, 244, 247, 248, 251, 252, 255, 256, 259, 260, 263, 264, 267, 268, 271, 272, 275, 276, 279, 280, 283, 284, 287, 288, 291, 292, 295, 296, 299, 300, 303, 304, 307, 308, 311, 312, 315, 316, 319, 320, 323, 324, 327, 328, 331, 332, 335, 336, 339, 340, 343, 344, 347, 348, 351, 352, 355, 356, 359, 360, 363, 364, 367, 368, 371, 372, 375, 376, 379, 380, 383, 384, 387, 388, 391, 392, 395, 396, 399, 400, 403, 404, 407, 408, 411, 412, 415, 416, 419, 420, 422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437, 438, 439, 440, 441, 442],
          "cols": {14: 417, 126: 529, 185: 587}},
+    # PG 51: Greek pages only (Latin pages, p233 and p264 excluded and dropped); one anchor: col = 2e + 17
+    51: {"in_order": True, "min_gap": 150,
+         "drop": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 20, 21, 24, 25, 28, 29, 32, 33, 36, 37, 40, 41, 44, 45, 48, 49, 52, 53, 56, 57, 60, 61, 64, 65, 67, 70, 71, 74, 75, 78, 79, 82, 83, 86, 87, 90, 91, 94, 95, 98, 99, 102, 103, 106, 107, 110, 111, 114, 115, 118, 119, 122, 123, 126, 127, 130, 131, 134, 135, 138, 139, 142, 143, 146, 147, 150, 151, 154, 155, 158, 159, 162, 163, 166, 167, 170, 171, 174, 175, 178, 179, 182, 183, 186, 187, 190, 191, 194, 195, 198, 199, 202, 203, 206, 207, 210, 211, 214, 215, 218, 219, 222, 223, 226, 227, 230, 231, 233, 234, 236, 237, 240, 241, 244, 245, 248, 249, 252, 253, 256, 257, 260, 261, 263, 264, 266, 267, 270, 271, 274, 275, 278, 279, 282, 283, 286, 287, 290, 291, 294, 295, 298, 299, 302, 303, 306, 307, 310, 311, 314, 315, 318, 319, 322, 323, 326, 327, 330, 331, 334, 335, 338, 339, 342, 343, 346, 347, 350, 351, 354, 355, 358, 359, 362, 363, 366, 367, 370, 371, 374, 375, 378, 379, 382, 383, 386, 387, 390, 391, 393, 394, 395, 396, 397, 398, 399],
+         "cols": {16: 17}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
