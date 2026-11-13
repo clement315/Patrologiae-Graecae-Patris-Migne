@@ -7,7 +7,7 @@ text with books, chapters and Migne column numbers.
 
 ## Texts
 
-Greek text of 23 volumes, split into 487 works with Migne column numbers, in
+Greek text of 24 volumes, split into 521 works with Migne column numbers, in
 [`texts/`](texts) (format described in [`texts/README.md`](texts/README.md)):
 
 | Volume | Contents | Works | PDF pages | Lines | Mean line confidence |
@@ -32,6 +32,7 @@ Greek text of 23 volumes, split into 487 works with Migne column numbers, in
 | [PG 48](texts/PG048) | John Chrysostom II (De virginitate, De sacerdotio, Contra Anomoeos, Adversus Judaeos, De Lazaro; spuria) | 49 | 278 | 31,898 | 0.9782 |
 | [PG 49](texts/PG049) | John Chrysostom III/1 (Ad populum Antiochenum, Catecheses, De diabolo tentatore, De poenitentia, festal homilies) | 12 | 198 | 22,256 | 0.9766 |
 | [PG 50](texts/PG050) | John Chrysostom III/2 (festal and panegyric homilies: S. Paul, Babylas, martyrs; spuria) | 55 | 202 | 21,549 | 0.9737 |
+| [PG 51](texts/PG051) | John Chrysostom III/3 (homilies on Scripture passages: De mutatione nominum, In principium Actorum, Habentes eundem spiritum, De eleemosyna) | 34 | 185 | 20,783 | 0.9780 |
 | [PG 94](texts/PG094) | John of Damascus I | 11 | 664 | 24,875 | 0.9763 |
 | [PG 95](texts/PG095) | John of Damascus II | 29 | 785 | 39,875 | 0.9755 |
 | [PG 96](texts/PG096) | John of Damascus III | 16 | 743 | 37,148 | 0.9803 |

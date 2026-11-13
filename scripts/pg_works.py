@@ -37,7 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.30"
+VERSION = "1.31"
 
 WORKS = {
     25: [
@@ -665,8 +665,8 @@ WORKS = {
         {"slug": "de_mutatione_nominum_i", "title": "De mutatione nominum I", "col": 113, "pages": [113, 124], "kind": "sections", "cut": True},
         {"slug": "de_mutatione_nominum_ii", "title": "De mutatione nominum II", "col": 123, "pages": [124, 132], "kind": "sections", "cut": True},
         {"slug": "de_mutatione_nominum_iii", "title": "De mutatione nominum III", "col": 131, "pages": [132, 144], "kind": "sections", "cut": True},
-        {"slug": "de_mutatione_nominum_iv", "title": "De mutatione nominum IV", "col": 143, "pages": [144, 153], "kind": "sections", "cut": True},
-        {"slug": "de_gloria_in_tribulationibus", "title": "De gloria in tribulationibus", "col": 155, "pages": [156, 165], "kind": "sections"},
+        {"slug": "de_mutatione_nominum_iv", "title": "De mutatione nominum IV", "col": 143, "pages": [144, 156], "kind": "sections", "cut": True},
+        {"slug": "de_gloria_in_tribulationibus", "title": "De gloria in tribulationibus", "col": 155, "pages": [156, 165], "kind": "sections", "cut": True},
         {"slug": "in_illud_scimus_quoniam_diligentibus_deum", "title": "In illud: Scimus quoniam diligentibus Deum omnia cooperantur in bonum", "col": 165, "pages": [165, 172], "kind": "sections", "cut": True},
         {"slug": "in_illud_si_esurierit_inimicus", "title": "In illud: Si esurierit inimicus tuus", "col": 171, "pages": [172, 188], "kind": "sections", "cut": True},
         {"slug": "in_illud_salutate_priscillam_i", "title": "In illud: Salutate Priscillam et Aquilam I", "col": 187, "pages": [188, 196], "kind": "sections", "cut": True},
@@ -1087,6 +1087,33 @@ def text_cut(items):
         if (upper and TITLE_WORD.search(t)) or ALPHA_START.match(t):
             cands.append(it["y"])
     return min(cands) if cands else None
+
+
+TITLE_START = re.compile(r"^\W*(Εἰ?ς\s|Είς\s|ΕΙΣ\s|Περὶ\s|ΠΕΡΙ\s|Λόγος|ΛΟΓΟΣ|Ὁμιλία|ΟΜΙΛΙΑ|Πρὸς\s|ΠΡΟΣ\s|Κατὰ\s|ΚΑΤΑ\s)")
+
+
+def text_cut_index(items):
+    """(1.31) Where a new work starts inside a column, from the recognised lines: the position in
+    reading order (left column, then right) of the opening "αʹ." line, moved back over up to four
+    title lines before it (Εἰς τὸ ..., Περὶ ..., Λόγος ..., upper case) and the "Ἀμήν." that
+    ends the previous work.  Returns an index into items, or None."""
+    for k, it in enumerate(items):
+        if it["kind"] == "line" and ALPHA_START.match(it["text"]) and k > 0:
+            j = k
+            for i in range(k - 1, max(-1, k - 5), -1):
+                t = items[i].get("text", "") if items[i]["kind"] == "line" else "T"
+                if items[i]["kind"] == "block" or TITLE_START.match(t):
+                    j = i
+                elif "Ἀμήν" in t or "Ἀμὴν" in t:
+                    break
+            prev = " ".join(x.get("text", "") for x in items[max(0, j - 3):j])
+            if j < k or "Ἀμήν" in prev:
+                return j
+    # no "αʹ." recognised: the line after the "Ἀμήν." that closes the previous work
+    for k, it in enumerate(items[:-1]):
+        if it["kind"] == "line" and re.search(r"Ἀμήν\.?\s*$", it["text"]):
+            return k + 1
+    return None
 
 
 # ----------------------------------------------------------------- 1: order and duplicates
@@ -1656,6 +1683,9 @@ def main():
             elif (lo := text_cut(items_of[first])) is not None:
                 items_w[first] = [it for it in items_of[first] if it["y"] >= lo]
                 wrep.append(f"p{first}: work starts at the block opening with its title / αʹ (y {lo})")
+            elif (k := text_cut_index(items_of[first])) is not None:
+                items_w[first] = items_of[first][k:]
+                wrep.append(f"p{first}: work starts at the title / αʹ line inside a column (line {k})")
             elif len(layouts.get(base.get(first), {}).get(first, {}).get("greek", [])) > 1:
                 wrep.append(f"p{first}: no break before the work's title found - whole page kept")
         i = next((j for j, x in enumerate(all_works) if x["slug"] == w["slug"]), None)
@@ -1666,6 +1696,8 @@ def main():
                 items_w[last] = [it for it in items_of[last] if it["y"] < g[0]]
             elif (lo := text_cut(items_of[last])) is not None:
                 items_w[last] = [it for it in items_of[last] if it["y"] < lo]
+            elif (k := text_cut_index(items_of[last])) is not None:
+                items_w[last] = items_of[last][:k]
             else:
                 wrep.append(f"p{last}: shared with the next work, no break found - whole page kept in both")
         items_of_all, items_of = items_of, items_w
