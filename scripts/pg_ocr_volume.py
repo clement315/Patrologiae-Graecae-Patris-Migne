@@ -34,10 +34,33 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-VERSION = "3.7 (full-width blocks known to the text stage (3.5/3.6 lost the mark); --redo-wide only for pages laid out before 3.5; Greek set across the full page width is read (wide blocks, not Latin crossing text); --redo-wide; second scan under a two-digit name for PG 41, 43, 44, 46-49; kraken runs stopped when they hang; pdf2: second scan from a local PDF; map: pages of another copy; second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
+VERSION = "3.8 (small type: in PG 47-64 texts set in small type (spuria, appendices) that the layout model takes for footnotes are read (blocks high on the page or taller than 40%); --redo-small; full-width blocks known to the text stage (3.5/3.6 lost the mark); --redo-wide only for pages laid out before 3.5; Greek set across the full page width is read (wide blocks, not Latin crossing text); --redo-wide; second scan under a two-digit name for PG 41, 43, 44, 46-49; kraken runs stopped when they hang; pdf2: second scan from a local PDF; map: pages of another copy; second scan: archive form from the file list, false page matches rejected, network errors skip a page; excluded pages: work/PGxxx/exclude_pages.txt; extra leaves from the second scan; word confidences)"
 GREEK_CLASS = "MainText_ColGreek"
 LATIN_CLASS = "MainText_ColLatin"
 NOTE_CLASSES = ("MainText_ColLatin", "Marginalia_Footnote")
+FOOTNOTE_CLASS = "Marginalia_Footnote"
+# volumes where whole texts are set in small type (Chrysostom: spuria, appendices): the layout
+# model labels those columns "footnote"; a footnote box high on the page or taller than 40% of it
+# is read as text there
+SMALL_TYPE_VOLS = set(range(47, 65))
+
+
+def small_type_boxes(dets, width, height, greek, max_width_frac):
+    """Footnote detections that are text in small type: column-wide at most, starting in the upper
+    45% of the page or taller than 40% of it, and not already covered by a Greek box."""
+    out = []
+    for d in dets:
+        if d["cls"] != FOOTNOTE_CLASS or d["conf"] < 0.40:
+            continue
+        x0, y0, x1, y1 = d["box"]
+        if x1 - x0 > max_width_frac * width:
+            continue
+        if not (y0 < 0.45 * height or y1 - y0 > 0.40 * height):
+            continue
+        if any(cover(d["box"], g["box"]) > 0.5 for g in greek):
+            continue
+        out.append(d)
+    return out
 IA = "https://archive.org/download"
 PREVIEW_COLOURS = {"MainText_ColGreek": (0, 170, 0), "MainText_ColLatin": (220, 0, 0)}
 
@@ -521,6 +544,22 @@ def stage_layout(args, pages, work):
                     f.unlink()
             done -= redo
         pages = [p for p in pages if p in done or p in redo]     # no new pages in a redo
+    if getattr(args, "redo_small", False) and done:
+        # pages laid out before 3.8 where text in small type was taken for footnotes
+        recs = [json.loads(l) for l in layout_file.read_text(encoding="utf-8").splitlines() if l.strip()]
+        req = set(pages)
+        redo = {r["page"] for r in recs if r["page"] in req and not r.get("small_rule")
+                and small_type_boxes(r.get("detections", []), r["size"][0], r["size"][1], r["greek"],
+                                     args.max_width_frac)}
+        print(f"[layout] --redo-small: {len(redo)} page(s) with text in small type are laid out again")
+        if redo:
+            layout_file.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n"
+                                           for r in recs if r["page"] not in redo), encoding="utf-8")
+            for p in redo:
+                for f in crops_dir.glob(f"p{p:04d}_c*.*"):
+                    f.unlink()
+            done -= redo
+        pages = [p for p in pages if p in done or p in redo]     # no new pages in a redo
     todo = [p for p in pages if p not in done]
     print(f"[layout] {len(pages)} pages requested, {len(done & set(pages))} already done, {len(todo)} to do")
     if not todo:
@@ -584,6 +623,11 @@ def stage_layout(args, pages, work):
                     # narrow boxes with low confidence are usually short Greek pieces
                     # next to Latin crossing text (e.g. the first lines of a column)
                     greek.append(d)
+            small = (small_type_boxes(dets, img.width, img.height, greek, args.max_width_frac)
+                     if args.vol in SMALL_TYPE_VOLS else [])
+            for d in small:
+                d["as_text"] = True                     # not a note region for the text stage
+                greek.append({**d, "cls": GREEK_CLASS, "small": True})
             greek = order_columns(drop_nested(dedupe(greek)), img.width)
 
             kept = []
@@ -607,7 +651,8 @@ def stage_layout(args, pages, work):
                     crop = canvas
                 crop.save(crops_dir / f"{name}.png")
                 kept.append({"crop": name, "box": [x0, y0, x1, y1], "conf": d["conf"], "stroke": sw,
-                             **({"wide": True} if d.get("wide") else {})})
+                             **({"wide": True} if d.get("wide") else {}),
+                             **({"small": True} if d.get("small") else {})})
 
             # small preview for visual checking
             scale = 1000.0 / img.height
@@ -629,7 +674,8 @@ def stage_layout(args, pages, work):
                    **({"pdf": str(args.alt_pdf), "pdf_page": altmap[pno]["leaf"] + 1}
                       if args.source == "pdf2" and pno in altmap else {}),
                    "rejected_greek": rejected, "detections": dets,
-                   "wide_rule": int(args.wide_greek)}       # laid out with the full-width rule of 3.5
+                   "wide_rule": int(args.wide_greek),
+                   "small_rule": int(args.vol in SMALL_TYPE_VOLS)}       # laid out with the full-width rule of 3.5
             out.write(json.dumps(rec, ensure_ascii=False) + "\n")
             out.flush()
             if i % 10 == 0 or i == len(todo):
@@ -805,7 +851,7 @@ def stage_text(args, pages, work, outdir):
         bands += [d["box"] for d in rec.get("detections", [])
                   if d["cls"] == LATIN_CLASS and d["box"][2] - d["box"][0] > 0.6 * width]
         # Latin columns and footnote blocks: a Greek box sometimes reaches into them
-        notes = [d["box"] for d in rec.get("detections", []) if d["cls"] in NOTE_CLASSES]
+        notes = [d["box"] for d in rec.get("detections", []) if d["cls"] in NOTE_CLASSES and not d.get("as_text")]
         for g in drop_nested(rec["greek"]):       # older layouts may still contain nested boxes
             col_idx = int(g["crop"].rsplit("_c", 1)[1])
             if g.get("stroke", 0) >= args.heavy_stroke:
@@ -905,6 +951,9 @@ def main():
     ap.add_argument("--redo-wide", action="store_true",
                     help="lay out again the pages of this run where an older version rejected Greek set "
                          "across the full width; then recognise them and rebuild the text")
+    ap.add_argument("--redo-small", action="store_true",
+                    help="lay out again the pages of this run where text in small type was taken for "
+                         "footnotes (PG 47-64, before 3.8); then recognise them and rebuild the text")
     ap.add_argument("--max-width-frac", type=float, default=0.60,
                     help="reject 'Greek' boxes wider than this share of the page (Latin crossing text)")
     ap.add_argument("--pad-x", type=int, default=4, help="horizontal padding (keeps margin letters A-D out)")

@@ -27,6 +27,7 @@ import argparse
 import collections
 import gzip
 import json
+import os
 import re
 import subprocess
 import sys
@@ -36,7 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.28"
+VERSION = "1.29"
 
 WORKS = {
     25: [
@@ -159,7 +160,7 @@ WORKS = {
         {"slug": "homilia_de_semente", "title": "Homilia de semente", "col": 143, "pages": [79, 91], "kind": "sections", "cut": True},
         {"slug": "in_illud_profecti_in_pagum", "title": "In illud: Profecti in pagum", "col": 169, "pages": [92, 99], "kind": "sections"},
         {"slug": "de_passione_et_cruce", "title": "De passione et cruce Domini", "col": 185, "pages": [100, 132], "kind": "sections", "cut": True},
-        {"slug": "de_virginitate", "title": "De virginitate", "col": 251, "pages": [133, 147], "kind": "sections", "cut": True},
+        {"slug": "de_virginitate", "title": "De virginitate", "col": 251, "pages": [13, 79], "kind": "sections", "cut": True},
         {"slug": "synopsis_scripturae", "title": "Synopsis Scripturae sacrae", "col": 281, "pages": [148, 226], "kind": "sections", "cut": True},
         {"slug": "disputatio_contra_arium", "title": "Disputatio contra Arium (in concilio Nicaeno)", "col": 439, "pages": [227, 257], "kind": "sections", "cut": True},
         {"slug": "sermo_contra_omnes_haereses", "title": "Sermo contra omnes haereses", "col": 501, "pages": [258, 269], "kind": "sections", "cut": True},
@@ -522,9 +523,9 @@ WORKS = {
         # Greek and Latin pages alternate under the same columns (Latin excluded and dropped); works
         # begin under titles in mid-page, so every work after the first is "cut".
         {"slug": "de_virginitate", "title": "De virginitate", "col": 533, "pages": [13, 80], "kind": "sections"},
-        {"slug": "ad_viduam_juniorem", "title": "Ad viduam juniorem", "col": 599, "pages": [80, 89], "kind": "sections", "cut": True},
-        {"slug": "de_non_iterando_conjugio", "title": "De non iterando conjugio", "col": 609, "pages": [89, 104], "kind": "sections", "cut": True},
-        {"slug": "de_sacerdotio_i", "title": "De sacerdotio I", "col": 623, "pages": [104, 112], "kind": "sections", "cut": True},
+        {"slug": "ad_viduam_juniorem", "title": "Ad viduam juniorem", "col": 599, "pages": [80, 89], "kind": "sections"},
+        {"slug": "de_non_iterando_conjugio", "title": "De non iterando conjugio", "col": 609, "pages": [89, 103], "kind": "sections", "cut": True},
+        {"slug": "de_sacerdotio_i", "title": "De sacerdotio I", "col": 623, "pages": [104, 112], "kind": "sections"},
         {"slug": "de_sacerdotio_ii", "title": "De sacerdotio II", "col": 631, "pages": [112, 120], "kind": "sections", "cut": True},
         {"slug": "de_sacerdotio_iii", "title": "De sacerdotio III", "col": 639, "pages": [120, 140], "kind": "sections", "cut": True},
         {"slug": "de_sacerdotio_iv", "title": "De sacerdotio IV", "col": 659, "pages": [140, 152], "kind": "sections", "cut": True},
@@ -596,8 +597,8 @@ WORKS = {
         {"slug": "contra_ebriosos", "title": "Contra ebriosos et de resurrectione", "col": 433, "pages": [30, 38], "kind": "sections", "cut": True},
         {"slug": "in_ascensionem", "title": "In ascensionem D. N. Jesu Christi", "col": 441, "pages": [38, 50], "kind": "sections", "cut": True},
         {"slug": "de_sancta_pentecoste_i", "title": "De sancta Pentecoste I", "col": 453, "pages": [50, 61], "kind": "sections", "cut": True},
-        {"slug": "de_sancta_pentecoste_ii", "title": "De sancta Pentecoste II", "col": 463, "pages": [61, 70], "kind": "sections", "cut": True},
-        {"slug": "de_laudibus_pauli_i", "title": "De laudibus S. Pauli I", "col": 473, "pages": [70, 74], "kind": "sections", "cut": True},
+        {"slug": "de_sancta_pentecoste_ii", "title": "De sancta Pentecoste II", "col": 463, "pages": [61, 69], "kind": "sections", "cut": True},
+        {"slug": "de_laudibus_pauli_i", "title": "De laudibus S. Pauli I", "col": 473, "pages": [70, 74], "kind": "sections"},
         {"slug": "de_laudibus_pauli_ii", "title": "De laudibus S. Pauli II", "col": 477, "pages": [74, 81], "kind": "sections", "cut": True},
         {"slug": "de_laudibus_pauli_iii", "title": "De laudibus S. Pauli III", "col": 483, "pages": [81, 85], "kind": "sections", "cut": True},
         {"slug": "de_laudibus_pauli_iv", "title": "De laudibus S. Pauli IV", "col": 487, "pages": [85, 93], "kind": "sections", "cut": True},
@@ -616,36 +617,36 @@ WORKS = {
         {"slug": "in_s_romanum_ii", "title": "In S. Romanum martyrem II", "col": 611, "pages": [209, 214], "kind": "sections", "cut": True},
         {"slug": "in_maccabaeos_i", "title": "In sanctos Maccabaeos I", "col": 617, "pages": [214, 221], "kind": "sections", "cut": True},
         {"slug": "in_maccabaeos_ii", "title": "In sanctos Maccabaeos II", "col": 623, "pages": [221, 222], "kind": "sections", "cut": True},
-        {"slug": "in_maccabaeos_iii", "title": "In sanctos Maccabaeos III", "col": 625, "pages": [222, 226], "kind": "sections", "cut": True},
+        {"slug": "in_maccabaeos_iii", "title": "In sanctos Maccabaeos III", "col": 625, "pages": [225, 226], "kind": "sections"},
         {"slug": "de_ss_bernice_et_prosdoce", "title": "De SS. Bernice et Prosdoce virginibus et Domnina", "col": 629, "pages": [226, 238], "kind": "sections", "cut": True},
         {"slug": "in_quatriduanum_lazarum", "title": "In quatriduanum Lazarum; De sanctis martyribus (not separated)", "col": 641, "pages": [238, 250], "kind": "sections", "cut": True},
         {"slug": "non_esse_ad_gratiam_concionandum", "title": "Non esse ad gratiam concionandum", "col": 653, "pages": [250, 258], "kind": "sections", "cut": True},
-        {"slug": "in_martyres", "title": "Homilia in martyres", "col": 661, "pages": [258, 262], "kind": "sections", "cut": True},
+        {"slug": "in_martyres", "title": "Homilia in martyres", "col": 661, "pages": [261, 262], "kind": "sections"},
         {"slug": "in_s_julianum", "title": "In S. Julianum martyrem", "col": 665, "pages": [262, 273], "kind": "sections", "cut": True},
         {"slug": "in_s_barlaam", "title": "In S. Barlaam martyrem", "col": 675, "pages": [273, 281], "kind": "sections", "cut": True},
         {"slug": "de_s_droside", "title": "De S. Droside martyre", "col": 683, "pages": [281, 290], "kind": "sections", "cut": True},
         {"slug": "in_martyres_aegyptios", "title": "In martyres Aegyptios", "col": 693, "pages": [290, 297], "kind": "sections", "cut": True},
         {"slug": "de_s_phoca", "title": "De S. hieromartyre Phoca", "col": 699, "pages": [297, 302], "kind": "sections", "cut": True},
-        {"slug": "in_omnes_sanctos", "title": "Encomium in omnes sanctos", "col": 705, "pages": [302, 310], "kind": "sections", "cut": True},
-        {"slug": "de_terrae_motu", "title": "De terrae motu", "col": 713, "pages": [310, 313], "kind": "sections", "cut": True},
+        {"slug": "in_omnes_sanctos", "title": "Encomium in omnes sanctos", "col": 705, "pages": [302, 309], "kind": "sections", "cut": True},
+        {"slug": "de_terrae_motu", "title": "De terrae motu", "col": 713, "pages": [310, 313], "kind": "sections"},
         {"slug": "de_proditione_judae", "title": "Spuria: In proditionem Judae", "col": 715, "pages": [313, 317], "kind": "sections", "cut": True},
         {"slug": "de_s_basso", "title": "De S. Basso martyre", "col": 719, "pages": [317, 322], "kind": "sections", "cut": True},
-        {"slug": "in_petrum_et_eliam", "title": "In Petrum apostolum et Eliam prophetam", "col": 725, "pages": [322, 334], "kind": "sections", "cut": True},
-        {"slug": "spuria_in_abraham", "title": "Spuria: In beatum Abraham", "col": 737, "pages": [334, 342], "kind": "sections", "cut": True},
+        {"slug": "in_petrum_et_eliam", "title": "In Petrum apostolum et Eliam prophetam", "col": 725, "pages": [322, 333], "kind": "sections", "cut": True},
+        {"slug": "spuria_in_abraham", "title": "Spuria: In beatum Abraham", "col": 737, "pages": [334, 342], "kind": "sections"},
         {"slug": "spuria_in_theclam", "title": "Spuria: In S. protomartyrem Theclam", "col": 745, "pages": [342, 346], "kind": "sections", "cut": True},
         {"slug": "spuria_de_fato_i", "title": "Spuria: De fato et providentia I", "col": 749, "pages": [346, 354], "kind": "sections", "cut": True},
         {"slug": "spuria_de_fato_ii", "title": "Spuria: De fato et providentia II", "col": 757, "pages": [354, 357], "kind": "sections", "cut": True},
         {"slug": "spuria_de_fato_iii", "title": "Spuria: De fato et providentia III", "col": 759, "pages": [357, 362], "kind": "sections", "cut": True},
         {"slug": "spuria_de_fato_iv", "title": "Spuria: De fato et providentia IV", "col": 765, "pages": [362, 366], "kind": "sections", "cut": True},
-        {"slug": "spuria_de_fato_v_vi", "title": "Spuria: De fato et providentia V-VI", "col": 769, "pages": [366, 373], "kind": "sections", "cut": True},
-        {"slug": "spuria_de_precatione_i", "title": "Spuria: De precatione I", "col": 775, "pages": [373, 377], "kind": "sections", "cut": True},
+        {"slug": "spuria_de_fato_v_vi", "title": "Spuria: De fato et providentia V-VI", "col": 769, "pages": [366, 372], "kind": "sections", "cut": True},
+        {"slug": "spuria_de_precatione_i", "title": "Spuria: De precatione I", "col": 775, "pages": [373, 377], "kind": "sections"},
         {"slug": "spuria_de_precatione_ii", "title": "Spuria: De precatione II", "col": 779, "pages": [377, 385], "kind": "sections", "cut": True},
         {"slug": "spuria_in_conceptionem_joannis", "title": "Spuria: In conceptionem S. Joannis Baptistae", "col": 787, "pages": [385, 389], "kind": "sections", "cut": True},
         {"slug": "spuria_in_annuntiationem", "title": "Spuria: In Annuntiationem B. V. Mariae", "col": 791, "pages": [389, 393], "kind": "sections", "cut": True},
         {"slug": "spuria_homilia_mellontos", "title": "Spuria: Homilia (inc. Mellontos, agapetoi, tou koinou Soteros)", "col": 795, "pages": [393, 398], "kind": "sections", "cut": True},
         {"slug": "spuria_in_joannem_prodromum", "title": "Spuria: In S. Joannem Prodromum", "col": 801, "pages": [398, 402], "kind": "sections", "cut": True},
         {"slug": "spuria_in_theophania", "title": "Spuria: In sancta Theophania", "col": 805, "pages": [402, 413], "kind": "sections", "cut": True},
-        {"slug": "spuria_in_venerabilem_crucem", "title": "Spuria: In venerabilem crucem", "col": 815, "pages": [413, 418], "kind": "sections", "cut": True},
+        {"slug": "spuria_in_venerabilem_crucem", "title": "Spuria: In venerabilem crucem", "col": 815, "pages": [414, 418], "kind": "sections"},
         {"slug": "spuria_in_triduanam_resurrectionem", "title": "Spuria: In triduanam resurrectionem Domini", "col": 821, "pages": [418, 421], "kind": "sections", "cut": True},
     ],
     94: [
@@ -1019,6 +1020,29 @@ def title_gap(rec, min_gap=300):
             return (a, b)
     inner = [(b - a, a, b) for a, b in gaps[1:-1] if b - a >= min_gap]
     return (max(inner)[1], max(inner)[2]) if inner else None
+
+
+ALPHA_START = re.compile(r"^\s*[αΑ]\s?[ʹ΄'’`]\s*[.·]?\s")
+TITLE_WORD = re.compile(r"ΟΜΙΛΙ|ΛΟΓΟΣ|ΕΓΚΩΜΙ|^\W*ΕΙΣ\s|^\W*ΠΕΡΙ\s|^\W*ΚΑΤΑ\s|^\W*ΤΟΥ\s+ΑΥΤΟΥ")
+
+
+def text_cut(items):
+    """Where a new work starts on a page, from the recognised text, when title_gap finds no gap:
+    the first Greek block that begins with an upper-case title line (ΟΜΙΛΙΑ, ΛΟΓΟΣ, ΕΓΚΩΜΙΟΝ,
+    ΕΙΣ ...) or with the opening "αʹ." of a homily.  Returns the block's top y, or None.  Only a
+    block that begins with such a line can be cut at (the y split works on whole blocks)."""
+    first = {}
+    for it in items:
+        if it["kind"] == "line" and (it["col"] not in first or it["n"] < first[it["col"]]["n"]):
+            first[it["col"]] = it
+    cands = []
+    for it in first.values():
+        t = it["text"].strip()
+        letters = [c for c in t if c.isalpha()]
+        upper = letters and sum(c.isupper() for c in letters) / len(letters) > 0.6
+        if (upper and TITLE_WORD.search(t)) or ALPHA_START.match(t):
+            cands.append(it["y"])
+    return min(cands) if cands else None
 
 
 # ----------------------------------------------------------------- 1: order and duplicates
@@ -1556,6 +1580,10 @@ def main():
 
     titles = {} if args.no_titles else S.ocr_titles(args, layouts, base, order)
     items_of = {p: S.page_items(p, best, layouts, base, titles) for p in order}
+    for p in (int(x) for x in os.environ.get("PG_WORKS_DEBUG_PAGES", "").split(",") if x.strip()):
+        for it in items_of.get(p, []):
+            t = it.get("text") or " / ".join(x for x, _ in it.get("lines", []))
+            print(f"DBG p{p} {it['kind'][0]} {it['side']} z{it['zone']} y{it['y']} c{it['col']} n{it['n']}: {t[:70]}")
     ia_main = {i + 1: main_text[a[0]:a[1]] for i, a in enumerate(main_index)}
     ia_alt = {p: alt_text[alt_index[v["leaf"]][0]:alt_index[v["leaf"]][1]]
               for p, v in altmap.items() if v["leaf"] < len(alt_index)}
@@ -1581,6 +1609,9 @@ def main():
                 # of a work in sections, but not chapter headings
                 lo = g[1] if kind in ("books", "chapters") else g[0]
                 items_w[first] = [it for it in items_of[first] if it["y"] >= lo]
+            elif (lo := text_cut(items_of[first])) is not None:
+                items_w[first] = [it for it in items_of[first] if it["y"] >= lo]
+                wrep.append(f"p{first}: work starts at the block opening with its title / αʹ (y {lo})")
             elif len(layouts.get(base.get(first), {}).get(first, {}).get("greek", [])) > 1:
                 wrep.append(f"p{first}: no break before the work's title found - whole page kept")
         i = next((j for j, x in enumerate(all_works) if x["slug"] == w["slug"]), None)
@@ -1589,6 +1620,8 @@ def main():
             g = title_gap(layouts.get(base.get(last), {}).get(last), SCAN_FIXES.get(args.vol, {}).get("min_gap", 300))
             if g:
                 items_w[last] = [it for it in items_of[last] if it["y"] < g[0]]
+            elif (lo := text_cut(items_of[last])) is not None:
+                items_w[last] = [it for it in items_of[last] if it["y"] < lo]
             else:
                 wrep.append(f"p{last}: shared with the next work, no break found - whole page kept in both")
         items_of_all, items_of = items_of, items_w

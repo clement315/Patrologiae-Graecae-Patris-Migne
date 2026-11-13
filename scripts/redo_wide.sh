@@ -19,6 +19,10 @@
 #    TEXT_ONLY=1 bash .../redo_wide.sh all
 #        only rebuild text, merge and works from the finished OCR (minutes per volume): needed once
 #        after pg_ocr_volume 3.7, because 3.5/3.6 did not mark the full-width blocks for the text stage
+#
+#    REDO=small bash .../redo_wide.sh 48 49 50
+#        PG 47-64: read again the pages where text in small type (spuria, appendices) was taken for
+#        footnotes and left out (pg_ocr_volume 3.8); markers work/PGxxx/redo_small.done
 # =====================================================================
 set -uo pipefail
 
@@ -27,6 +31,7 @@ SCRIPTS="$ROOT/scripts"
 ALL=(25 26 27 28 29 30 31 32 33 35 36 37 38 44 45 94 95 96)
 MARK="redo_wide.done"; MODE=(REDO_WIDE=1)
 if [ -n "${TEXT_ONLY:-}" ]; then MARK="text37.done"; MODE=(STAGES=text); fi
+if [ "${REDO:-}" = "small" ]; then MARK="redo_small.done"; MODE=(REDO_SMALL=1); fi
 
 # second run of each volume: "tag|source|alt pdf" and the merge spec
 second() {
@@ -87,7 +92,7 @@ one() {
     printf '\033[1;32m%s done in %d min\033[0m\n' "$tag" $(( ($(date +%s) - t0) / 60 ))
 }
 
-[ $# -gt 0 ] || { sed -n 2,19p "$0"; exit 2; }
+[ $# -gt 0 ] || { sed -n 2,25p "$0"; exit 2; }
 vols=("$@")
 [ "$1" = "all" ] && vols=("${ALL[@]}")
 LOG="$ROOT/work/redo_wide_$(date +%Y%m%d_%H%M%S).log"
