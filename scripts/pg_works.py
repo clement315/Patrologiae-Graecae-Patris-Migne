@@ -37,7 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.33"
+VERSION = "1.34"
 
 WORKS = {
     25: [
@@ -1294,9 +1294,7 @@ def text_cut_index(items):
                     j = i
                 elif "Ἀμήν" in t or "Ἀμὴν" in t:
                     break
-            prev = " ".join(x.get("text", "") for x in items[max(0, j - 3):j])
-            if j < k or "Ἀμήν" in prev:
-                return j
+            return j          # (1.34) also without a recognised title or "Ἀμήν" before it
     # no "αʹ." recognised: the line after the "Ἀμήν." that closes the previous work
     for k, it in enumerate(items[:-1]):
         if it["kind"] == "line" and re.search(r"Ἀμήν\.?\s*$", it["text"]):

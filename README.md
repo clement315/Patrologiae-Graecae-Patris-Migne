@@ -7,7 +7,7 @@ text with books, chapters and Migne column numbers.
 
 ## Texts
 
-Greek text of 24 volumes, split into 521 works with Migne column numbers, in
+Greek text of 28 volumes, split into 674 works with Migne column numbers, in
 [`texts/`](texts) (format described in [`texts/README.md`](texts/README.md)):
 
 | Volume | Contents | Works | PDF pages | Lines | Mean line confidence |
@@ -33,6 +33,10 @@ Greek text of 24 volumes, split into 521 works with Migne column numbers, in
 | [PG 49](texts/PG049) | John Chrysostom III/1 (Ad populum Antiochenum, Catecheses, De diabolo tentatore, De poenitentia, festal homilies) | 12 | 198 | 22,256 | 0.9766 |
 | [PG 50](texts/PG050) | John Chrysostom III/2 (festal and panegyric homilies: S. Paul, Babylas, martyrs; spuria) | 55 | 202 | 21,549 | 0.9737 |
 | [PG 51](texts/PG051) | John Chrysostom III/3 (homilies on Scripture passages: De mutatione nominum, In principium Actorum, Habentes eundem spiritum, De eleemosyna) | 34 | 185 | 20,783 | 0.9780 |
+| [PG 52](texts/PG052) | John Chrysostom III/4 (In Eutropium, homilies on the exile, Quod nemo laeditur, Ad eos qui scandalizati sunt, Epistolae; spuria) | 24 | 212 | 22,713 | 0.9821 |
+| [PG 53](texts/PG053) | John Chrysostom IV/1 (Homiliae in Genesim I-XLI) | 41 | 182 | 22,526 | 0.9757 |
+| [PG 54](texts/PG054) | John Chrysostom IV/2 (Homiliae in Genesim XLII-LXVII, Sermones in Genesim, De Anna, De Davide et Saule) | 43 | 162 | 19,766 | 0.9769 |
+| [PG 55](texts/PG055) | John Chrysostom V/1 (Expositio in Psalmos; spuria) | 45 | 377 | 46,251 | 0.9756 |
 | [PG 94](texts/PG094) | John of Damascus I | 11 | 664 | 24,875 | 0.9763 |
 | [PG 95](texts/PG095) | John of Damascus II | 29 | 785 | 39,875 | 0.9755 |
 | [PG 96](texts/PG096) | John of Damascus III | 16 | 743 | 37,148 | 0.9803 |

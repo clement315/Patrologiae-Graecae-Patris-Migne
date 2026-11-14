@@ -1,0 +1,11 @@
+pg_works.py 1.34
+
+page order: 0 places where the scan order was corrected; 0 page(s) kept in PDF position (doubtful match: -)
+0 second copies of a page dropped: -
+left out (blank or unusable page): p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p24, p25, p28, p29, p32, p33, p36, p37, p40, p41, p44, p45, p48, p49, p52, p53, p56, p57, p60, p61, p64, p65, p68, p69, p72, p73, p76, p77, p80, p81, p84, p85, p88, p89, p92, p93, p96, p97, p100, p101, p104, p105, p108, p109, p112, p113, p116, p117, p120, p121, p124, p125, p128, p129, p132, p133, p136, p137, p140, p141, p144, p145, p148, p149, p152, p153, p156, p157, p160, p161, p164, p165, p168, p169, p172, p173, p176, p177, p180, p181, p184, p185, p188, p189, p192, p193, p196, p197, p200, p201, p204, p205, p208, p209, p212, p213, p216, p217, p220, p221, p224, p225, p228, p229, p232, p233, p236, p237, p240, p241, p244, p245, p248, p249, p252, p253, p256, p257, p260, p261, p264, p265, p268, p269, p272, p273, p276, p277, p280, p281, p284, p285, p288, p289, p292, p293, p296, p297, p300, p301, p304, p305, p308, p309, p312, p313, p316, p317, p320, p321, p324, p325, p328, p329, p332, p333, p336, p337, p340, p341, p344, p345, p348, p349, p352, p353, p356, p357, p360, p361, p364, p365, p368, p369, p372, p373, p376, p377, p380, p381, p384, p385, p387, p388, p389, p390, p391, p392, p393, p394, p395, p396, p397
+
+Gaps in the Migne column sequence (running heads):
+  none
+
+Greek leaves of the second scan whose words are found on no page (check):
+  none
