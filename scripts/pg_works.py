@@ -37,7 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.34"
+VERSION = "1.35"
 
 WORKS = {
     25: [
@@ -861,6 +861,114 @@ WORKS = {
         {"slug": "spuria_post_admonitionem", "title": "Spuria and dubia after the Latin admonitio (cols. 629-674)", "col": 629, "pages": [621, 668], "kind": "sections", "cut": True},
         {"slug": "spuria_in_psalmum_118", "title": "Spuria: In Psalmum CXVIII", "col": 675, "pages": [668, 776], "kind": "sections", "cut": True},
     ],
+    56: [
+        # S. Joannes Chrysostomus, PG 56; Latin pages excluded and dropped (work/PG056/exclude_pages.txt)
+        {"slug": "opera_vol_56_provisional", "title": "PG 56 (In Isaiam, homilies, Synopsis Scripturae etc.) - provisional, to be split after the OCR", "col": 13, "pages": [16, 592], "kind": "sections"},
+    ],
+    57: [
+        # S. Joannes Chrysostomus, PG 57; Latin pages excluded and dropped (work/PG057/exclude_pages.txt)
+        {"slug": "hom_in_matthaeum_01", "title": "Homiliae in Matthaeum I", "col": 13, "pages": [27, 36], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_02", "title": "Homiliae in Matthaeum II", "col": 23, "pages": [36, 44], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_03", "title": "Homiliae in Matthaeum III", "col": 31, "pages": [44, 52], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_04", "title": "Homiliae in Matthaeum IV", "col": 39, "pages": [52, 67], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_05", "title": "Homiliae in Matthaeum V", "col": 55, "pages": [68, 75], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_06", "title": "Homiliae in Matthaeum VI", "col": 61, "pages": [75, 84], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_07", "title": "Homiliae in Matthaeum VII", "col": 73, "pages": [87, 95], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_08", "title": "Homiliae in Matthaeum VIII", "col": 81, "pages": [95, 103], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_09", "title": "Homiliae in Matthaeum IX", "col": 175, "pages": [103, 111], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_10", "title": "Homiliae in Matthaeum X", "col": 183, "pages": [111, 119], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_11", "title": "Homiliae in Matthaeum XI", "col": 191, "pages": [119, 128], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_12", "title": "Homiliae in Matthaeum XII", "col": 201, "pages": [128, 135], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_13", "title": "Homiliae in Matthaeum XIII", "col": 207, "pages": [135, 144], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_14", "title": "Homiliae in Matthaeum XIV", "col": 217, "pages": [144, 148], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_15", "title": "Homiliae in Matthaeum XV", "col": 223, "pages": [151, 164], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_16", "title": "Homiliae in Matthaeum XVI", "col": 239, "pages": [167, 180], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_17", "title": "Homiliae in Matthaeum XVII", "col": 255, "pages": [183, 192], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_18", "title": "Homiliae in Matthaeum XVIII", "col": 265, "pages": [192, 200], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_19", "title": "Homiliae in Matthaeum XIX", "col": 273, "pages": [200, 212], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_20", "title": "Homiliae in Matthaeum XX", "col": 285, "pages": [212, 220], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_21", "title": "Homiliae in Matthaeum XXI", "col": 293, "pages": [220, 227], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_22", "title": "Homiliae in Matthaeum XXII", "col": 299, "pages": [227, 235], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_23", "title": "Homiliae in Matthaeum XXIII", "col": 307, "pages": [235, 247], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_24", "title": "Homiliae in Matthaeum XXIV", "col": 321, "pages": [248, 255], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_25", "title": "Homiliae in Matthaeum XXV", "col": 327, "pages": [255, 260], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_26", "title": "Homiliae in Matthaeum XXVI", "col": 333, "pages": [260, 271], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_27", "title": "Homiliae in Matthaeum XXVII", "col": 343, "pages": [271, 276], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_28", "title": "Homiliae in Matthaeum XXVIII", "col": 349, "pages": [276, 284], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_29", "title": "Homiliae in Matthaeum XXIX", "col": 357, "pages": [284, 288], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_30", "title": "Homiliae in Matthaeum XXX", "col": 361, "pages": [288, 296], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_31", "title": "Homiliae in Matthaeum XXXI", "col": 369, "pages": [296, 303], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_32", "title": "Homiliae in Matthaeum XXXII", "col": 377, "pages": [304, 315], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_33", "title": "Homiliae in Matthaeum XXXIII", "col": 387, "pages": [315, 324], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_34", "title": "Homiliae in Matthaeum XXXIV", "col": 397, "pages": [324, 331], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_35", "title": "Homiliae in Matthaeum XXXV", "col": 405, "pages": [332, 339], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_36", "title": "Homiliae in Matthaeum XXXVI", "col": 413, "pages": [340, 347], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_37", "title": "Homiliae in Matthaeum XXXVII", "col": 419, "pages": [347, 355], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_38", "title": "Homiliae in Matthaeum XXXVIII", "col": 427, "pages": [355, 360], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_39", "title": "Homiliae in Matthaeum XXXIX", "col": 433, "pages": [360, 364], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_40", "title": "Homiliae in Matthaeum XL", "col": 439, "pages": [367, 372], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_41", "title": "Homiliae in Matthaeum XLI", "col": 445, "pages": [372, 379], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_42", "title": "Homiliae in Matthaeum XLII", "col": 451, "pages": [379, 383], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_43", "title": "Homiliae in Matthaeum XLIII", "col": 455, "pages": [383, 391], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_44", "title": "Homiliae in Matthaeum XLIV", "col": 463, "pages": [391, 399], "kind": "sections", "cut": True},
+    ],
+    58: [
+        # S. Joannes Chrysostomus, PG 58; Latin pages excluded and dropped (work/PG058/exclude_pages.txt)
+        {"slug": "hom_in_matthaeum_45", "title": "Homiliae in Matthaeum XLV", "col": 471, "pages": [11, 15], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_46", "title": "Homiliae in Matthaeum XLVI", "col": 475, "pages": [15, 20], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_47", "title": "Homiliae in Matthaeum XLVII", "col": 481, "pages": [20, 24], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_48", "title": "Homiliae in Matthaeum XLVIII", "col": 487, "pages": [27, 35], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_49", "title": "Homiliae in Matthaeum XLIX", "col": 495, "pages": [35, 43], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_50", "title": "Homiliae in Matthaeum L", "col": 503, "pages": [43, 48], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_51", "title": "Homiliae in Matthaeum LI", "col": 509, "pages": [48, 56], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_52", "title": "Homiliae in Matthaeum LII", "col": 517, "pages": [56, 64], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_53", "title": "Homiliae in Matthaeum LIII", "col": 525, "pages": [64, 71], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_54", "title": "Homiliae in Matthaeum LIV", "col": 531, "pages": [71, 79], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_55", "title": "Homiliae in Matthaeum LV", "col": 539, "pages": [79, 87], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_56", "title": "Homiliae in Matthaeum LVI", "col": 549, "pages": [88, 96], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_57", "title": "Homiliae in Matthaeum LVII", "col": 557, "pages": [96, 104], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_58", "title": "Homiliae in Matthaeum LVIII", "col": 565, "pages": [104, 112], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_59", "title": "Homiliae in Matthaeum LIX", "col": 573, "pages": [112, 123], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_60", "title": "Homiliae in Matthaeum LX", "col": 583, "pages": [123, 127], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_61", "title": "Homiliae in Matthaeum LXI", "col": 587, "pages": [127, 135], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_62", "title": "Homiliae in Matthaeum LXII", "col": 595, "pages": [135, 143], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_63", "title": "Homiliae in Matthaeum LXIII", "col": 603, "pages": [143, 147], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_64", "title": "Homiliae in Matthaeum LXIV", "col": 609, "pages": [148, 155], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_65", "title": "Homiliae in Matthaeum LXV", "col": 617, "pages": [156, 164], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_66", "title": "Homiliae in Matthaeum LXVI", "col": 625, "pages": [164, 171], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_67", "title": "Homiliae in Matthaeum LXVII", "col": 631, "pages": [171, 179], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_68", "title": "Homiliae in Matthaeum LXVIII", "col": 639, "pages": [179, 187], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_69", "title": "Homiliae in Matthaeum LXIX", "col": 647, "pages": [187, 192], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_70", "title": "Homiliae in Matthaeum LXX", "col": 655, "pages": [195, 200], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_71", "title": "Homiliae in Matthaeum LXXI", "col": 661, "pages": [200, 207], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_72", "title": "Homiliae in Matthaeum LXXII", "col": 667, "pages": [207, 211], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_73", "title": "Homiliae in Matthaeum LXXIII", "col": 673, "pages": [212, 216], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_74", "title": "Homiliae in Matthaeum LXXIV", "col": 679, "pages": [219, 224], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_75", "title": "Homiliae in Matthaeum LXXV", "col": 685, "pages": [224, 232], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_76", "title": "Homiliae in Matthaeum LXXVI", "col": 693, "pages": [232, 240], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_77", "title": "Homiliae in Matthaeum LXXVII", "col": 701, "pages": [240, 248], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_78", "title": "Homiliae in Matthaeum LXXVIII", "col": 711, "pages": [251, 256], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_79", "title": "Homiliae in Matthaeum LXXIX", "col": 717, "pages": [256, 263], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_80", "title": "Homiliae in Matthaeum LXXX", "col": 723, "pages": [263, 268], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_81", "title": "Homiliae in Matthaeum LXXXI", "col": 729, "pages": [268, 276], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_82", "title": "Homiliae in Matthaeum LXXXII", "col": 737, "pages": [276, 284], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_83", "title": "Homiliae in Matthaeum LXXXIII", "col": 745, "pages": [284, 291], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_84", "title": "Homiliae in Matthaeum LXXXIV", "col": 751, "pages": [291, 296], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_85", "title": "Homiliae in Matthaeum LXXXV", "col": 757, "pages": [296, 303], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_86", "title": "Homiliae in Matthaeum LXXXVI", "col": 763, "pages": [303, 308], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_87", "title": "Homiliae in Matthaeum LXXXVII", "col": 769, "pages": [308, 312], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_88", "title": "Homiliae in Matthaeum LXXXVIII", "col": 775, "pages": [315, 320], "kind": "sections"},
+        {"slug": "hom_in_matthaeum_89", "title": "Homiliae in Matthaeum LXXXIX", "col": 781, "pages": [320, 327], "kind": "sections", "cut": True},
+        {"slug": "hom_in_matthaeum_90", "title": "Homiliae in Matthaeum XC", "col": 787, "pages": [327, 332], "kind": "sections", "cut": True},
+    ],
+    59: [
+        # S. Joannes Chrysostomus, PG 59; Latin pages excluded and dropped (work/PG059/exclude_pages.txt)
+        {"slug": "opera_vol_59_provisional", "title": "PG 59 (Homiliae in Joannem, spuria) - provisional, to be split after the OCR", "col": 19, "pages": [23, 766], "kind": "sections"},
+    ],
+    60: [
+        # S. Joannes Chrysostomus, PG 60; Latin pages excluded and dropped (work/PG060/exclude_pages.txt)
+        {"slug": "opera_vol_60_provisional", "title": "PG 60 (Homiliae in Acta, in Epistolam ad Romanos) - provisional, to be split after the OCR", "col": 13, "pages": [15, 778], "kind": "sections"},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -1100,6 +1208,26 @@ SCAN_FIXES = {
     55: {"in_order": True, "min_gap": 150,
          "drop": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 30, 31, 34, 35, 38, 39, 42, 43, 46, 47, 50, 51, 54, 55, 58, 59, 62, 63, 66, 67, 70, 71, 74, 75, 78, 79, 82, 83, 86, 87, 90, 91, 94, 95, 98, 99, 102, 103, 106, 107, 110, 111, 114, 115, 118, 119, 122, 123, 126, 127, 130, 131, 134, 135, 138, 139, 142, 143, 147, 150, 151, 154, 155, 158, 159, 162, 163, 166, 167, 170, 171, 174, 175, 178, 179, 182, 183, 186, 187, 190, 191, 194, 195, 198, 199, 202, 203, 206, 207, 210, 211, 214, 215, 218, 219, 222, 223, 226, 227, 230, 231, 234, 235, 238, 239, 242, 243, 246, 247, 250, 251, 254, 255, 258, 259, 262, 263, 266, 267, 270, 271, 274, 275, 278, 279, 282, 283, 286, 287, 290, 291, 294, 295, 298, 299, 302, 303, 306, 307, 310, 311, 314, 315, 318, 319, 322, 323, 326, 327, 330, 331, 334, 335, 338, 339, 342, 343, 346, 347, 350, 351, 354, 355, 358, 359, 362, 363, 366, 367, 370, 371, 374, 375, 378, 379, 382, 383, 386, 387, 390, 391, 394, 395, 398, 399, 402, 403, 406, 407, 410, 411, 414, 415, 418, 419, 422, 423, 426, 427, 430, 431, 434, 435, 438, 439, 442, 443, 446, 447, 450, 451, 454, 455, 458, 459, 462, 463, 466, 467, 470, 471, 474, 475, 478, 479, 482, 483, 486, 487, 490, 491, 494, 495, 498, 499, 502, 503, 506, 507, 510, 511, 514, 515, 518, 519, 522, 523, 526, 527, 530, 531, 534, 535, 538, 539, 542, 543, 546, 547, 550, 551, 554, 558, 559, 562, 563, 566, 567, 570, 571, 574, 575, 578, 579, 582, 583, 586, 587, 590, 591, 594, 595, 598, 599, 602, 603, 606, 607, 610, 611, 614, 615, 618, 619, 622, 623, 626, 627, 630, 631, 634, 635, 638, 639, 642, 643, 646, 647, 650, 651, 654, 655, 658, 659, 662, 663, 666, 667, 670, 671, 674, 675, 678, 679, 682, 683, 686, 687, 690, 691, 694, 695, 698, 699, 702, 703, 706, 707, 710, 711, 714, 715, 718, 719, 722, 723, 726, 727, 730, 731, 734, 735, 738, 739, 742, 743, 746, 747, 750, 751, 754, 755, 758, 759, 762, 763, 766, 767, 770, 771, 774, 775, 777, 778, 779, 780, 781, 782, 783],
          "cols": {28: 35, 148: 155, 555: 561}},
+    # PG 56: Greek pages only (Latin pages excluded and dropped)
+    56: {"in_order": True, "min_gap": 150,
+         "drop": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 22, 23, 26, 27, 30, 31, 34, 35, 38, 39, 42, 43, 46, 47, 50, 51, 54, 55, 58, 59, 62, 63, 66, 67, 70, 71, 74, 75, 78, 79, 82, 83, 86, 87, 90, 91, 94, 95, 98, 99, 100, 102, 103, 106, 107, 110, 111, 114, 115, 118, 119, 122, 123, 126, 127, 130, 131, 134, 135, 138, 139, 142, 143, 146, 147, 150, 151, 154, 155, 158, 159, 162, 163, 166, 167, 170, 171, 174, 175, 178, 179, 182, 183, 186, 187, 190, 191, 194, 195, 198, 199, 202, 203, 206, 207, 210, 211, 214, 215, 218, 219, 222, 223, 226, 227, 230, 231, 234, 235, 238, 239, 242, 243, 246, 247, 249, 250, 251, 254, 255, 258, 259, 262, 263, 266, 267, 270, 271, 274, 275, 278, 279, 282, 283, 286, 287, 290, 291, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 308, 309, 312, 313, 316, 317, 320, 321, 324, 325, 328, 329, 332, 333, 336, 337, 340, 341, 344, 345, 348, 349, 352, 353, 356, 357, 360, 361, 364, 365, 368, 369, 372, 373, 376, 377, 380, 381, 384, 385, 388, 390, 391, 394, 395, 398, 399, 402, 403, 406, 407, 410, 411, 414, 415, 418, 419, 422, 423, 426, 427, 430, 431, 434, 435, 438, 439, 442, 443, 446, 447, 450, 451, 454, 455, 458, 459, 462, 463, 466, 467, 470, 471, 474, 475, 478, 479, 482, 484, 486, 487, 490, 491, 494, 495, 498, 499, 502, 503, 506, 507, 509, 510, 511, 514, 515, 518, 519, 522, 523, 526, 527, 530, 531, 534, 535, 538, 539, 542, 543, 546, 547, 550, 551, 554, 555, 558, 559, 562, 563, 566, 567, 570, 571, 574, 575, 578, 579, 582, 583, 586, 587, 590, 591, 593, 594, 595, 596, 597, 598, 599, 600, 601, 602, 603, 604, 605, 606, 607, 608, 609, 610, 611, 612, 613, 614, 615, 616, 617, 618, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 648, 649, 650, 651, 652, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662, 663, 664, 665, 666, 667, 668, 669, 670, 671, 672, 673, 674, 675, 676, 677, 678, 679, 680, 681, 682, 683, 684, 685, 686, 687, 688, 689, 690, 691, 692, 693, 694, 695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705, 706, 707, 708, 709, 710, 711, 712, 713, 714, 715, 716, 717, 718, 719, 720, 721, 722, 723, 724, 725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739, 740, 741, 742, 743, 744, 745, 746, 747, 748, 749, 750, 751, 752, 753, 754, 755, 756, 757, 758, 759, 760, 761, 762, 763, 764, 765, 766, 767, 768, 769, 770, 771, 772, 773, 774, 775],
+         "cols": {16: 13}},
+    # PG 57: Greek pages only (Latin pages excluded and dropped)
+    57: {"in_order": True, "min_gap": 150,
+         "drop": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 29, 30, 33, 34, 37, 38, 41, 42, 45, 46, 49, 50, 53, 54, 57, 58, 61, 62, 65, 66, 69, 70, 73, 74, 77, 78, 81, 82, 85, 86, 89, 90, 93, 94, 97, 98, 101, 102, 105, 106, 109, 110, 113, 114, 117, 118, 121, 122, 125, 126, 129, 130, 133, 134, 137, 138, 141, 142, 145, 146, 149, 150, 153, 154, 157, 158, 161, 162, 165, 166, 169, 170, 173, 174, 177, 178, 181, 182, 185, 186, 189, 190, 193, 194, 197, 198, 201, 202, 205, 206, 209, 210, 213, 214, 217, 218, 221, 222, 225, 226, 229, 230, 233, 234, 237, 238, 241, 242, 245, 246, 249, 250, 253, 254, 257, 258, 261, 262, 265, 266, 269, 270, 273, 274, 277, 278, 281, 282, 285, 286, 289, 290, 293, 294, 297, 298, 301, 302, 305, 306, 309, 310, 313, 314, 317, 318, 321, 322, 325, 326, 329, 330, 333, 334, 337, 338, 341, 342, 345, 346, 349, 350, 353, 354, 357, 358, 361, 362, 365, 366, 369, 370, 373, 374, 377, 378, 381, 382, 385, 386, 389, 390, 393, 394, 397, 398, 400, 401, 402, 403],
+         "cols": {27: 13, 103: 175}},
+    # PG 58: Greek pages only (Latin pages excluded and dropped)
+    58: {"in_order": True, "min_gap": 150,
+         "drop": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 14, 17, 18, 21, 22, 25, 26, 29, 30, 33, 34, 37, 38, 41, 42, 45, 46, 49, 50, 53, 54, 57, 58, 61, 62, 65, 66, 69, 70, 73, 74, 77, 78, 81, 82, 85, 86, 89, 90, 93, 94, 97, 98, 101, 102, 105, 106, 109, 110, 113, 114, 117, 118, 121, 122, 125, 126, 129, 130, 133, 134, 137, 138, 141, 142, 145, 146, 149, 150, 153, 154, 157, 158, 161, 162, 165, 166, 169, 170, 173, 174, 177, 178, 181, 182, 185, 186, 189, 190, 193, 194, 197, 198, 201, 202, 205, 206, 209, 210, 213, 214, 217, 218, 221, 222, 225, 226, 229, 230, 233, 234, 237, 238, 241, 242, 245, 246, 249, 250, 253, 254, 257, 258, 261, 262, 265, 266, 269, 270, 273, 274, 277, 278, 281, 282, 285, 286, 289, 290, 293, 294, 297, 298, 301, 302, 305, 306, 309, 310, 313, 314, 317, 318, 321, 322, 325, 326, 329, 330, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437, 438, 439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472],
+         "cols": {11: 471}},
+    # PG 59: Greek pages only (Latin pages excluded and dropped)
+    59: {"in_order": True, "min_gap": 150,
+         "drop": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 27, 28, 31, 32, 35, 36, 39, 40, 43, 44, 47, 48, 51, 52, 55, 56, 59, 60, 63, 64, 67, 68, 71, 72, 75, 76, 79, 80, 83, 84, 87, 88, 91, 92, 95, 96, 99, 100, 103, 104, 107, 108, 111, 112, 115, 116, 119, 120, 123, 124, 127, 128, 131, 132, 135, 136, 139, 140, 143, 144, 147, 148, 151, 152, 155, 156, 159, 160, 163, 164, 167, 168, 171, 172, 175, 176, 179, 180, 183, 184, 187, 188, 191, 192, 195, 196, 199, 200, 203, 204, 207, 208, 211, 212, 215, 216, 219, 220, 223, 224, 227, 228, 231, 232, 235, 236, 239, 240, 243, 244, 247, 248, 251, 252, 255, 256, 259, 260, 263, 264, 267, 268, 271, 272, 275, 276, 279, 280, 283, 284, 287, 288, 291, 292, 295, 296, 299, 300, 303, 304, 307, 308, 311, 312, 315, 316, 319, 320, 323, 324, 327, 328, 331, 332, 335, 336, 339, 340, 343, 344, 347, 348, 351, 352, 355, 356, 359, 360, 363, 364, 367, 368, 371, 372, 375, 376, 379, 380, 383, 384, 387, 388, 391, 392, 395, 396, 399, 400, 403, 404, 407, 408, 411, 412, 415, 416, 419, 420, 423, 424, 427, 428, 431, 432, 435, 436, 439, 440, 443, 444, 447, 448, 451, 452, 455, 456, 459, 460, 463, 464, 467, 468, 471, 472, 475, 476, 479, 480, 483, 484, 487, 488, 491, 492, 495, 496, 499, 500, 503, 504, 507, 508, 511, 512, 515, 516, 519, 520, 523, 524, 527, 528, 531, 532, 535, 536, 539, 540, 543, 544, 547, 548, 551, 552, 555, 556, 559, 560, 563, 564, 567, 568, 571, 572, 575, 576, 579, 580, 583, 584, 587, 588, 591, 592, 595, 596, 599, 600, 603, 604, 607, 608, 611, 612, 615, 616, 619, 620, 623, 624, 627, 628, 631, 632, 635, 636, 639, 640, 643, 644, 647, 648, 651, 652, 655, 656, 659, 660, 663, 664, 667, 668, 671, 672, 675, 676, 679, 680, 683, 684, 687, 688, 691, 692, 695, 696, 699, 700, 703, 704, 707, 708, 711, 712, 715, 716, 719, 720, 723, 724, 727, 728, 731, 732, 735, 736, 739, 740, 743, 744, 747, 748, 751, 752, 755, 756, 759, 760, 763, 764, 767, 768, 769, 770, 771, 772, 773, 774, 775, 776],
+         "cols": {23: 19}},
+    # PG 60: Greek pages only (Latin pages excluded and dropped)
+    60: {"in_order": True, "min_gap": 150,
+         "drop": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 18, 19, 22, 23, 26, 27, 30, 31, 34, 35, 38, 39, 42, 43, 46, 47, 50, 51, 54, 55, 58, 59, 62, 63, 66, 67, 70, 71, 74, 75, 78, 79, 82, 83, 86, 87, 90, 91, 94, 95, 98, 99, 102, 103, 106, 107, 110, 111, 114, 115, 118, 119, 122, 123, 126, 127, 130, 131, 134, 135, 138, 139, 142, 143, 146, 147, 150, 151, 154, 155, 158, 159, 162, 163, 166, 167, 170, 171, 174, 175, 178, 179, 182, 183, 186, 187, 190, 191, 194, 195, 198, 199, 202, 203, 206, 207, 210, 211, 214, 215, 218, 219, 222, 223, 226, 227, 230, 231, 234, 235, 238, 239, 242, 243, 246, 247, 250, 251, 254, 255, 258, 259, 262, 263, 266, 267, 270, 271, 274, 275, 278, 279, 282, 283, 286, 287, 290, 291, 294, 295, 298, 299, 302, 303, 306, 307, 310, 311, 314, 315, 318, 319, 322, 323, 326, 327, 330, 331, 334, 335, 338, 339, 342, 343, 346, 347, 350, 351, 354, 355, 358, 359, 362, 363, 366, 367, 370, 371, 374, 375, 378, 379, 382, 383, 386, 387, 389, 391, 393, 396, 397, 400, 401, 404, 405, 408, 409, 412, 413, 416, 417, 420, 421, 424, 425, 428, 429, 432, 433, 436, 437, 440, 441, 444, 445, 448, 449, 452, 453, 456, 457, 460, 461, 464, 465, 468, 469, 472, 473, 476, 477, 480, 481, 484, 485, 488, 489, 492, 493, 496, 497, 500, 501, 504, 505, 508, 509, 512, 513, 516, 517, 520, 521, 524, 525, 528, 529, 532, 533, 536, 537, 540, 541, 544, 545, 548, 549, 552, 553, 556, 557, 560, 561, 564, 565, 568, 569, 572, 573, 576, 577, 580, 581, 584, 585, 588, 589, 592, 593, 596, 597, 600, 601, 604, 605, 608, 609, 612, 613, 616, 617, 620, 621, 624, 625, 628, 629, 632, 633, 636, 637, 640, 641, 644, 645, 648, 649, 652, 653, 656, 657, 660, 661, 664, 665, 668, 669, 672, 673, 676, 677, 680, 681, 684, 685, 688, 689, 692, 693, 696, 697, 700, 701, 704, 705, 708, 709, 712, 713, 716, 717, 720, 721, 724, 725, 728, 729, 732, 733, 736, 737, 740, 741, 744, 745, 748, 749, 752, 753, 756, 757, 760, 761, 764, 765, 768, 769, 772, 773, 776, 777, 779, 780, 781, 782, 783, 784],
+         "cols": {15: 13}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
