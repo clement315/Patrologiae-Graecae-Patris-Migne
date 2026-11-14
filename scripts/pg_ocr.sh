@@ -158,6 +158,9 @@ default_url() {
         50) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_050/patrologiae_cursus_completus_gr_vol_050.pdf" ;;
         51) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_051/patrologiae_cursus_completus_gr_vol_051.pdf" ;;
         52) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_052/patrologiae_cursus_completus_gr_vol_052.pdf" ;;
+        53) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_053/patrologiae_cursus_completus_gr_vol_053.pdf" ;;
+        54) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_054/patrologiae_cursus_completus_gr_vol_054.pdf" ;;
+        55) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_055/patrologiae_cursus_completus_gr_vol_055.pdf" ;;
         94) echo "https://archive.org/download/patrologicursus53migngoog/patrologicursus53migngoog.pdf" ;;
         95) echo "https://archive.org/download/patrologicursus50migngoog/patrologicursus50migngoog.pdf" ;;
         96) echo "https://archive.org/download/patrologiaecursu96mign_0/patrologiaecursu96mign_0.pdf" ;;
