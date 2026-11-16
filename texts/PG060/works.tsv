@@ -1,0 +1,75 @@
+slug	title	pdf_pages	migne_cols	units	lines
+hom_in_acta_01	Homiliae in Acta Apostolorum I	17-29	15-28	1	788
+hom_in_acta_02	Homiliae in Acta Apostolorum II	29-37	27-36	1	572
+hom_in_acta_03	Homiliae in Acta Apostolorum III	37-45	35-44	1	594
+hom_in_acta_04	Homiliae in Acta Apostolorum IV	45-53	43-52	1	603
+hom_in_acta_05	Homiliae in Acta Apostolorum V	53-60	51-58	1	490
+hom_in_acta_06	Homiliae in Acta Apostolorum VI	60-65	57-64	1	513
+hom_in_acta_07	Homiliae in Acta Apostolorum VII	68-73	65-72	1	493
+hom_in_acta_08	Homiliae in Acta Apostolorum VIII	73-80	71-78	1	494
+hom_in_acta_09	Homiliae in Acta Apostolorum IX	80-88	77-86	1	615
+hom_in_acta_10	Homiliae in Acta Apostolorum X	89-97	87-96	1	614
+hom_in_acta_11	Homiliae in Acta Apostolorum XI	97-104	95-102	1	509
+hom_in_acta_12	Homiliae in Acta Apostolorum XII	104-108	101-106	1	381
+hom_in_acta_13	Homiliae in Acta Apostolorum XIII	109-116	107-114	1	509
+hom_in_acta_14	Homiliae in Acta Apostolorum XIV	116-124	113-122	1	619
+hom_in_acta_15	Homiliae in Acta Apostolorum XV	124-132	121-130	1	605
+hom_in_acta_16	Homiliae in Acta Apostolorum XVI	132-137	129-136	1	511
+hom_in_acta_17	Homiliae in Acta Apostolorum XVII	137-144	135-142	1	504
+hom_in_acta_18	Homiliae in Acta Apostolorum XVIII	145-153	143-152	1	597
+hom_in_acta_19	Homiliae in Acta Apostolorum XIX	153-161	151-160	1	608
+hom_in_acta_20	Homiliae in Acta Apostolorum XX	161-168	159-166	1	505
+hom_in_acta_21	Homiliae in Acta Apostolorum XXI	168-176	165-174	1	596
+hom_in_acta_22	Homiliae in Acta Apostolorum XXII	176-181	173-180	1	492
+hom_in_acta_23	Homiliae in Acta Apostolorum XXIII	181-188	179-186	1	490
+hom_in_acta_24	Homiliae in Acta Apostolorum XXIV	188-196	185-194	1	616
+hom_in_acta_25	Homiliae in Acta Apostolorum XXV	196-201	193-200	1	488
+hom_in_acta_26	Homiliae in Acta Apostolorum XXVI	201-208	199-206	1	491
+hom_in_acta_27	Homiliae in Acta Apostolorum XXVII	208-213	205-212	1	495
+hom_in_acta_28	Homiliae in Acta Apostolorum XXVIII	213-217	211-216	1	362
+hom_in_acta_29_33	Homiliae in Acta Apostolorum XXIX-XXXIII (the starts in between were not recognised; one file)	217-249	215-248	1	2048
+hom_in_acta_34	Homiliae in Acta Apostolorum XXXIV	249-256	247-254	1	470
+hom_in_acta_35	Homiliae in Acta Apostolorum XXXV	256-261	253-260	1	477
+hom_in_acta_36	Homiliae in Acta Apostolorum XXXVI	261-265	259-264	1	354
+hom_in_acta_37	Homiliae in Acta Apostolorum XXXVII	265-272	263-270	1	481
+hom_in_acta_38	Homiliae in Acta Apostolorum XXXVIII	272-280	269-278	1	581
+hom_in_acta_39	Homiliae in Acta Apostolorum XXXIX	280-285	277-284	1	467
+hom_in_acta_40	Homiliae in Acta Apostolorum XL	285-292	283-290	1	470
+hom_in_acta_41	Homiliae in Acta Apostolorum XLI	292-300	289-298	1	587
+hom_in_acta_42_43	Homiliae in Acta Apostolorum XLII-XLIII (the starts in between were not recognised; one file)	300-312	297-310	1	858
+hom_in_acta_44	Homiliae in Acta Apostolorum XLIV	312-317	309-316	1	485
+hom_in_acta_45_48	Homiliae in Acta Apostolorum XLV-XLVIII (the starts in between were not recognised; one file)	317-341	315-340	1	1552
+hom_in_acta_49	Homiliae in Acta Apostolorum XLIX	341-348	339-346	1	481
+hom_in_acta_50	Homiliae in Acta Apostolorum L	348-356	345-354	1	582
+hom_in_acta_51	Homiliae in Acta Apostolorum LI	356-361	353-360	1	490
+hom_in_acta_52	Homiliae in Acta Apostolorum LII	361-369	359-368	1	625
+hom_in_acta_53	Homiliae in Acta Apostolorum LIII	372-377	369-376	1	498
+hom_in_acta_54	Homiliae in Acta Apostolorum LIV	377-384	375-382	1	479
+hom_in_acta_55	Homiliae in Acta Apostolorum LV	384-392	381-390	1	337
+hom_in_romanos_argumentum	Homiliae in Epistolam ad Romanos: Argumentum	394-395	391-394	1	200
+hom_in_romanos_01_04	Homiliae in Epistolam ad Romanos I-IV (the starts in between were not recognised; one file)	398-423	395-422	1	1663
+hom_in_romanos_05	Homiliae in Epistolam ad Romanos V	423-434	421-432	1	731
+hom_in_romanos_06	Homiliae in Epistolam ad Romanos VI	434-443	431-442	1	760
+hom_in_romanos_07	Homiliae in Epistolam ad Romanos VII	443-455	441-454	1	871
+hom_in_romanos_08	Homiliae in Epistolam ad Romanos VIII	455-467	453-466	1	839
+hom_in_romanos_09	Homiliae in Epistolam ad Romanos IX	470-475	467-474	1	467
+hom_in_romanos_10	Homiliae in Epistolam ad Romanos X	475-486	473-484	1	710
+hom_in_romanos_11	Homiliae in Epistolam ad Romanos XI	486-495	483-494	1	710
+hom_in_romanos_12	Homiliae in Epistolam ad Romanos XII	495-510	493-508	1	971
+hom_in_romanos_13	Homiliae in Epistolam ad Romanos XIII	510-526	507-524	1	1068
+hom_in_romanos_14	Homiliae in Epistolam ad Romanos XIV	526-542	523-540	1	1118
+hom_in_romanos_15	Homiliae in Epistolam ad Romanos XV	542-550	539-548	1	631
+hom_in_romanos_16	Homiliae in Epistolam ad Romanos XVI	550-566	547-564	1	1150
+hom_in_romanos_17	Homiliae in Epistolam ad Romanos XVII	566-574	563-572	1	635
+hom_in_romanos_18	Homiliae in Epistolam ad Romanos XVIII	574-586	571-584	1	856
+hom_in_romanos_19	Homiliae in Epistolam ad Romanos XIX	586-598	583-596	1	878
+hom_in_romanos_20	Homiliae in Epistolam ad Romanos XX	598-603	595-602	1	498
+hom_in_romanos_21	Homiliae in Epistolam ad Romanos XXI	603-611	601-612	1	598
+hom_in_romanos_22_24	Homiliae in Epistolam ad Romanos XXII-XXIV (the starts in between were not recognised; one file)	611-630	611-630	1	1219
+hom_in_romanos_25	Homiliae in Epistolam ad Romanos XXV	630-639	629-640	1	734
+hom_in_romanos_26	Homiliae in Epistolam ad Romanos XXVI	639-646	639-646	1	472
+hom_in_romanos_27	Homiliae in Epistolam ad Romanos XXVII	646-651	645-652	1	475
+hom_in_romanos_28_30	Homiliae in Epistolam ad Romanos XXVIII-XXX (the starts in between were not recognised; one file)	651-670	651-670	1	1237
+hom_in_romanos_31	Homiliae in Epistolam ad Romanos XXXI	670-678	669-678	1	616
+hom_in_romanos_32	Homiliae in Epistolam ad Romanos XXXII (with any piece up to p. 701 whose start was not recognised)	678-699	677-700	1	1725
+spuria_sermo_dominica_tyrophagi	Spuria: Sermo in Dominica Tyrophagi, de poenitentia et eleemosyna, and the following pieces	702-778	701-778	1	5577

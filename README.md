@@ -7,7 +7,7 @@ text with books, chapters and Migne column numbers.
 
 ## Texts
 
-Greek text of 28 volumes, split into 674 works with Migne column numbers, in
+Greek text of 33 volumes, split into 955 works with Migne column numbers, in
 [`texts/`](texts) (format described in [`texts/README.md`](texts/README.md)):
 
 | Volume | Contents | Works | PDF pages | Lines | Mean line confidence |
@@ -37,6 +37,11 @@ Greek text of 28 volumes, split into 674 works with Migne column numbers, in
 | [PG 53](texts/PG053) | John Chrysostom IV/1 (Homiliae in Genesim I-XLI) | 41 | 182 | 22,526 | 0.9757 |
 | [PG 54](texts/PG054) | John Chrysostom IV/2 (Homiliae in Genesim XLII-LXVII, Sermones in Genesim, De Anna, De Davide et Saule) | 43 | 162 | 19,766 | 0.9769 |
 | [PG 55](texts/PG055) | John Chrysostom V/1 (Expositio in Psalmos; spuria) | 45 | 377 | 46,251 | 0.9756 |
+| [PG 56](texts/PG056) | John Chrysostom VI/1 (Interpretatio in Isaiam, homilies In illud Vidi Dominum, other homilies, Synopsis Scripturae; spuria) | 34 | 280 | 32,031 | 0.9762 |
+| [PG 57](texts/PG057) | John Chrysostom VII/1 (Homiliae in Matthaeum I-XLIV) | 44 | 187 | 21,657 | 0.9819 |
+| [PG 58](texts/PG058) | John Chrysostom VII/2 (Homiliae in Matthaeum XLV-XC) | 46 | 162 | 18,903 | 0.9832 |
+| [PG 59](texts/PG059) | John Chrysostom VIII (Homiliae in Joannem I-LXXXVIII; spuria) | 83 | 373 | 47,685 | 0.9776 |
+| [PG 60](texts/PG060) | John Chrysostom IX (Homiliae in Acta Apostolorum, in Epistolam ad Romanos; spuria) | 74 | 382 | 47,275 | 0.9786 |
 | [PG 94](texts/PG094) | John of Damascus I | 11 | 664 | 24,875 | 0.9763 |
 | [PG 95](texts/PG095) | John of Damascus II | 29 | 785 | 39,875 | 0.9755 |
 | [PG 96](texts/PG096) | John of Damascus III | 16 | 743 | 37,148 | 0.9803 |
