@@ -166,6 +166,10 @@ default_url() {
         58) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_058_chrysostom_matthew_homilies_2/patrologiae_cursus_completus_gr_vol_058_chrysostom_matthew_homilies_2.pdf" ;;
         59) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_059/patrologiae_cursus_completus_gr_vol_059.pdf" ;;
         60) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_060/patrologiae_cursus_completus_gr_vol_060.pdf" ;;
+        61) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_061/patrologiae_cursus_completus_gr_vol_061.pdf" ;;
+        62) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_062/patrologiae_cursus_completus_gr_vol_062.pdf" ;;
+        63) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_063/patrologiae_cursus_completus_gr_vol_063.pdf" ;;
+        64) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_064/patrologiae_cursus_completus_gr_vol_064.pdf" ;;
         94) echo "https://archive.org/download/patrologicursus53migngoog/patrologicursus53migngoog.pdf" ;;
         95) echo "https://archive.org/download/patrologicursus50migngoog/patrologicursus50migngoog.pdf" ;;
         96) echo "https://archive.org/download/patrologiaecursu96mign_0/patrologiaecursu96mign_0.pdf" ;;
