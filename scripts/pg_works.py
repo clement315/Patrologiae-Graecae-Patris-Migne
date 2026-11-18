@@ -37,7 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.38"
+VERSION = "1.39"
 
 WORKS = {
     25: [
@@ -1378,6 +1378,28 @@ WORKS = {
         {"slug": "precationes", "title": "Precationes (Εὐχαί)", "col": 0, "pages": [574, 580], "kind": "sections", "cut": True},
         {"slug": "meletius_de_natura_hominis", "title": "De natura hominis (Meletius monachus; printed in this volume)", "col": 0, "pages": [580, 700], "kind": "sections", "cut": True},
     ],
+    67: [
+        # Socrates Scholasticus and Sozomenus, Historiae ecclesiasticae (ed. Valesius).  Main scan IA
+        # patrologiaecurs110migngoog (a Google copy outside the gr_vol series); Greek and Latin in parallel columns
+        # with Valesius' notes below (left out as footnotes)
+        {"slug": "socrates_he_1", "title": "Socrates Scholasticus, Historia ecclesiastica I", "col": 29, "pages": [20, 91], "kind": "sections"},
+        {"slug": "socrates_he_2", "title": "Socrates Scholasticus, Historia ecclesiastica II", "col": 0, "pages": [92, 185], "kind": "sections"},
+        {"slug": "socrates_he_3", "title": "Socrates Scholasticus, Historia ecclesiastica III", "col": 0, "pages": [185, 230], "kind": "sections", "cut": True},
+        {"slug": "socrates_he_4", "title": "Socrates Scholasticus, Historia ecclesiastica IV", "col": 0, "pages": [230, 283], "kind": "sections", "cut": True},
+        {"slug": "socrates_he_5", "title": "Socrates Scholasticus, Historia ecclesiastica V", "col": 0, "pages": [283, 329], "kind": "sections", "cut": True},
+        {"slug": "socrates_he_6", "title": "Socrates Scholasticus, Historia ecclesiastica VI", "col": 0, "pages": [329, 367], "kind": "sections", "cut": True},
+        {"slug": "socrates_he_7", "title": "Socrates Scholasticus, Historia ecclesiastica VII", "col": 0, "pages": [367, 420], "kind": "sections", "cut": True},
+        {"slug": "sozomenus_dedicatio", "title": "Sozomenus, Historia ecclesiastica: dedication to Theodosius II", "col": 0, "pages": [421, 425], "kind": "sections"},
+        {"slug": "sozomenus_he_1", "title": "Sozomenus, Historia ecclesiastica I", "col": 0, "pages": [426, 466], "kind": "sections"},
+        {"slug": "sozomenus_he_2", "title": "Sozomenus, Historia ecclesiastica II", "col": 0, "pages": [466, 519], "kind": "sections", "cut": True},
+        {"slug": "sozomenus_he_3", "title": "Sozomenus, Historia ecclesiastica III", "col": 0, "pages": [520, 553], "kind": "sections"},
+        {"slug": "sozomenus_he_4", "title": "Sozomenus, Historia ecclesiastica IV", "col": 0, "pages": [554, 601], "kind": "sections"},
+        {"slug": "sozomenus_he_5", "title": "Sozomenus, Historia ecclesiastica V", "col": 0, "pages": [601, 636], "kind": "sections", "cut": True},
+        {"slug": "sozomenus_he_6", "title": "Sozomenus, Historia ecclesiastica VI", "col": 0, "pages": [637, 688], "kind": "sections"},
+        {"slug": "sozomenus_he_7", "title": "Sozomenus, Historia ecclesiastica VII", "col": 0, "pages": [689, 733], "kind": "sections"},
+        {"slug": "sozomenus_he_8", "title": "Sozomenus, Historia ecclesiastica VIII", "col": 0, "pages": [733, 774], "kind": "sections", "cut": True},
+        {"slug": "sozomenus_he_9", "title": "Sozomenus, Historia ecclesiastica IX", "col": 0, "pages": [775, 793], "kind": "sections"},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -1653,6 +1675,8 @@ SCAN_FIXES = {
     64: {"in_order": True, "min_gap": 150,
          "drop": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 16, 17, 20, 21, 24, 25, 28, 29, 32, 33, 36, 37, 40, 41, 44, 45, 48, 49, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 72, 73, 76, 77, 80, 81, 84, 85, 88, 89, 92, 93, 94, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 257, 295, 374, 375, 581, 582, 701, 702, 703, 704, 705, 706, 707, 708, 709, 710, 711, 712, 713, 714, 715, 716, 717, 718, 719, 720, 721, 722, 723, 724, 725, 726, 727, 728, 729, 730, 731, 732, 733, 734, 735, 736, 737, 738, 739, 740, 741, 742, 743, 744, 745, 746, 747, 748, 749, 750, 751, 752, 753, 754, 755, 756, 757, 758, 759, 760, 761, 762, 763, 764, 765, 766, 767],
          "cols": {11: 9, 250: 411, 580: 1073}},
+    # PG 67: main scan complete and in order; front matter and indexes excluded (exclude_pages.txt)
+    67: {"in_order": True, "drop": [], "cols": {20: 29}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
