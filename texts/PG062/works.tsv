@@ -1,0 +1,93 @@
+slug	title	pdf_pages	migne_cols	units	lines
+hom_in_ephesios_01	Homiliae in Epistolam ad Ephesios I	13-20	9-16	1	397
+hom_in_ephesios_02	Homiliae in Epistolam ad Ephesios II	21-28	17-24	1	461
+hom_in_ephesios_03	Homiliae in Epistolam ad Ephesios III	28-36	23-32	1	585
+hom_in_ephesios_04	Homiliae in Epistolam ad Ephesios IV	36-41	31-38	1	484
+hom_in_ephesios_05	Homiliae in Epistolam ad Ephesios V	41-45	37-42	1	335
+hom_in_ephesios_06	Homiliae in Epistolam ad Ephesios VI	48-53	43-50	1	477
+hom_in_ephesios_07_08	Homiliae in Epistolam ad Ephesios VII-VIII (the starts in between were not recognised; one file)	53-73	49-70	1	1300
+hom_in_ephesios_09	Homiliae in Epistolam ad Ephesios IX	73-77	69-74	1	369
+hom_in_ephesios_10	Homiliae in Epistolam ad Ephesios X	80-84	75-80	1	348
+hom_in_ephesios_11	Homiliae in Epistolam ad Ephesios XI	84-92	79-88	1	561
+hom_in_ephesios_12	Homiliae in Epistolam ad Ephesios XII	92-97	87-94	1	474
+hom_in_ephesios_13	Homiliae in Epistolam ad Ephesios XIII	97-104	93-100	1	471
+hom_in_ephesios_14	Homiliae in Epistolam ad Ephesios XIV	104-109	99-106	1	458
+hom_in_ephesios_15_18	Homiliae in Epistolam ad Ephesios XV-XVIII (the starts in between were not recognised; one file)	109-132	105-128	1	1380
+hom_in_ephesios_19	Homiliae in Epistolam ad Ephesios XIX	132-137	127-134	1	487
+hom_in_ephesios_20	Homiliae in Epistolam ad Ephesios XX	140-153	135-150	1	942
+hom_in_ephesios_21_24	Homiliae in Epistolam ad Ephesios XXI-XXIV (the starts in between were not recognised; one file)	153-181	149-178	1	1626
+hom_in_philippenses_00	Homiliae in Epistolam ad Philippenses Argumentum	181-185	177-182	1	238
+hom_in_philippenses_01	Homiliae in Epistolam ad Philippenses I	185-193	181-190	1	530
+hom_in_philippenses_02	Homiliae in Epistolam ad Philippenses II	193-201	189-198	1	535
+hom_in_philippenses_03	Homiliae in Epistolam ad Philippenses III	201-209	197-206	1	547
+hom_in_philippenses_04	Homiliae in Epistolam ad Philippenses IV	209-216	205-212	1	446
+hom_in_philippenses_05	Homiliae in Epistolam ad Philippenses V	217-228	213-224	1	663
+hom_in_philippenses_06	Homiliae in Epistolam ad Philippenses VI	229-232	225-228	1	226
+hom_in_philippenses_07	Homiliae in Epistolam ad Philippenses VII	232-232	227-228	1	107
+hom_in_philippenses_08	Homiliae in Epistolam ad Philippenses VIII	233-249	229-246	1	970
+hom_in_philippenses_09	Homiliae in Epistolam ad Philippenses IX	249-260	245-256	1	675
+hom_in_philippenses_10	Homiliae in Epistolam ad Philippenses X	260-268	255-264	1	550
+hom_in_philippenses_11	Homiliae in Epistolam ad Philippenses XI	268-273	263-270	1	449
+hom_in_philippenses_12	Homiliae in Epistolam ad Philippenses XII	273-280	269-276	1	444
+hom_in_philippenses_13	Homiliae in Epistolam ad Philippenses XIII	280-285	275-282	1	478
+hom_in_philippenses_14	Homiliae in Epistolam ad Philippenses XIV	285-292	281-288	1	447
+hom_in_philippenses_15	Homiliae in Epistolam ad Philippenses XV	292-301	287-298	1	577
+hom_in_colossenses_01	Homiliae in Epistolam ad Colossenses I	304-313	299-310	1	639
+hom_in_colossenses_02	Homiliae in Epistolam ad Colossenses II	313-321	309-318	1	606
+hom_in_colossenses_03	Homiliae in Epistolam ad Colossenses III	321-328	317-324	1	483
+hom_in_colossenses_04	Homiliae in Epistolam ad Colossenses IV	329-336	325-332	1	476
+hom_in_colossenses_05	Homiliae in Epistolam ad Colossenses V	336-341	331-338	1	476
+hom_in_colossenses_06	Homiliae in Epistolam ad Colossenses VI	341-348	337-344	1	465
+hom_in_colossenses_07	Homiliae in Epistolam ad Colossenses VII	348-356	343-352	1	572
+hom_in_colossenses_08_12	Homiliae in Epistolam ad Colossenses VIII-XII (the starts in between were not recognised; one file)	356-396	351-392	1	2352
+hom_in_1_thess_01	Homiliae in Epistolam I ad Thessalonicenses I	396-404	391-400	1	501
+hom_in_1_thess_02	Homiliae in Epistolam I ad Thessalonicenses II	404-409	399-406	1	480
+hom_in_1_thess_03	Homiliae in Epistolam I ad Thessalonicenses III	409-420	405-416	1	733
+hom_in_1_thess_04	Homiliae in Epistolam I ad Thessalonicenses IV	420-425	415-422	1	495
+hom_in_1_thess_05	Homiliae in Epistolam I ad Thessalonicenses V	428-432	423-428	1	347
+hom_in_1_thess_06	Homiliae in Epistolam I ad Thessalonicenses VI	433-437	429-434	1	351
+hom_in_1_thess_07	Homiliae in Epistolam I ad Thessalonicenses VII	440-444	435-440	1	363
+hom_in_1_thess_08	Homiliae in Epistolam I ad Thessalonicenses VIII	444-449	439-446	1	481
+hom_in_1_thess_09_11	Homiliae in Epistolam I ad Thessalonicenses IX-XI (the starts in between were not recognised; one file)	449-472	445-468	1	1374
+hom_in_2_thess_01	Homiliae in Epistolam II ad Thessalonicenses I	472-476	467-472	1	308
+hom_in_2_thess_02	Homiliae in Epistolam II ad Thessalonicenses II	476-484	471-480	1	605
+hom_in_2_thess_03	Homiliae in Epistolam II ad Thessalonicenses III	484-489	479-486	1	484
+hom_in_2_thess_04	Homiliae in Epistolam II ad Thessalonicenses IV	489-496	485-492	1	483
+hom_in_2_thess_05	Homiliae in Epistolam II ad Thessalonicenses V	496-505	491-502	1	599
+hom_in_1_tim_01_02	Homiliae in Epistolam I ad Timotheum I-II (the starts in between were not recognised; one file)	505-517	501-514	1	757
+hom_in_1_tim_03_06	Homiliae in Epistolam I ad Timotheum III-VI (the starts in between were not recognised; one file)	520-537	515-534	1	1212
+hom_in_1_tim_07	Homiliae in Epistolam I ad Timotheum VII	537-544	533-540	1	477
+hom_in_1_tim_08	Homiliae in Epistolam I ad Timotheum VIII	544-548	539-544	1	358
+hom_in_1_tim_09	Homiliae in Epistolam I ad Timotheum IX	548-552	543-548	1	364
+hom_in_1_tim_10	Homiliae in Epistolam I ad Timotheum X	552-556	547-552	1	366
+hom_in_1_tim_11	Homiliae in Epistolam I ad Timotheum XI	557-561	553-558	1	361
+hom_in_1_tim_12	Homiliae in Epistolam I ad Timotheum XII	561-568	557-564	1	481
+hom_in_1_tim_13	Homiliae in Epistolam I ad Timotheum XIII	568-576	563-572	1	619
+hom_in_1_tim_14	Homiliae in Epistolam I ad Timotheum XIV	576-584	571-580	1	629
+hom_in_1_tim_15	Homiliae in Epistolam I ad Timotheum XV	584-589	579-586	1	489
+hom_in_1_tim_16	Homiliae in Epistolam I ad Timotheum XVI	589-593	585-590	1	372
+hom_in_1_tim_17	Homiliae in Epistolam I ad Timotheum XVII	596-600	591-596	1	369
+hom_in_1_tim_18	Homiliae in Epistolam I ad Timotheum XVIII	600-604	595-600	1	340
+hom_in_2_tim_01	Homiliae in Epistolam II ad Timotheum I	604-609	599-606	1	460
+hom_in_2_tim_02_03	Homiliae in Epistolam II ad Timotheum II-III (the starts in between were not recognised; one file)	609-621	605-618	1	857
+hom_in_2_tim_04	Homiliae in Epistolam II ad Timotheum IV	621-628	617-624	1	495
+hom_in_2_tim_05_07	Homiliae in Epistolam II ad Timotheum V-VII (the starts in between were not recognised; one file)	628-645	623-642	1	1242
+hom_in_2_tim_08	Homiliae in Epistolam II ad Timotheum VIII	645-653	641-650	1	603
+hom_in_2_tim_09_10	Homiliae in Epistolam II ad Timotheum IX-X (the starts in between were not recognised; one file)	653-660	649-656	1	496
+hom_in_titum_01	Homiliae in Epistolam ad Titum I	660-673	655-670	1	891
+hom_in_titum_02	Homiliae in Epistolam ad Titum II	673-680	669-676	1	476
+hom_in_titum_03	Homiliae in Epistolam ad Titum III	680-685	675-682	1	436
+hom_in_titum_04	Homiliae in Epistolam ad Titum IV	685-692	681-688	1	474
+hom_in_titum_05	Homiliae in Epistolam ad Titum V	692-700	687-696	1	591
+hom_in_titum_06	Homiliae in Epistolam ad Titum VI	700-705	695-702	1	395
+hom_in_philemonem_01	Homiliae in Epistolam ad Philemonem I	705-712	701-708	1	397
+hom_in_philemonem_02	Homiliae in Epistolam ad Philemonem II	712-717	707-714	1	480
+hom_in_philemonem_03	Homiliae in Epistolam ad Philemonem III	717-720	713-716	1	235
+spuria_p720	Spuria: pieces after the Homilies on Philemon (to p. 743)	720-744	715-740	1	1615
+spuria_p744	Spuria: In illud: Ignem veni mittere in terram	744-756	739-752	1	1073
+spuria_p757	Spuria: In resurrectionem D. N. Jesu Christi	757-760	753-756	1	246
+spuria_p760	Spuria: In parabolam de eo qui incidit in latrones	760-761	755-758	1	305
+spuria_p761	Spuria: De jejunio	761-764	757-760	1	307
+spuria_p764	Spuria: De jejunio, et in Esau, et de poenitentia	764-768	759-764	1	460
+spuria_p768	Spuria: In Annuntiationem Deiparae	768-772	763-768	1	468
+spuria_p773	Spuria: De eleemosyna	773-783	769-780	1	799

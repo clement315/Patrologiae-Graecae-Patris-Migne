@@ -1,0 +1,23 @@
+{
+  "version": "2.6 (word-level combination; pages of another copy added; excluded pages left out; keep_pages.txt: pages that are not copies)",
+  "runs": [
+    "v4",
+    "v5"
+  ],
+  "word_level": true,
+  "pages": 386,
+  "pages_excluded": 403,
+  "base_run_per_page": {
+    "v4": 338,
+    "v5": 48
+  },
+  "pages_added_from_other_copy": [],
+  "words_taken_from_other_run": 25815,
+  "lines_added_from_other_run": 467,
+  "pages_read_differently_by_the_runs": [],
+  "duplicate_pages_skipped": [],
+  "lines": 45455,
+  "mean_line_conf": 0.9773,
+  "lines_below_0.80": 203,
+  "lines_below_0.90": 1069
+}

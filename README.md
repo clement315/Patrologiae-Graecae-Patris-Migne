@@ -7,7 +7,7 @@ text with books, chapters and Migne column numbers.
 
 ## Texts
 
-Greek text of 33 volumes, split into 955 works with Migne column numbers, in
+Greek text of 37 volumes, split into 1157 works with Migne column numbers, in
 [`texts/`](texts) (format described in [`texts/README.md`](texts/README.md)):
 
 | Volume | Contents | Works | PDF pages | Lines | Mean line confidence |
@@ -42,6 +42,10 @@ Greek text of 33 volumes, split into 955 works with Migne column numbers, in
 | [PG 58](texts/PG058) | John Chrysostom VII/2 (Homiliae in Matthaeum XLV-XC) | 46 | 162 | 18,903 | 0.9832 |
 | [PG 59](texts/PG059) | John Chrysostom VIII (Homiliae in Joannem I-LXXXVIII; spuria) | 83 | 373 | 47,685 | 0.9776 |
 | [PG 60](texts/PG060) | John Chrysostom IX (Homiliae in Acta Apostolorum, in Epistolam ad Romanos; spuria) | 74 | 382 | 47,275 | 0.9786 |
+| [PG 61](texts/PG061) | John Chrysostom X (Homiliae in I-II ad Corinthios, Commentarius in Galatas; spuria) | 57 | 396 | 48,230 | 0.9775 |
+| [PG 62](texts/PG062) | John Chrysostom XI (Homiliae in Eph., Phil., Col., I-II Thess., I-II Tim., Tit., Philem.; spuria) | 92 | 386 | 45,455 | 0.9773 |
+| [PG 63](texts/PG063) | John Chrysostom XII (Homiliae in Hebraeos, Homiliae XI, Eclogae, Liturgia) | 33 | 353 | 41,982 | 0.9798 |
+| [PG 64](texts/PG064) | John Chrysostom XIII (supplementary and appendix homilies, Testimonia, fragments on the OT, Meletius De natura hominis) | 20 | 477 | 27,971 | 0.9776 |
 | [PG 94](texts/PG094) | John of Damascus I | 11 | 664 | 24,875 | 0.9763 |
 | [PG 95](texts/PG095) | John of Damascus II | 29 | 785 | 39,875 | 0.9755 |
 | [PG 96](texts/PG096) | John of Damascus III | 16 | 743 | 37,148 | 0.9803 |
