@@ -37,7 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.39"
+VERSION = "1.40"
 
 WORKS = {
     25: [
@@ -1400,6 +1400,18 @@ WORKS = {
         {"slug": "sozomenus_he_8", "title": "Sozomenus, Historia ecclesiastica VIII", "col": 0, "pages": [733, 774], "kind": "sections", "cut": True},
         {"slug": "sozomenus_he_9", "title": "Sozomenus, Historia ecclesiastica IX", "col": 0, "pages": [775, 793], "kind": "sections"},
     ],
+    68: [
+        # S. Cyrillus Alexandrinus I: De adoratione et cultu in spiritu et veritate (books I-XVII).  Main scan IA patrologiaecurs41hopfgoog; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_68_provisional", "title": "PG 68: S. Cyrillus Alexandrinus I: De adoratione et cultu in spiritu et veritate (books I-XVII) (provisional, to be split after the OCR)", "col": 0, "pages": [73, 584], "kind": "sections"},
+    ],
+    69: [
+        # S. Cyrillus Alexandrinus II: Glaphyra in Pentateuchum, In Regum libros, Explanatio in Psalmos, fragments.  Main scan IA patrologiaecurs122migngoog; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_69_provisional", "title": "PG 69: S. Cyrillus Alexandrinus II: Glaphyra in Pentateuchum, In Regum libros, Explanatio in Psalmos, fragments (provisional, to be split after the OCR)", "col": 0, "pages": [9, 652], "kind": "sections"},
+    ],
+    70: [
+        # S. Cyrillus Alexandrinus III: Commentarius in Isaiam prophetam (books I-V).  Main scan IA patrologiae_cursus_completus_gr_vol_070; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_70_provisional", "title": "PG 70: S. Cyrillus Alexandrinus III: Commentarius in Isaiam prophetam (books I-V) (provisional, to be split after the OCR)", "col": 0, "pages": [10, 740], "kind": "sections"},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -1678,6 +1690,12 @@ SCAN_FIXES = {
     # PG 67: main scan complete and in order; front matter and indexes excluded (exclude_pages.txt)
     # (anchors from the running heads of the main scan: the column fit alone drifted by up to 40 cols in Sozomenus)
     67: {"in_order": True, "drop": [], "cols": {20: 29, 426: 853, 465: 937, 553: 1109, 601: 1207, 638: 1289, 691: 1421, 734: 1509, 777: 1597}},
+    # PG 68: main scan complete and in order; front matter and indexes excluded (exclude_pages.txt)
+    68: {"in_order": True, "drop": [], "cols": {100: 181}},
+    # PG 69: main scan complete and in order; front matter and indexes excluded (exclude_pages.txt)
+    69: {"in_order": True, "drop": [], "cols": {9: 9, 100: 191}},
+    # PG 70: main scan complete and in order; front matter and indexes excluded (exclude_pages.txt)
+    70: {"in_order": True, "drop": [], "cols": {10: 9, 300: 589, 600: 1189}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
