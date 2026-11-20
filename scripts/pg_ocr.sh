@@ -174,6 +174,13 @@ default_url() {
         68) echo "https://archive.org/download/patrologiaecurs41hopfgoog/patrologiaecurs41hopfgoog.pdf" ;;
         69) echo "https://archive.org/download/patrologiaecurs122migngoog/patrologiaecurs122migngoog.pdf" ;;
         70) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_070/patrologiae_cursus_completus_gr_vol_070.pdf" ;;
+        71) echo "https://archive.org/download/patrologiaecurs21hopfgoog/patrologiaecurs21hopfgoog.pdf" ;;
+        72) echo "https://archive.org/download/patrologiaecurs10hopfgoog/patrologiaecurs10hopfgoog.pdf" ;;
+        73) echo "https://archive.org/download/patrologiaecurs43hopfgoog/patrologiaecurs43hopfgoog.pdf" ;;
+        74) echo "https://archive.org/download/patrologiaecurs07migngoog/patrologiaecurs07migngoog.pdf" ;;
+        75) echo "https://archive.org/download/patrologiaecurs96migngoog/patrologiaecurs96migngoog.pdf" ;;
+        76) echo "https://archive.org/download/patrologiaecurs00hopfgoog/patrologiaecurs00hopfgoog.pdf" ;;
+        77) echo "https://archive.org/download/patrologicursus08migngoog/patrologicursus08migngoog.pdf" ;;
         94) echo "https://archive.org/download/patrologicursus53migngoog/patrologicursus53migngoog.pdf" ;;
         95) echo "https://archive.org/download/patrologicursus50migngoog/patrologicursus50migngoog.pdf" ;;
         96) echo "https://archive.org/download/patrologiaecursu96mign_0/patrologiaecursu96mign_0.pdf" ;;

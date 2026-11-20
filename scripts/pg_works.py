@@ -37,7 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.41"
+VERSION = "1.42"
 
 WORKS = {
     25: [
@@ -1448,6 +1448,34 @@ WORKS = {
         {"slug": "in_isaiam_4", "title": "Commentarius in Isaiam prophetam IV (orationes V)", "col": 0, "pages": [434, 576], "kind": "sections", "cut": True},
         {"slug": "in_isaiam_5", "title": "Commentarius in Isaiam prophetam V (tomi VI)", "col": 0, "pages": [577, 740], "kind": "sections"},
     ],
+    71: [
+        # S. Cyrillus Alexandrinus IV: Commentarius in XII prophetas minores (Osee - Aggaeus).  Main scan IA patrologiaecurs21hopfgoog; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_71_provisional", "title": "PG 71: S. Cyrillus Alexandrinus IV: Commentarius in XII prophetas minores (Osee - Aggaeus) (provisional, to be split after the OCR)", "col": 0, "pages": [12, 586], "kind": "sections"},
+    ],
+    72: [
+        # S. Cyrillus Alexandrinus V: In XII prophetas minores (continuatio), fragmenta in Matthaeum, Commentarius in Lucam.  Main scan IA patrologiaecurs10hopfgoog; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_72_provisional", "title": "PG 72: S. Cyrillus Alexandrinus V: In XII prophetas minores (continuatio), fragmenta in Matthaeum, Commentarius in Lucam (provisional, to be split after the OCR)", "col": 0, "pages": [12, 520], "kind": "sections"},
+    ],
+    73: [
+        # S. Cyrillus Alexandrinus VI: Commentarius in Joannem I-VI.  Main scan IA patrologiaecurs43hopfgoog; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_73_provisional", "title": "PG 73: S. Cyrillus Alexandrinus VI: Commentarius in Joannem I-VI (provisional, to be split after the OCR)", "col": 0, "pages": [12, 569], "kind": "sections"},
+    ],
+    74: [
+        # S. Cyrillus Alexandrinus VII: In Joannem VII-XII, fragmenta in epistolas Pauli et al..  Main scan IA patrologiaecurs07migngoog; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_74_provisional", "title": "PG 74: S. Cyrillus Alexandrinus VII: In Joannem VII-XII, fragmenta in epistolas Pauli et al. (provisional, to be split after the OCR)", "col": 0, "pages": [10, 529], "kind": "sections"},
+    ],
+    75: [
+        # S. Cyrillus Alexandrinus VIII: Thesaurus, De Trinitate dialogi VII, De incarnatione, Quod unus sit Christus, Scholia.  Main scan IA patrologiaecurs96migngoog; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_75_provisional", "title": "PG 75: S. Cyrillus Alexandrinus VIII: Thesaurus, De Trinitate dialogi VII, De incarnatione, Quod unus sit Christus, Scholia (provisional, to be split after the OCR)", "col": 0, "pages": [10, 735], "kind": "sections"},
+    ],
+    76: [
+        # S. Cyrillus Alexandrinus IX: Adversus Nestorium, Apologetica, Contra Julianum, fragmenta dogmatica.  Main scan IA patrologiaecurs00hopfgoog; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_76_provisional", "title": "PG 76: S. Cyrillus Alexandrinus IX: Adversus Nestorium, Apologetica, Contra Julianum, fragmenta dogmatica (provisional, to be split after the OCR)", "col": 0, "pages": [10, 778], "kind": "sections"},
+    ],
+    77: [
+        # S. Cyrillus Alexandrinus X: Epistolae, Homiliae paschales, Homiliae diversae; Theodotus Ancyranus, Paulus Emesenus, Joannes Antiochenus, Acacius, Memnon, Rheginus, Firmus et al..  Main scan IA patrologicursus08migngoog; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_77_provisional", "title": "PG 77: S. Cyrillus Alexandrinus X: Epistolae, Homiliae paschales, Homiliae diversae; Theodotus Ancyranus, Paulus Emesenus, Joannes Antiochenus, Acacius, Memnon, Rheginus, Firmus et al. (provisional, to be split after the OCR)", "col": 0, "pages": [8, 744], "kind": "sections"},
+    ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
          "pages": [215, 256], "kind": "sections"},
@@ -1732,6 +1760,15 @@ SCAN_FIXES = {
     69: {"in_order": True, "drop": [], "cols": {9: 9, 100: 191}},
     # PG 70: main scan complete and in order; front matter and indexes excluded (exclude_pages.txt)
     70: {"in_order": True, "drop": [], "cols": {10: 9, 300: 589, 600: 1189}},
+    # PG 71-77: Google scans with repeated and missing leaves; anchors from running heads of the main scan
+    # (three consecutive heads n-2, n, n+2); Latin-only pages, front matter and indexes excluded (exclude_pages.txt)
+    71: {"in_order": True, "drop": [], "cols": {239: 407, 314: 557, 459: 847, 494: 917, 582: 1053}},
+    72: {"in_order": True, "drop": [], "cols": {31: 47, 67: 119, 451: 815, 504: 917}},
+    73: {"in_order": True, "drop": [], "cols": {231: 399, 333: 603, 439: 815, 481: 899, 521: 959, 551: 1019}},
+    74: {"in_order": True, "drop": [], "cols": {54: 97, 247: 483, 319: 607, 446: 861, 476: 917, 511: 987}},
+    75: {"in_order": True, "drop": [], "cols": {84: 157, 232: 453, 312: 615, 496: 987, 552: 1099, 600: 1205, 675: 1361, 735: 1481}},
+    76: {"in_order": True, "drop": [], "cols": {27: 43, 122: 217, 349: 659, 444: 849, 536: 1013, 649: 1219}},
+    77: {"in_order": True, "drop": [], "cols": {32: 57, 87: 167, 248: 489, 306: 609, 350: 693, 535: 1079, 575: 1157, 744: 1513}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
