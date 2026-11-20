@@ -37,7 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.40"
+VERSION = "1.41"
 
 WORKS = {
     25: [
@@ -1401,16 +1401,52 @@ WORKS = {
         {"slug": "sozomenus_he_9", "title": "Sozomenus, Historia ecclesiastica IX", "col": 0, "pages": [775, 793], "kind": "sections"},
     ],
     68: [
-        # S. Cyrillus Alexandrinus I: De adoratione et cultu in spiritu et veritate (books I-XVII).  Main scan IA patrologiaecurs41hopfgoog; Greek and Latin in parallel columns - provisional, split after the OCR
-        {"slug": "opera_vol_68_provisional", "title": "PG 68: S. Cyrillus Alexandrinus I: De adoratione et cultu in spiritu et veritate (books I-XVII) (provisional, to be split after the OCR)", "col": 0, "pages": [73, 584], "kind": "sections"},
+        # S. Cyrillus Alexandrinus I: De adoratione et cultu in spiritu et veritate.  Book starts from the running heads of the IA text
+        # layer (the book titles were not recognised; a start may lie a few lines before the page named)
+        {"slug": "de_adoratione_01", "title": "De adoratione et cultu in spiritu et veritate I", "col": 0, "pages": [73, 116], "kind": "sections"},
+        {"slug": "de_adoratione_02", "title": "De adoratione et cultu in spiritu et veritate II", "col": 0, "pages": [116, 150], "kind": "sections", "cut": True},
+        {"slug": "de_adoratione_03", "title": "De adoratione et cultu in spiritu et veritate III", "col": 0, "pages": [150, 162], "kind": "sections", "cut": True},
+        {"slug": "de_adoratione_04", "title": "De adoratione et cultu in spiritu et veritate IV", "col": 0, "pages": [162, 191], "kind": "sections", "cut": True},
+        {"slug": "de_adoratione_05", "title": "De adoratione et cultu in spiritu et veritate V", "col": 0, "pages": [191, 215], "kind": "sections", "cut": True},
+        {"slug": "de_adoratione_06", "title": "De adoratione et cultu in spiritu et veritate VI", "col": 0, "pages": [215, 254], "kind": "sections", "cut": True},
+        {"slug": "de_adoratione_07", "title": "De adoratione et cultu in spiritu et veritate VII", "col": 0, "pages": [254, 280], "kind": "sections", "cut": True},
+        {"slug": "de_adoratione_08", "title": "De adoratione et cultu in spiritu et veritate VIII", "col": 0, "pages": [280, 312], "kind": "sections", "cut": True},
+        {"slug": "de_adoratione_09", "title": "De adoratione et cultu in spiritu et veritate IX", "col": 0, "pages": [312, 340], "kind": "sections", "cut": True},
+        {"slug": "de_adoratione_10", "title": "De adoratione et cultu in spiritu et veritate X", "col": 0, "pages": [340, 380], "kind": "sections", "cut": True},
+        {"slug": "de_adoratione_11", "title": "De adoratione et cultu in spiritu et veritate XI", "col": 0, "pages": [380, 408], "kind": "sections", "cut": True},
+        {"slug": "de_adoratione_12", "title": "De adoratione et cultu in spiritu et veritate XII", "col": 0, "pages": [408, 439], "kind": "sections", "cut": True},
+        {"slug": "de_adoratione_13", "title": "De adoratione et cultu in spiritu et veritate XIII", "col": 0, "pages": [439, 464], "kind": "sections", "cut": True},
+        {"slug": "de_adoratione_14", "title": "De adoratione et cultu in spiritu et veritate XIV", "col": 0, "pages": [464, 495], "kind": "sections", "cut": True},
+        {"slug": "de_adoratione_15", "title": "De adoratione et cultu in spiritu et veritate XV", "col": 0, "pages": [495, 526], "kind": "sections", "cut": True},
+        {"slug": "de_adoratione_16", "title": "De adoratione et cultu in spiritu et veritate XVI", "col": 0, "pages": [526, 552], "kind": "sections", "cut": True},
+        {"slug": "de_adoratione_17", "title": "De adoratione et cultu in spiritu et veritate XVII", "col": 0, "pages": [552, 584], "kind": "sections", "cut": True},
     ],
     69: [
-        # S. Cyrillus Alexandrinus II: Glaphyra in Pentateuchum, In Regum libros, Explanatio in Psalmos, fragments.  Main scan IA patrologiaecurs122migngoog; Greek and Latin in parallel columns - provisional, split after the OCR
-        {"slug": "opera_vol_69_provisional", "title": "PG 69: S. Cyrillus Alexandrinus II: Glaphyra in Pentateuchum, In Regum libros, Explanatio in Psalmos, fragments (provisional, to be split after the OCR)", "col": 0, "pages": [9, 652], "kind": "sections"},
+        # S. Cyrillus Alexandrinus II: Glaphyra in Pentateuchum, In Regum libros, Explanatio in Psalmos.  Starts from the running
+        # heads of the IA text layer
+        {"slug": "glaphyra_in_genesim_1", "title": "Glaphyra in Genesim I", "col": 9, "pages": [9, 37], "kind": "sections"},
+        {"slug": "glaphyra_in_genesim_2", "title": "Glaphyra in Genesim II", "col": 0, "pages": [37, 67], "kind": "sections", "cut": True},
+        {"slug": "glaphyra_in_genesim_3", "title": "Glaphyra in Genesim III", "col": 0, "pages": [67, 93], "kind": "sections", "cut": True},
+        {"slug": "glaphyra_in_genesim_4", "title": "Glaphyra in Genesim IV", "col": 0, "pages": [93, 117], "kind": "sections", "cut": True},
+        {"slug": "glaphyra_in_genesim_5", "title": "Glaphyra in Genesim V", "col": 0, "pages": [117, 147], "kind": "sections", "cut": True},
+        {"slug": "glaphyra_in_genesim_6", "title": "Glaphyra in Genesim VI", "col": 0, "pages": [147, 174], "kind": "sections", "cut": True},
+        {"slug": "glaphyra_in_genesim_7", "title": "Glaphyra in Genesim VII", "col": 0, "pages": [174, 195], "kind": "sections", "cut": True},
+        {"slug": "glaphyra_in_exodum_1", "title": "Glaphyra in Exodum I", "col": 0, "pages": [195, 215], "kind": "sections", "cut": True},
+        {"slug": "glaphyra_in_exodum_2", "title": "Glaphyra in Exodum II", "col": 0, "pages": [215, 255], "kind": "sections", "cut": True},
+        {"slug": "glaphyra_in_exodum_3", "title": "Glaphyra in Exodum III", "col": 0, "pages": [255, 279], "kind": "sections", "cut": True},
+        {"slug": "glaphyra_in_leviticum", "title": "Glaphyra in Leviticum", "col": 0, "pages": [279, 301], "kind": "sections", "cut": True},
+        {"slug": "glaphyra_in_numeros", "title": "Glaphyra in Numeros", "col": 0, "pages": [301, 327], "kind": "sections", "cut": True},
+        {"slug": "glaphyra_in_deuteronomium", "title": "Glaphyra in Deuteronomium", "col": 0, "pages": [327, 343], "kind": "sections", "cut": True},
+        {"slug": "in_regum_libros", "title": "Fragmenta in libros Regnorum", "col": 0, "pages": [343, 352], "kind": "sections", "cut": True},
+        {"slug": "explanatio_in_psalmos", "title": "Explanatio in Psalmos (with the pieces printed after it)", "col": 0, "pages": [352, 652], "kind": "sections", "cut": True},
     ],
     70: [
-        # S. Cyrillus Alexandrinus III: Commentarius in Isaiam prophetam (books I-V).  Main scan IA patrologiae_cursus_completus_gr_vol_070; Greek and Latin in parallel columns - provisional, split after the OCR
-        {"slug": "opera_vol_70_provisional", "title": "PG 70: S. Cyrillus Alexandrinus III: Commentarius in Isaiam prophetam (books I-V) (provisional, to be split after the OCR)", "col": 0, "pages": [10, 740], "kind": "sections"},
+        # S. Cyrillus Alexandrinus III: Commentarius in Isaiam prophetam, books I-V (from the book titles, ΒΙΒΛΙΟΝ ...)
+        {"slug": "in_isaiam_1", "title": "Commentarius in Isaiam prophetam I (orationes VI)", "col": 9, "pages": [10, 157], "kind": "sections"},
+        {"slug": "in_isaiam_2", "title": "Commentarius in Isaiam prophetam II (tomi V)", "col": 0, "pages": [157, 283], "kind": "sections", "cut": True},
+        {"slug": "in_isaiam_3", "title": "Commentarius in Isaiam prophetam III (tomi V)", "col": 0, "pages": [283, 434], "kind": "sections", "cut": True},
+        {"slug": "in_isaiam_4", "title": "Commentarius in Isaiam prophetam IV (orationes V)", "col": 0, "pages": [434, 576], "kind": "sections", "cut": True},
+        {"slug": "in_isaiam_5", "title": "Commentarius in Isaiam prophetam V (tomi VI)", "col": 0, "pages": [577, 740], "kind": "sections"},
     ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",

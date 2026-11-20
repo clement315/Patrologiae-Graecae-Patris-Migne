@@ -7,7 +7,7 @@ text with books, chapters and Migne column numbers.
 
 ## Texts
 
-Greek text of 38 volumes, split into 1174 works with Migne column numbers, in
+Greek text of 41 volumes, split into 1211 works with Migne column numbers, in
 [`texts/`](texts) (format described in [`texts/README.md`](texts/README.md)):
 
 | Volume | Contents | Works | PDF pages | Lines | Mean line confidence |
@@ -47,6 +47,9 @@ Greek text of 38 volumes, split into 1174 works with Migne column numbers, in
 | [PG 63](texts/PG063) | John Chrysostom XII (Homiliae in Hebraeos, Homiliae XI, Eclogae, Liturgia) | 33 | 353 | 41,982 | 0.9798 |
 | [PG 64](texts/PG064) | John Chrysostom XIII (supplementary and appendix homilies, Testimonia, fragments on the OT, Meletius De natura hominis) | 20 | 477 | 27,971 | 0.9776 |
 | [PG 67](texts/PG067) | Socrates Scholasticus and Sozomenus, Historiae ecclesiasticae (books I-VII, I-IX) | 17 | 767 | 30,029 | 0.9841 |
+| [PG 68](texts/PG068) | Cyril of Alexandria I: De adoratione et cultu in spiritu et veritate (books I-XVII) | 17 | 501 | 27,099 | 0.9733 |
+| [PG 69](texts/PG069) | Cyril of Alexandria II: Glaphyra in Pentateuchum, In Regum libros, Explanatio in Psalmos | 15 | 636 | 34,112 | 0.9801 |
+| [PG 70](texts/PG070) | Cyril of Alexandria III: Commentarius in Isaiam (books I-V) | 5 | 727 | 41,016 | 0.9853 |
 | [PG 94](texts/PG094) | John of Damascus I | 11 | 664 | 24,875 | 0.9763 |
 | [PG 95](texts/PG095) | John of Damascus II | 29 | 785 | 39,875 | 0.9755 |
 | [PG 96](texts/PG096) | John of Damascus III | 16 | 743 | 37,148 | 0.9803 |
