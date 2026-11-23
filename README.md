@@ -7,7 +7,7 @@ text with books, chapters and Migne column numbers.
 
 ## Texts
 
-Greek text of 41 volumes, split into 1211 works with Migne column numbers, in
+Greek text of 46 volumes, split into 1269 works with Migne column numbers, in
 [`texts/`](texts) (format described in [`texts/README.md`](texts/README.md)):
 
 | Volume | Contents | Works | PDF pages | Lines | Mean line confidence |
@@ -50,6 +50,11 @@ Greek text of 41 volumes, split into 1211 works with Migne column numbers, in
 | [PG 68](texts/PG068) | Cyril of Alexandria I: De adoratione et cultu in spiritu et veritate (books I-XVII) | 17 | 501 | 27,099 | 0.9733 |
 | [PG 69](texts/PG069) | Cyril of Alexandria II: Glaphyra in Pentateuchum, In Regum libros, Explanatio in Psalmos | 15 | 636 | 34,112 | 0.9801 |
 | [PG 70](texts/PG070) | Cyril of Alexandria III: Commentarius in Isaiam (books I-V) | 5 | 727 | 41,016 | 0.9853 |
+| [PG 71](texts/PG071) | Cyril of Alexandria IV: Commentarius in XII prophetas minores (Osee - Aggaeus) | 10 | 573 | 31,940 | 0.9825 |
+| [PG 72](texts/PG072) | Cyril of Alexandria V: In Zachariam, In Malachiam, In Matthaeum (fragments), In Lucam | 4 | 503 | 27,134 | 0.9792 |
+| [PG 73](texts/PG073) | Cyril of Alexandria VI: Commentarius in Joannem I-VI | 6 | 552 | 30,890 | 0.9789 |
+| [PG 74](texts/PG074) | Cyril of Alexandria VII: In Joannem VII-XII; fragments on Acts and the Epistles | 11 | 518 | 28,519 | 0.9866 |
+| [PG 76](texts/PG076) | Cyril of Alexandria IX: Adversus Nestorium, the Twelve Chapters, Contra Julianum I-X, De recta fide | 27 | 742 | 38,551 | 0.9866 |
 | [PG 94](texts/PG094) | John of Damascus I | 11 | 664 | 24,875 | 0.9763 |
 | [PG 95](texts/PG095) | John of Damascus II | 29 | 785 | 39,875 | 0.9755 |
 | [PG 96](texts/PG096) | John of Damascus III | 16 | 743 | 37,148 | 0.9803 |

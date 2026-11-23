@@ -37,7 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.42"
+VERSION = "1.44"
 
 WORKS = {
     25: [
@@ -1449,32 +1449,111 @@ WORKS = {
         {"slug": "in_isaiam_5", "title": "Commentarius in Isaiam prophetam V (tomi VI)", "col": 0, "pages": [577, 740], "kind": "sections"},
     ],
     71: [
-        # S. Cyrillus Alexandrinus IV: Commentarius in XII prophetas minores (Osee - Aggaeus).  Main scan IA patrologiaecurs21hopfgoog; Greek and Latin in parallel columns - provisional, split after the OCR
-        {"slug": "opera_vol_71_provisional", "title": "PG 71: S. Cyrillus Alexandrinus IV: Commentarius in XII prophetas minores (Osee - Aggaeus) (provisional, to be split after the OCR)", "col": 0, "pages": [12, 586], "kind": "sections"},
+        # S. Cyrillus Alexandrinus IV: Commentarius in XII prophetas minores, Osee - Aggaeus (from the titles ΕΞΗΓΗΣΙΣ ΥΠΟΜΝΗΜΑΤΙΚΗ ΕΙΣ ΤΟΝ ΠΡΟΦΗΤΗΝ ...)
+        {"slug": "in_oseam", "title": "Commentarius in Oseam prophetam (with the prooemium to the twelve prophets)", "col": 9, "pages": [12, 187], "kind": "sections"},
+        {"slug": "in_joelem", "title": "Commentarius in Joelem prophetam", "col": 0, "pages": [187, 239], "kind": "sections", "cut": True},
+        {"slug": "in_amos", "title": "Commentarius in Amos prophetam", "col": 0, "pages": [239, 326], "kind": "sections", "cut": True},
+        {"slug": "in_abdiam", "title": "Commentarius in Abdiam prophetam", "col": 0, "pages": [326, 334], "kind": "sections", "cut": True},
+        {"slug": "in_jonam", "title": "Commentarius in Jonam prophetam", "col": 0, "pages": [334, 355], "kind": "sections", "cut": True},
+        {"slug": "in_michaeam", "title": "Commentarius in Michaeam prophetam", "col": 0, "pages": [355, 423], "kind": "sections", "cut": True},
+        {"slug": "in_nahum", "title": "Commentarius in Nahum prophetam", "col": 0, "pages": [423, 457], "kind": "sections", "cut": True},
+        {"slug": "in_habacuc", "title": "Commentarius in Habacuc prophetam", "col": 0, "pages": [457, 507], "kind": "sections", "cut": True},
+        {"slug": "in_sophoniam", "title": "Commentarius in Sophoniam prophetam", "col": 0, "pages": [507, 566], "kind": "sections", "cut": True},
+        {"slug": "in_aggaeum", "title": "Commentarius in Aggaeum prophetam", "col": 0, "pages": [566, 586], "kind": "sections", "cut": True},
     ],
     72: [
-        # S. Cyrillus Alexandrinus V: In XII prophetas minores (continuatio), fragmenta in Matthaeum, Commentarius in Lucam.  Main scan IA patrologiaecurs10hopfgoog; Greek and Latin in parallel columns - provisional, split after the OCR
-        {"slug": "opera_vol_72_provisional", "title": "PG 72: S. Cyrillus Alexandrinus V: In XII prophetas minores (continuatio), fragmenta in Matthaeum, Commentarius in Lucam (provisional, to be split after the OCR)", "col": 0, "pages": [12, 520], "kind": "sections"},
+        # S. Cyrillus Alexandrinus V: In XII prophetas (end), In Matthaeum, In Lucam
+        {"slug": "in_zachariam", "title": "Commentarius in Zachariam prophetam", "col": 9, "pages": [12, 145], "kind": "sections"},
+        {"slug": "in_malachiam", "title": "Commentarius in Malachiam prophetam", "col": 0, "pages": [145, 189], "kind": "sections", "cut": True},
+        {"slug": "in_matthaeum_fragmenta", "title": "Commentarii in Matthaeum quae supersunt (fragmenta e catenis)", "col": 0, "pages": [190, 243], "kind": "sections"},
+        {"slug": "in_lucam", "title": "Explanatio in Lucae Evangelium", "col": 0, "pages": [245, 520], "kind": "sections"},
     ],
     73: [
-        # S. Cyrillus Alexandrinus VI: Commentarius in Joannem I-VI.  Main scan IA patrologiaecurs43hopfgoog; Greek and Latin in parallel columns - provisional, split after the OCR
-        {"slug": "opera_vol_73_provisional", "title": "PG 73: S. Cyrillus Alexandrinus VI: Commentarius in Joannem I-VI (provisional, to be split after the OCR)", "col": 0, "pages": [12, 569], "kind": "sections"},
+        # S. Cyrillus Alexandrinus VI: Commentarius in Joannem, books I-VI (from the capita and book titles)
+        {"slug": "in_joannem_1", "title": "Commentarius in Joannis Evangelium I (with the prooemium)", "col": 9, "pages": [12, 106], "kind": "sections"},
+        {"slug": "in_joannem_2", "title": "Commentarius in Joannis Evangelium II", "col": 0, "pages": [106, 231], "kind": "sections", "cut": True},
+        {"slug": "in_joannem_3", "title": "Commentarius in Joannis Evangelium III", "col": 0, "pages": [231, 295], "kind": "sections", "cut": True},
+        {"slug": "in_joannem_4", "title": "Commentarius in Joannis Evangelium IV", "col": 0, "pages": [295, 383], "kind": "sections", "cut": True},
+        {"slug": "in_joannem_5", "title": "Commentarius in Joannis Evangelium V", "col": 0, "pages": [383, 477], "kind": "sections", "cut": True},
+        {"slug": "in_joannem_6", "title": "Commentarius in Joannis Evangelium VI", "col": 0, "pages": [477, 569], "kind": "sections", "cut": True},
     ],
     74: [
-        # S. Cyrillus Alexandrinus VII: In Joannem VII-XII, fragmenta in epistolas Pauli et al..  Main scan IA patrologiaecurs07migngoog; Greek and Latin in parallel columns - provisional, split after the OCR
-        {"slug": "opera_vol_74_provisional", "title": "PG 74: S. Cyrillus Alexandrinus VII: In Joannem VII-XII, fragmenta in epistolas Pauli et al. (provisional, to be split after the OCR)", "col": 0, "pages": [10, 529], "kind": "sections"},
+        # S. Cyrillus Alexandrinus VII: In Joannem VII-XII, fragments on Acts and the Epistles
+        {"slug": "in_joannem_7_8_fragmenta", "title": "Commentarius in Joannis Evangelium VII-VIII (fragmenta)", "col": 9, "pages": [10, 57], "kind": "sections"},
+        {"slug": "in_joannem_9", "title": "Commentarius in Joannis Evangelium IX", "col": 0, "pages": [57, 146], "kind": "sections", "cut": True},
+        {"slug": "in_joannem_10", "title": "Commentarius in Joannis Evangelium X", "col": 0, "pages": [146, 228], "kind": "sections", "cut": True},
+        {"slug": "in_joannem_11", "title": "Commentarius in Joannis Evangelium XI", "col": 0, "pages": [228, 319], "kind": "sections", "cut": True},
+        {"slug": "in_joannem_12", "title": "Commentarius in Joannis Evangelium XII", "col": 0, "pages": [319, 393], "kind": "sections", "cut": True},
+        {"slug": "in_acta_fragmenta", "title": "Fragmenta in Acta Apostolorum", "col": 0, "pages": [394, 402], "kind": "sections"},
+        {"slug": "in_epistolam_ad_romanos", "title": "Explanatio in Epistolam ad Romanos", "col": 0, "pages": [402, 443], "kind": "sections", "cut": True},
+        {"slug": "in_epistolam_1_ad_corinthios", "title": "Explanatio in Epistolam I ad Corinthios", "col": 0, "pages": [443, 475], "kind": "sections", "cut": True},
+        {"slug": "in_epistolam_2_ad_corinthios", "title": "Explanatio in Epistolam II ad Corinthios", "col": 0, "pages": [475, 494], "kind": "sections", "cut": True},
+        {"slug": "in_epistolam_ad_hebraeos", "title": "Explanatio in Epistolam ad Hebraeos (with other fragments)", "col": 0, "pages": [494, 520], "kind": "sections", "cut": True},
+        {"slug": "in_epistolas_catholicas_fragmenta", "title": "Fragmenta in Epistolas catholicas", "col": 0, "pages": [521, 529], "kind": "sections"},
     ],
     75: [
-        # S. Cyrillus Alexandrinus VIII: Thesaurus, De Trinitate dialogi VII, De incarnatione, Quod unus sit Christus, Scholia.  Main scan IA patrologiaecurs96migngoog; Greek and Latin in parallel columns - provisional, split after the OCR
-        {"slug": "opera_vol_75_provisional", "title": "PG 75: S. Cyrillus Alexandrinus VIII: Thesaurus, De Trinitate dialogi VII, De incarnatione, Quod unus sit Christus, Scholia (provisional, to be split after the OCR)", "col": 0, "pages": [10, 735], "kind": "sections"},
+        # S. Cyrillus Alexandrinus VIII: Thesaurus, De Trinitate dialogi, christological treatises
+        {"slug": "thesaurus", "title": "Thesaurus de sancta et consubstantiali Trinitate", "col": 9, "pages": [10, 332], "kind": "sections"},
+        {"slug": "de_trinitate_dialogus_1", "title": "De sancta et consubstantiali Trinitate, dialogus I (with the prologue)", "col": 0, "pages": [333, 361], "kind": "sections"},
+        {"slug": "de_trinitate_dialogus_2", "title": "De sancta et consubstantiali Trinitate, dialogus II", "col": 0, "pages": [361, 401], "kind": "sections", "cut": True},
+        {"slug": "de_trinitate_dialogus_3", "title": "De sancta et consubstantiali Trinitate, dialogus III", "col": 0, "pages": [401, 432], "kind": "sections", "cut": True},
+        {"slug": "de_trinitate_dialogus_4", "title": "De sancta et consubstantiali Trinitate, dialogus IV", "col": 0, "pages": [432, 467], "kind": "sections", "cut": True},
+        {"slug": "de_trinitate_dialogus_5", "title": "De sancta et consubstantiali Trinitate, dialogus V", "col": 0, "pages": [467, 503], "kind": "sections", "cut": True},
+        {"slug": "de_trinitate_dialogus_6", "title": "De sancta et consubstantiali Trinitate, dialogus VI", "col": 0, "pages": [503, 539], "kind": "sections", "cut": True},
+        {"slug": "de_trinitate_dialogus_7", "title": "De sancta et consubstantiali Trinitate, dialogus VII", "col": 0, "pages": [539, 564], "kind": "sections", "cut": True},
+        {"slug": "capita_de_spiritu_sancto", "title": "Capita argumentorum de Spiritu sancto", "col": 0, "pages": [564, 575], "kind": "sections", "cut": True},
+        {"slug": "de_sancta_trinitate", "title": "De sancta et vivifica Trinitate", "col": 0, "pages": [576, 593], "kind": "sections"},
+        {"slug": "de_incarnatione_unigeniti", "title": "De incarnatione Unigeniti", "col": 0, "pages": [593, 621], "kind": "sections", "cut": True},
+        {"slug": "quod_unus_sit_christus", "title": "Quod unus sit Christus", "col": 0, "pages": [621, 675], "kind": "sections", "cut": True},
+        {"slug": "scholia_de_incarnatione", "title": "Scholia de incarnatione Unigeniti", "col": 0, "pages": [679, 700], "kind": "sections"},
+        {"slug": "de_incarnatione_verbi", "title": "De incarnatione Verbi Dei", "col": 0, "pages": [701, 704], "kind": "sections"},
+        {"slug": "de_incarnatione_domini", "title": "De incarnatione Domini", "col": 0, "pages": [704, 735], "kind": "sections", "cut": True},
     ],
     76: [
-        # S. Cyrillus Alexandrinus IX: Adversus Nestorium, Apologetica, Contra Julianum, fragmenta dogmatica.  Main scan IA patrologiaecurs00hopfgoog; Greek and Latin in parallel columns - provisional, split after the OCR
-        {"slug": "opera_vol_76_provisional", "title": "PG 76: S. Cyrillus Alexandrinus IX: Adversus Nestorium, Apologetica, Contra Julianum, fragmenta dogmatica (provisional, to be split after the OCR)", "col": 0, "pages": [10, 778], "kind": "sections"},
+        # S. Cyrillus Alexandrinus IX: Adversus Nestorium, the Twelve Chapters, Contra Julianum, De recta fide
+        {"slug": "adversus_nestorium_1", "title": "Adversus Nestorii blasphemias, tomus I", "col": 9, "pages": [10, 38], "kind": "sections"},
+        {"slug": "adversus_nestorium_2", "title": "Adversus Nestorii blasphemias, tomus II", "col": 0, "pages": [38, 67], "kind": "sections", "cut": True},
+        {"slug": "adversus_nestorium_3", "title": "Adversus Nestorii blasphemias, tomus III", "col": 0, "pages": [67, 95], "kind": "sections", "cut": True},
+        {"slug": "adversus_nestorium_4", "title": "Adversus Nestorii blasphemias, tomus IV", "col": 0, "pages": [95, 117], "kind": "sections", "cut": True},
+        {"slug": "adversus_nestorium_5", "title": "Adversus Nestorii blasphemias, tomus V", "col": 0, "pages": [117, 139], "kind": "sections", "cut": True},
+        {"slug": "dialogus_cum_nestorio", "title": "Dialogus cum Nestorio quod sancta Virgo Deipara sit", "col": 0, "pages": [140, 143], "kind": "sections"},
+        {"slug": "adversus_nolentes_confiteri_deiparam", "title": "Adversus nolentes confiteri sanctam Virginem esse Deiparam", "col": 0, "pages": [143, 161], "kind": "sections", "cut": True},
+        {"slug": "explicatio_duodecim_capitum", "title": "Explicatio duodecim capitum", "col": 0, "pages": [162, 173], "kind": "sections"},
+        {"slug": "apologeticus_contra_orientales", "title": "Apologeticus pro duodecim capitibus contra Orientales", "col": 0, "pages": [173, 208], "kind": "sections", "cut": True},
+        {"slug": "epistola_ad_euoptium", "title": "Epistola ad Euoptium adversus impugnationem duodecim capitum a Theodoreto editam", "col": 0, "pages": [208, 243], "kind": "sections", "cut": True},
+        {"slug": "apologeticus_ad_theodosium", "title": "Apologeticus ad imperatorem Theodosium", "col": 0, "pages": [244, 263], "kind": "sections"},
+        {"slug": "contra_julianum_1", "title": "Pro sancta Christianorum religione adversus libros Juliani I (with the dedication to Theodosius)", "col": 0, "pages": [271, 298], "kind": "sections", "cut": True},
+        {"slug": "contra_julianum_2", "title": "Adversus Julianum II", "col": 0, "pages": [298, 326], "kind": "sections", "cut": True},
+        {"slug": "contra_julianum_3", "title": "Adversus Julianum III", "col": 0, "pages": [326, 357], "kind": "sections", "cut": True},
+        {"slug": "contra_julianum_4", "title": "Adversus Julianum IV", "col": 0, "pages": [357, 385], "kind": "sections", "cut": True},
+        {"slug": "contra_julianum_5", "title": "Adversus Julianum V", "col": 0, "pages": [385, 409], "kind": "sections", "cut": True},
+        {"slug": "contra_julianum_6", "title": "Adversus Julianum VI", "col": 0, "pages": [409, 435], "kind": "sections", "cut": True},
+        {"slug": "contra_julianum_7", "title": "Adversus Julianum VII", "col": 0, "pages": [435, 462], "kind": "sections", "cut": True},
+        {"slug": "contra_julianum_8", "title": "Adversus Julianum VIII", "col": 0, "pages": [462, 501], "kind": "sections", "cut": True},
+        {"slug": "contra_julianum_9", "title": "Adversus Julianum IX", "col": 0, "pages": [501, 530], "kind": "sections", "cut": True},
+        {"slug": "contra_julianum_10", "title": "Adversus Julianum X", "col": 0, "pages": [530, 558], "kind": "sections", "cut": True},
+        {"slug": "contra_julianum_fragmenta", "title": "Fragmenta ex reliquis libris contra Julianum", "col": 0, "pages": [558, 561], "kind": "sections", "cut": True},
+        {"slug": "adversus_anthropomorphitas", "title": "Adversus Anthropomorphitas (with the epistola ad Calosyrium)", "col": 0, "pages": [562, 595], "kind": "sections"},
+        {"slug": "de_recta_fide_ad_theodosium", "title": "De recta fide ad imperatorem Theodosium", "col": 0, "pages": [596, 629], "kind": "sections"},
+        {"slug": "de_recta_fide_ad_reginas_1", "title": "De recta fide ad reginas, oratio I", "col": 0, "pages": [630, 709], "kind": "sections"},
+        {"slug": "de_recta_fide_ad_reginas_2", "title": "De recta fide ad reginas, oratio II", "col": 0, "pages": [709, 771], "kind": "sections", "cut": True},
+        {"slug": "fragmenta_dogmatica", "title": "Fragmenta ex operibus dogmaticis deperditis", "col": 0, "pages": [772, 778], "kind": "sections"},
     ],
     77: [
-        # S. Cyrillus Alexandrinus X: Epistolae, Homiliae paschales, Homiliae diversae; Theodotus Ancyranus, Paulus Emesenus, Joannes Antiochenus, Acacius, Memnon, Rheginus, Firmus et al..  Main scan IA patrologicursus08migngoog; Greek and Latin in parallel columns - provisional, split after the OCR
-        {"slug": "opera_vol_77_provisional", "title": "PG 77: S. Cyrillus Alexandrinus X: Epistolae, Homiliae paschales, Homiliae diversae; Theodotus Ancyranus, Paulus Emesenus, Joannes Antiochenus, Acacius, Memnon, Rheginus, Firmus et al. (provisional, to be split after the OCR)", "col": 0, "pages": [8, 744], "kind": "sections"},
+        # S. Cyrillus Alexandrinus X and his contemporaries (by section; letters and homilies not yet split one by one)
+        {"slug": "epistolae", "title": "S. Cyrillus Alexandrinus, Epistolae", "col": 9, "pages": [8, 192], "kind": "sections"},
+        {"slug": "homiliae_paschales", "title": "S. Cyrillus Alexandrinus, Homiliae paschales I-XXX", "col": 0, "pages": [204, 489], "kind": "sections"},
+        {"slug": "homiliae_diversae", "title": "S. Cyrillus Alexandrinus, Homiliae diversae", "col": 0, "pages": [489, 556], "kind": "sections", "cut": True},
+        {"slug": "dubia_de_trinitate", "title": "S. Cyrillus Alexandrinus (dubia), De Trinitate", "col": 0, "pages": [557, 585], "kind": "sections"},
+        {"slug": "collectanea", "title": "S. Cyrillus et alii, Collectanea", "col": 0, "pages": [585, 643], "kind": "sections", "cut": True},
+        {"slug": "theodotus_expositio_symboli", "title": "Theodotus Ancyranus, Expositio symboli Nicaeni", "col": 0, "pages": [652, 668], "kind": "sections"},
+        {"slug": "theodotus_homiliae", "title": "Theodotus Ancyranus, Homiliae", "col": 0, "pages": [668, 702], "kind": "sections", "cut": True},
+        {"slug": "paulus_emesenus_homiliae", "title": "Paulus Emesenus, Homiliae", "col": 0, "pages": [703, 709], "kind": "sections"},
+        {"slug": "acacius_berrhoeensis_epistola", "title": "Acacius Berrhoeensis, Epistola", "col": 0, "pages": [711, 711], "kind": "sections"},
+        {"slug": "joannes_antiochenus_epistolae", "title": "Joannes Antiochenus, Epistolae", "col": 0, "pages": [712, 718], "kind": "sections"},
+        {"slug": "memnon_epistola", "title": "Memnon Ephesinus, Epistola ad clerum Constantinopolitanum", "col": 0, "pages": [719, 720], "kind": "sections"},
+        {"slug": "acacius_melitenus_homilia", "title": "Acacius Melitenus, Homilia Ephesi habita", "col": 0, "pages": [721, 723], "kind": "sections"},
+        {"slug": "firmus_caesariensis_epistolae", "title": "Firmus Caesariensis, Epistolae", "col": 0, "pages": [728, 744], "kind": "sections"},
     ],
     94: [
         {"slug": "vita_joannis", "title": "Vita Joannis Damasceni (auctore Joanne Hierosolymitano)",
@@ -1760,15 +1839,35 @@ SCAN_FIXES = {
     69: {"in_order": True, "drop": [], "cols": {9: 9, 100: 191}},
     # PG 70: main scan complete and in order; front matter and indexes excluded (exclude_pages.txt)
     70: {"in_order": True, "drop": [], "cols": {10: 9, 300: 589, 600: 1189}},
-    # PG 71-77: Google scans with repeated and missing leaves; anchors from running heads of the main scan
+    # PG 71-77: Google scans with repeated and missing leaves; anchors from running heads of the main scan;
+    # runs of 8-20 pages photographed twice (found by comparing the OCR text of all pages) are dropped
     # (three consecutive heads n-2, n, n+2); Latin-only pages, front matter and indexes excluded (exclude_pages.txt)
-    71: {"in_order": True, "drop": [], "cols": {239: 407, 314: 557, 459: 847, 494: 917, 582: 1053}},
-    72: {"in_order": True, "drop": [], "cols": {31: 47, 67: 119, 451: 815, 504: 917}},
-    73: {"in_order": True, "drop": [], "cols": {231: 399, 333: 603, 439: 815, 481: 899, 521: 959, 551: 1019}},
-    74: {"in_order": True, "drop": [], "cols": {54: 97, 247: 483, 319: 607, 446: 861, 476: 917, 511: 987}},
-    75: {"in_order": True, "drop": [], "cols": {84: 157, 232: 453, 312: 615, 496: 987, 552: 1099, 600: 1205, 675: 1361, 735: 1481}},
-    76: {"in_order": True, "drop": [], "cols": {27: 43, 122: 217, 349: 659, 444: 849, 536: 1013, 649: 1219}},
-    77: {"in_order": True, "drop": [], "cols": {32: 57, 87: 167, 248: 489, 306: 609, 350: 693, 535: 1079, 575: 1157, 744: 1513}},
+    71: {"in_order": True, "drop": list(range(155, 169)) + list(range(201, 213)) + list(range(527, 547)),
+         "cols": {12: 9, 239: 407, 314: 557, 459: 847, 494: 917, 582: 1053}},
+    72: {"in_order": True, "drop": list(range(271, 279)) + list(range(311, 321)) + list(range(347, 361)),
+         "cols": {12: 9, 31: 47, 67: 119, 450: 813, 451: 815, 504: 917}},
+    73: {"in_order": True, "drop": list(range(113, 123)) + list(range(217, 225)) + list(range(487, 497)),
+         "cols": {12: 9, 231: 399, 333: 603, 439: 815, 481: 899, 521: 959, 551: 1019}},
+    74: {"in_order": True, "drop": list(range(305, 315)),
+         "cols": {10: 9, 54: 97, 247: 483, 319: 607, 446: 861, 476: 917, 511: 987}},
+    75: {"in_order": True, "drop": [],
+         "order": [[249, 10292, 250], [423, 10467, 424], [430, 10475, 431], [585, 10631, 586, 10633, 587, 10635, 588],
+                   [590, 10639, 591], [599, 10649, 600, 10651, 601], [603, 10655, 604], [608, 10661, 609]],
+         # p10xxx = leaf xxx of the second scan (IA PatrologiaGraeca Vol. 075), missing in the main scan (the text breaks
+         # off between the two main pages around it)
+         "cols": {10: 9, 84: 157, 232: 453, 312: 615, 496: 987, 552: 1099, 580: 1155, 600: 1205, 675: 1361, 735: 1481}},
+    76: {"in_order": True, "drop": list(range(469, 479)) + list(range(633, 643)) + list(range(713, 723)) + list(range(747, 757)),
+         "cols": {10: 9, 27: 43, 121: 215, 122: 217, 321: 603, 322: 605, 349: 659, 444: 849, 536: 1013, 649: 1219,
+                  691: 1303, 692: 1305, 694: 1309, 696: 1313, 698: 1317, 701: 1319, 712: 1341, 723: 1343, 734: 1365, 746: 1389, 757: 1391, 760: 1397, 775: 1427}},
+    # PG 77: the main scan misses 22 leaves (homilies, Theodotus, Paulus Emesenus) and shuffles pp. 512-527;
+    # p10xxx = leaf xxx of the second scan (IA PatrologiaGraeca Vol. 077), put where the text breaks off
+    77: {"in_order": True, "drop": [520, 522, 524, 525, 526],
+         "order": [[436, 10475, 10476, 437], [460, 10501, 461], [463, 10505, 10506, 464],
+                   [511, 10555, 512, 521, 513, 10559, 514], [519, 10566, 10567, 10568, 523, 10570, 10571, 10572, 527],
+                   [652, 10701, 653], [655, 10705, 656], [676, 10727, 10728, 677], [684, 10737, 685, 10739, 10740, 686],
+                   [709, 10767, 10768, 711]],
+         "cols": {8: 9, 32: 57, 87: 167, 248: 489, 306: 609, 350: 693, 535: 1079, 575: 1157, 666: 1345, 687: 1393,
+                  708: 1439, 723: 1471, 744: 1513}},
     95: {
         "same_scan": True,      # no independent second scan: sparse running heads, copies by text
         # pages 2xxxx: Migne column xxxx from another copy (Google Books TM1DAQAAMAAJ), see
@@ -2473,6 +2572,13 @@ def main():
     anchors.update({p: p - 20000 for p in patch_ids(args.vol) if p in order})
     cols, steps = fit_columns_ordered(order, main_text, main_index, alt_text, alt_index, altmap, anchors=anchors,
                                       exact=set(fixes.get("cols", {})) | patch_ids(args.vol), sparse=same)
+    try:   # page -> left/right Migne column, for checking against the running heads
+        pc = Path(args.root) / "output" / f"PG{args.vol:03d}" / "works"
+        pc.mkdir(parents=True, exist_ok=True)
+        (pc / "pagecols.tsv").write_text("pdf_page\tleft_col\tright_col\n" + "".join(
+            f"{p}\t{cols[p][0]}\t{cols[p][1]}\n" for p in order if p in cols), encoding="utf-8")
+    except Exception as e:
+        print(f"pagecols.tsv not written: {e}")
     vocab_pages = collections.defaultdict(set)
     for p, lines in best.items():
         for x in greek_words(" ".join(l[3] for l in lines)):
