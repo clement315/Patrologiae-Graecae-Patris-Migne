@@ -37,9 +37,37 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.45"
+VERSION = "1.46"
 
 WORKS = {
+    8: [
+        # S. Clemens Alexandrinus I: Cohortatio ad gentes, Paedagogus, Stromata I-V.  Main scan IA patrologiae_cursus_completus_gr_vol_008_clemens_alexandrinus_1; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_8_provisional", "title": "PG 8: S. Clemens Alexandrinus I: Cohortatio ad gentes, Paedagogus, Stromata I-V (provisional, to be split after the OCR)", "col": 0, "pages": [11, 703], "kind": "sections"},
+    ],
+    9: [
+        # S. Clemens Alexandrinus II: Stromata VI-VIII, Quis dives salvetur, Excerpta ex Theodoto, Eclogae propheticae, fragments.  Main scan IA patrologiae_cursus_completus_gr_vol_009_clemens_alexandrinus_2; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_9_provisional", "title": "PG 9: S. Clemens Alexandrinus II: Stromata VI-VIII, Quis dives salvetur, Excerpta ex Theodoto, Eclogae propheticae, fragments (provisional, to be split after the OCR)", "col": 0, "pages": [9, 852], "kind": "sections"},
+    ],
+    11: [
+        # Origenes I: De principiis, Contra Celsum, De oratione, Exhortatio ad martyrium and other works.  Main scan IA patrologiae_cursus_completus_gr_vol_011; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_11_provisional", "title": "PG 11: Origenes I: De principiis, Contra Celsum, De oratione, Exhortatio ad martyrium and other works (provisional, to be split after the OCR)", "col": 0, "pages": [21, 973], "kind": "sections"},
+    ],
+    12: [
+        # Origenes II: on the Old Testament (Genesis - Psalms).  Main scan IA patrologiae_cursus_completus_gr_vol_012; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_12_provisional", "title": "PG 12: Origenes II: on the Old Testament (Genesis - Psalms) (provisional, to be split after the OCR)", "col": 0, "pages": [10, 856], "kind": "sections"},
+    ],
+    13: [
+        # Origenes III: on the Old Testament (Proverbs - prophets) and Commentarius in Matthaeum.  Main scan IA patrologiae_cursus_completus_gr_vol_013; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_13_provisional", "title": "PG 13: Origenes III: on the Old Testament (Proverbs - prophets) and Commentarius in Matthaeum (provisional, to be split after the OCR)", "col": 0, "pages": [15, 1036], "kind": "sections"},
+    ],
+    14: [
+        # Origenes IV: Commentarius in Joannem, In Lucam, In Epistolam ad Romanos.  Main scan IA patrologiae_cursus_completus_gr_vol_014; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_14_provisional", "title": "PG 14: Origenes IV: Commentarius in Joannem, In Lucam, In Epistolam ad Romanos (provisional, to be split after the OCR)", "col": 0, "pages": [12, 699], "kind": "sections"},
+    ],
+    17: [
+        # Origenes VII: scholia and fragments, Origeniana.  Main scan IA patrologiae_cursus_completus_gr_vol_017; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_17_provisional", "title": "PG 17: Origenes VII: scholia and fragments, Origeniana (provisional, to be split after the OCR)", "col": 0, "pages": [15, 680], "kind": "sections"},
+    ],
     25: [
         # S. Athanasius, Opera, pars I (historica et dogmatica).  "col": first Migne column
         # (Ordo rerum and running heads of the Oxford copy, checked on the page images); the
@@ -1688,6 +1716,16 @@ WORKS = {
 #   same_scan: the second scan is the same digitisation (copies found by their text; column
 #            numbers from sparse running heads of 2-4 digits, single changes confirmed by 3 of 4)
 SCAN_FIXES = {
+    # PG 8, 9 (Clemens Alexandrinus), 11-14, 17 (Origenes): Google scans (IA gr_vol series); second scans
+    # PatrologiaGraeca (8, 9) or another IA copy (11-14, 17, see pg_ocr.sh alt_item); repeated pages
+    # and anchors are set after the OCR
+    8: {"in_order": True, "drop": [], "cols": {}},
+    9: {"in_order": True, "drop": [], "cols": {}},
+    11: {"in_order": True, "drop": [], "cols": {}},
+    12: {"in_order": True, "drop": [], "cols": {}},
+    13: {"in_order": True, "drop": [], "cols": {}},
+    14: {"in_order": True, "drop": [], "cols": {}},
+    17: {"in_order": True, "drop": [], "cols": {}},
     # PG 96: main scan complete and in order (left column = 2 x page - 9 on every page, checked
     # on the running heads); the second scan's page map is only used for its text
     96: {"in_order": True},

@@ -13,6 +13,9 @@
 #                                                     -> output/PG094/best/
 #    bash pg_ocr.sh 94 works                          split into works, page check, chapters
 #                                                     -> output/PG094/works/
+#    bash pg_ocr.sh 94 columns                        column concordance: Greek scan slice, Greek text
+#                                                     line by line and Migne's letters A-D for every
+#                                                     column -> output/PG094/columns/  (NO_IMAGES=1: text only)
 #    SOURCE=alt RUN=v5 bash pg_ocr.sh 94 leaf:487,488 add leaves missing from the main scan
 #    PDF_FILE=/mnt/e/PG_OCR/data/pdf/<other copy>.pdf RUN=patch bash pg_ocr.sh 95 map:20955=487,...
 #                                                     pages missing in both scans, from another copy
@@ -67,6 +70,13 @@ main() {
         return 0
     fi
 
+    if [ "$PAGES" = "columns" ]; then          # column concordance: scan slices, Greek per column, A-D
+        PYTHONUNBUFFERED=1 python "$ROOT/scripts/pg_columns.py" --vol "$VOL" --root "$ROOT" \
+            --text-tag "${3:-best}" ${NO_IMAGES:+--no-images}
+        echo "columns:        $ROOT/output/$TAG/columns/${TAG}_columns.md   (+ .tsv, _lines.jsonl, img/)"
+        return 0
+    fi
+
     if [ "$PAGES" = "structure" ]; then        # chapters, books, Migne columns -> output/PGxxx/structured
         MODEL="${MODEL:-$(ls -1t "$ROOT"/models/rec/run_*/best_*.safetensors 2>/dev/null | grep -v '_failed' | head -n1 || true)}"
         PYTHONUNBUFFERED=1 python "$ROOT/scripts/pg_structure.py" --vol "$VOL" --root "$ROOT" --model "$MODEL" \
@@ -102,6 +112,10 @@ main() {
     if [ "$SOURCE" != "pdf" ] && [ "$RUN" = "v4" ]; then
         die "SOURCE=$SOURCE needs its own result folder, e.g.  SOURCE=$SOURCE RUN=v6 bash pg_ocr.sh $VOL $PAGES"
     fi
+    if [ "$SOURCE" = "alt" ] && [ -z "${ALT_ITEM:-}" ]; then
+        ALT_ITEM="$(alt_item "$VOL")"          # volumes missing in "PatrologiaGraeca"
+    fi
+    [ "$SOURCE" = "alt" ] && echo "second scan: IA item ${ALT_ITEM:-PatrologiaGraeca}"
     if [ "$SOURCE" = "pdf2" ]; then
         [ -n "${ALT_PDF:-}" ] && [ -s "$ALT_PDF" ] || die "SOURCE=pdf2 needs ALT_PDF=<the other copy's PDF>"
         echo "second copy: $ALT_PDF"
@@ -123,6 +137,7 @@ main() {
     local log="$ROOT/work/$TAG/ocr_${RUN}_$(date +%Y%m%d_%H%M%S).log"
     PYTHONUNBUFFERED=1 python "$ROOT/scripts/pg_ocr_volume.py" --vol "$VOL" --pdf "$PDF" --pages "$PAGES" \
         --root "$ROOT" --model "$MODEL" --tag "$RUN" --source "$SOURCE" ${ALT_PDF:+--alt-pdf "$ALT_PDF"} \
+        ${ALT_ITEM:+--alt-item "$ALT_ITEM" --alt-prefix "${ALT_PREFIX:-$ALT_ITEM}"} \
         --stages "${STAGES:-layout,ocr,text}" ${REDO_WIDE:+--redo-wide} ${REDO_SMALL:+--redo-small} 2>&1 | tee "$log"
 
     step "4/4  Done"
@@ -133,9 +148,29 @@ main() {
     echo "log:       $log"
 }
 
+# second scans for volumes that the IA item "PatrologiaGraeca" does not hold: another IA copy
+# (another Google Books copy or the microfilm copy), read leaf by leaf like PatrologiaGraeca
+alt_item() {
+    case "$1" in
+        11) echo "bim_early-english-books-1641-1700_patrologiae-cursus-completus-_1857_11" ;;
+        12) echo "patrologiaecurs11hopfgoog" ;;
+        13) echo "bim_early-english-books-1641-1700_patrologiae-cursus-completus-_1857_13" ;;
+        14) echo "bim_early-english-books-1641-1700_patrologiae-cursus-completus-_1857_14" ;;
+        17) echo "bim_early-english-books-1641-1700_1857_17" ;;
+        *)  echo "" ;;
+    esac
+}
+
 # archive.org scans (Google/Harvard digitisations, public domain); add more as needed
 default_url() {
     case "$1" in
+        8) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_008_clemens_alexandrinus_1/patrologiae_cursus_completus_gr_vol_008_clemens_alexandrinus_1.pdf" ;;
+        9) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_009_clemens_alexandrinus_2/patrologiae_cursus_completus_gr_vol_009_clemens_alexandrinus_2.pdf" ;;
+        11) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_011/patrologiae_cursus_completus_gr_vol_011.pdf" ;;
+        12) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_012/patrologiae_cursus_completus_gr_vol_012.pdf" ;;
+        13) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_013/patrologiae_cursus_completus_gr_vol_013.pdf" ;;
+        14) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_014/patrologiae_cursus_completus_gr_vol_014.pdf" ;;
+        17) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_017/patrologiae_cursus_completus_gr_vol_017.pdf" ;;
         25) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_025/patrologiae_cursus_completus_gr_vol_025.pdf" ;;
         26) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_026/patrologiae_cursus_completus_gr_vol_026.pdf" ;;
         27) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_027/patrologiae_cursus_completus_gr_vol_027.pdf" ;;
