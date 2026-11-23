@@ -37,7 +37,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.44"
+VERSION = "1.45"
 
 WORKS = {
     25: [
@@ -1548,7 +1548,7 @@ WORKS = {
         {"slug": "collectanea", "title": "S. Cyrillus et alii, Collectanea", "col": 0, "pages": [585, 643], "kind": "sections", "cut": True},
         {"slug": "theodotus_expositio_symboli", "title": "Theodotus Ancyranus, Expositio symboli Nicaeni", "col": 0, "pages": [652, 668], "kind": "sections"},
         {"slug": "theodotus_homiliae", "title": "Theodotus Ancyranus, Homiliae", "col": 0, "pages": [668, 702], "kind": "sections", "cut": True},
-        {"slug": "paulus_emesenus_homiliae", "title": "Paulus Emesenus, Homiliae", "col": 0, "pages": [703, 709], "kind": "sections"},
+        {"slug": "paulus_emesenus_homiliae", "title": "Paulus Emesenus, Homiliae", "col": 0, "pages": [703, 10767], "kind": "sections"},
         {"slug": "acacius_berrhoeensis_epistola", "title": "Acacius Berrhoeensis, Epistola", "col": 0, "pages": [711, 711], "kind": "sections"},
         {"slug": "joannes_antiochenus_epistolae", "title": "Joannes Antiochenus, Epistolae", "col": 0, "pages": [712, 718], "kind": "sections"},
         {"slug": "memnon_epistola", "title": "Memnon Ephesinus, Epistola ad clerum Constantinopolitanum", "col": 0, "pages": [719, 720], "kind": "sections"},

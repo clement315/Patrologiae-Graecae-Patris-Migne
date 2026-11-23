@@ -7,7 +7,7 @@ text with books, chapters and Migne column numbers.
 
 ## Texts
 
-Greek text of 46 volumes, split into 1269 works with Migne column numbers, in
+Greek text of 48 volumes, split into 1297 works with Migne column numbers, in
 [`texts/`](texts) (format described in [`texts/README.md`](texts/README.md)):
 
 | Volume | Contents | Works | PDF pages | Lines | Mean line confidence |
@@ -54,7 +54,9 @@ Greek text of 46 volumes, split into 1269 works with Migne column numbers, in
 | [PG 72](texts/PG072) | Cyril of Alexandria V: In Zachariam, In Malachiam, In Matthaeum (fragments), In Lucam | 4 | 503 | 27,134 | 0.9792 |
 | [PG 73](texts/PG073) | Cyril of Alexandria VI: Commentarius in Joannem I-VI | 6 | 552 | 30,890 | 0.9789 |
 | [PG 74](texts/PG074) | Cyril of Alexandria VII: In Joannem VII-XII; fragments on Acts and the Epistles | 11 | 518 | 28,519 | 0.9866 |
+| [PG 75](texts/PG075) | Cyril of Alexandria VIII: Thesaurus, De Trinitate dialogi I-VII, De incarnatione Unigeniti, Quod unus sit Christus, Scholia | 15 | 715 | 37,752 | 0.9819 |
 | [PG 76](texts/PG076) | Cyril of Alexandria IX: Adversus Nestorium, the Twelve Chapters, Contra Julianum I-X, De recta fide | 27 | 742 | 38,551 | 0.9866 |
+| [PG 77](texts/PG077) | Cyril of Alexandria X: Epistolae, Homiliae paschales, Homiliae diversae; Theodotus of Ancyra, Paul of Emesa, John of Antioch, Acacius, Memnon, Firmus | 13 | 701 | 35,605 | 0.9808 |
 | [PG 94](texts/PG094) | John of Damascus I | 11 | 664 | 24,875 | 0.9763 |
 | [PG 95](texts/PG095) | John of Damascus II | 29 | 785 | 39,875 | 0.9755 |
 | [PG 96](texts/PG096) | John of Damascus III | 16 | 743 | 37,148 | 0.9803 |
