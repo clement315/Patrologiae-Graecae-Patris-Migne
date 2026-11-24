@@ -72,6 +72,8 @@ The texts are **uncorrected OCR** (about 0.5–1 % character errors on clean pag
 ⟦?⟧ in the works files are uncertain). They are meant as a searchable reading and translation
 aid, not as a critical text. Corrections are welcome (issues or pull requests).
 
+PG 8 also has a [side-by-side book proof](texts/PG008/README.md) with the Migne facsimile, Greek OCR transcription, and critical-edition references.
+
 ## Usage
 
 ```bash
@@ -121,7 +123,7 @@ Development notes: [`docs/NOTES.md`](docs/NOTES.md).
 Ground truth: Calfa / GREgORI, CGPG project (Zenodo record 20008699, CC BY 4.0). Layout model:
 Calfa REG-YOLOv12s. Scans: Google Books and Internet Archive (`patrologiae_cursus_completus_gr_vol_0NN`,
 `patrologicursus53migngoog`, `PatrologiaGraeca`). OCR: kraken; layout inference: Ultralytics YOLO.
-Scans, models and intermediate data are not included here.
+Source scan files, models and intermediate OCR data are not included here.
 
 ## License
 
