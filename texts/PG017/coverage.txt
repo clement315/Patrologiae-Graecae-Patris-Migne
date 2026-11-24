@@ -1,0 +1,13 @@
+PG 17 OCR publication coverage
+Source: main-scan OCR (single scan).
+Main source: PG017.pdf (local Migne scan). PDF pages are scan page indices.
+Refer to the printed Migne column for citation. This is uncorrected Greek OCR.
+Huet's Origeniana is in Latin. Its file, where present, contains Greek quotations detected by OCR, not a transcription of Huet's full work.
+Column references were derived from the print running heads and OCR block sides.
+Catalogue: https://www.documentacatholicaomnia.eu/1815-1875%2C_Migne%2C_PG_Volumen_017_Rerum_Conspectus_Pro_Columnis_Ordinatus%2C_MGR.html
+Missing column text can reflect Latin-only printing, incomplete OCR or unavailable passages, rather than a missing scanned leaf.
+Pages with Greek OCR but no reliable column/box assignment: none.
+Repeated column instances discarded in favour of the longest available OCR: 1.
+
+PG 17, cols. 371–520: Commentarius anonymi in Job. No eligible Greek OCR rows.
+PG 17, cols. 615–632: Rufinus, de adulteratione librorum Origenis (Greek excerpts). No eligible Greek OCR rows.

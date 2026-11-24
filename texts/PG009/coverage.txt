@@ -1,0 +1,10 @@
+PG 9 OCR publication coverage
+Source: merged main and second-scan OCR.
+Main source: PG009.pdf (local Migne scan). PDF pages are scan page indices.
+Refer to the printed Migne column for citation. This is uncorrected Greek OCR.
+Stromata V opens this physical volume at Migne col. 9.
+Column references were derived from the print running heads and OCR block sides.
+Catalogue: https://www.documentacatholicaomnia.eu/1815-1875%2C_Migne%2C_PG_Volumen_009_Rerum_Conspectus_Pro_Columnis_Ordinatus%2C_MGR.html
+Missing column text can reflect Latin-only printing, incomplete OCR or unavailable passages, rather than a missing scanned leaf.
+Pages with Greek OCR but no reliable column/box assignment: none.
+Repeated column instances discarded in favour of the longest available OCR: 0.

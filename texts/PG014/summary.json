@@ -1,0 +1,11 @@
+{
+  "volume": 14,
+  "source": "main-scan OCR (single scan)",
+  "pages": 410,
+  "lines": 20074,
+  "mean_line_conf": 0.9839,
+  "lines_below_0.80": 46,
+  "lines_below_0.90": 196,
+  "works": 3,
+  "scope": "Greek OCR in the indexed works; uncertain and absent passages are possible."
+}

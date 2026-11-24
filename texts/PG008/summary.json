@@ -1,0 +1,11 @@
+{
+  "volume": 8,
+  "source": "audited Migne OCR (v4/v5 and locally verified scan corrections)",
+  "pages": 667,
+  "lines": 23173,
+  "mean_line_conf": 0.9888,
+  "lines_below_0.80": 36,
+  "lines_below_0.90": 96,
+  "works": 3,
+  "scope": "Greek OCR in the indexed works; uncertain and absent passages are possible."
+}

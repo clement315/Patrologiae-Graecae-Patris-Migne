@@ -7,11 +7,18 @@ text with books, chapters and Migne column numbers.
 
 ## Texts
 
-Greek text of 48 volumes, split into 1297 works with Migne column numbers, in
+Greek text of 55 volumes, split into 1349 works with Migne column numbers, in
 [`texts/`](texts) (format described in [`texts/README.md`](texts/README.md)):
 
 | Volume | Contents | Works | PDF pages | Lines | Mean line confidence |
 |---|---|---|---|---|---|
+| [PG 8](texts/PG008) | Clement of Alexandria I: Protrepticus, Paedagogus, Stromata I–IV | 3 | 667 | 23,173 | 0.9888 |
+| [PG 9](texts/PG009) | Clement of Alexandria II: Stromata V–VIII, Quis dives salvetur, Excerpta ex Theodoto, Eclogae propheticae, fragments | 5 | 379 | 14,334 | 0.9861 |
+| [PG 11](texts/PG011) | Origen I: On First Principles (Greek excerpts), On Prayer, Exhortation to Martyrdom, Against Celsus, other works | 7 | 786 | 33,597 | 0.9854 |
+| [PG 12](texts/PG012) | Origen II: Greek Old Testament exegesis, from Genesis to the Psalms | 16 | 397 | 19,261 | 0.9761 |
+| [PG 13](texts/PG013) | Origen III: Greek Old Testament fragments, Commentary on Matthew, and Luke material printed in this volume | 11 | 645 | 27,726 | 0.9839 |
+| [PG 14](texts/PG014) | Origen IV: Commentary on John, Acts fragments and Philocalia (Latin Romans commentary excluded) | 3 | 410 | 20,074 | 0.9839 |
+| [PG 17](texts/PG017) | Origen VII: exegetical supplements and fragments, including Greek quotations in Huet's Origeniana | 7 | 349 | 11,498 | 0.9624 |
 | [PG 25](texts/PG025) | Athanasius I | 15 | 458 | 21,799 | 0.9897 |
 | [PG 26](texts/PG026) | Athanasius II | 22 | 637 | 26,518 | 0.9885 |
 | [PG 27](texts/PG027) | Athanasius III | 5 | 669 | 33,355 | 0.9734 |
