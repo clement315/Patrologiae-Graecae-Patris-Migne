@@ -37,9 +37,21 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.46"
+VERSION = "1.47"
 
 WORKS = {
+    20: [
+        # Eusebius Caesariensis II: Historia ecclesiastica, De martyribus Palaestinae, Vita Constantini, Constantini oratio ad sanctorum coetum, De laudibus Constantini.  Main scan IA patrologiae_cursus_completus_gr_vol_020; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_20_provisional", "title": "PG 20: Eusebius Caesariensis II: Historia ecclesiastica, De martyribus Palaestinae, Vita Constantini, Constantini oratio ad sanctorum coetum, De laudibus Constantini (provisional, to be split after the OCR)", "col": 0, "pages": [26, 799], "kind": "sections"},
+    ],
+    21: [
+        # Eusebius Caesariensis III: Praeparatio evangelica.  Main scan IA patrologiae_cursus_completus_gr_vol_021; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_21_provisional", "title": "PG 21: Eusebius Caesariensis III: Praeparatio evangelica (provisional, to be split after the OCR)", "col": 0, "pages": [16, 869], "kind": "sections"},
+    ],
+    22: [
+        # Eusebius Caesariensis IV: Demonstratio evangelica, Contra Hieroclem, Quaestiones evangelicae, Canones evangeliorum and other works.  Main scan IA patrologiae_cursus_completus_gr_vol_022; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_22_provisional", "title": "PG 22: Eusebius Caesariensis IV: Demonstratio evangelica, Contra Hieroclem, Quaestiones evangelicae, Canones evangeliorum and other works (provisional, to be split after the OCR)", "col": 0, "pages": [12, 668], "kind": "sections"},
+    ],
     8: [
         # S. Clemens Alexandrinus I: Cohortatio ad gentes, Paedagogus, Stromata I-V.  Main scan IA patrologiae_cursus_completus_gr_vol_008_clemens_alexandrinus_1; Greek and Latin in parallel columns - provisional, split after the OCR
         {"slug": "opera_vol_8_provisional", "title": "PG 8: S. Clemens Alexandrinus I: Cohortatio ad gentes, Paedagogus, Stromata I-V (provisional, to be split after the OCR)", "col": 0, "pages": [11, 703], "kind": "sections"},
@@ -1716,6 +1728,10 @@ WORKS = {
 #   same_scan: the second scan is the same digitisation (copies found by their text; column
 #            numbers from sparse running heads of 2-4 digits, single changes confirmed by 3 of 4)
 SCAN_FIXES = {
+    # PG 20-22 (Eusebius): Google scans (IA gr_vol series), second scan PatrologiaGraeca; repeated pages and anchors after the OCR
+    20: {"in_order": True, "drop": [], "cols": {}},
+    21: {"in_order": True, "drop": [], "cols": {}},
+    22: {"in_order": True, "drop": [], "cols": {}},
     # PG 8, 9 (Clemens Alexandrinus), 11-14, 17 (Origenes): Google scans (IA gr_vol series); second scans
     # PatrologiaGraeca (8, 9) or another IA copy (11-14, 17, see pg_ocr.sh alt_item); repeated pages
     # and anchors are set after the OCR

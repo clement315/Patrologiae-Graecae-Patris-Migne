@@ -233,7 +233,10 @@ if run_stage merge; then
         bash "$SCRIPTS/pg_ocr.sh" "$VOL" merge v4,v5
         ok "merged text in $OUT/best/"
     else
-        warn "merge skipped (no v5 result)"
+        # no second scan: the main-scan text is the text of the volume (works, columns need best/)
+        warn "merge skipped (no v5 result) - output/$TAG/best/ is a copy of v4 (main scan only)"
+        mkdir -p "$OUT/best"
+        cp -f "$OUT/v4/"* "$OUT/best/" 2>/dev/null || true
     fi
 fi
 
