@@ -37,9 +37,21 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.49"
+VERSION = "1.51"
 
 WORKS = {
+    78: [
+        # S. Isidorus Pelusiota: Epistolae (libri V); Zosimus abbas: Alloquia.  main scan IA PatrologiaGraeca, Patrologia Graeca Vol. 078 (no second scan); Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_78_provisional", "title": "PG 78: S. Isidorus Pelusiota: Epistolae (libri V); Zosimus abbas: Alloquia (provisional, to be split after the OCR)", "col": 0, "pages": [6, 870], "kind": "sections"},
+    ],
+    79: [
+        # S. Nilus Ancyranus: Opera (ascetica, epistolae, sermones); Hyperechius.  main scan IA patrologiaecurs33hopfgoog; second scan PatrologiaGraeca; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_79_provisional", "title": "PG 79: S. Nilus Ancyranus: Opera (ascetica, epistolae, sermones); Hyperechius (provisional, to be split after the OCR)", "col": 0, "pages": [11, 823], "kind": "sections"},
+    ],
+    80: [
+        # Theodoretus Cyrensis I: Quaestiones in Octateuchum, in libros Regnorum et Paralipomenon; Interpretatio in Psalmos.  main scan IA patrologiaecurs143unkngoog; second scan PatrologiaGraeca; Greek and Latin in parallel columns - provisional, split after the OCR
+        {"slug": "opera_vol_80_provisional", "title": "PG 80: Theodoretus Cyrensis I: Quaestiones in Octateuchum, in libros Regnorum et Paralipomenon; Interpretatio in Psalmos (provisional, to be split after the OCR)", "col": 0, "pages": [15, 1051], "kind": "sections"},
+    ],
     20: [
         # Eusebius Caesariensis II (from the book titles in the main scan)
         {"slug": "historia_ecclesiastica_1", "title": "Historia ecclesiastica I", "col": 9, "pages": [26, 70], "kind": "sections"},
@@ -1774,15 +1786,17 @@ WORKS = {
 #   same_scan: the second scan is the same digitisation (copies found by their text; column
 #            numbers from sparse running heads of 2-4 digits, single changes confirmed by 3 of 4)
 SCAN_FIXES = {
+    # PG 78-80: repeated pages and anchors after the OCR
+    78: {"in_order": True, "drop": [], "cols": {}},
+    79: {"in_order": True, "drop": [], "cols": {}},
+    80: {"in_order": True, "drop": [], "cols": {}},
     # PG 20-22 (Eusebius): Google scans (IA gr_vol series), second scan PatrologiaGraeca; runs of pages photographed
     # twice dropped (found by comparing the OCR text of all pages)
-    # PG 20, 21: the main scan misses leaves and repeats or shuffles pages around them; p10xxx = leaf xxx of the
-    # second scan (fix_20_21.sh), placed by the page map of the second scan
-    20: {"in_order": True, "drop": [], "cols": {},
-         "order": [[606, 10605, 608, 609, 10608, 10609, 10610, 607, 10612, 10613, 610]]},
-    21: {"in_order": True, "drop": list(range(96, 101)) + list(range(185, 191)), "cols": {},
-         "order": [[89, 10088, 91, 92, 93, 94, 95, 90, 10095, 10096, 10097, 10098, 101],
-                   [184, 10183, 10184, 10185, 10186, 10187, 10188, 191]]},
+    # PG 20, 21: the leaves of the second scan added by fix_20_21.sh (p10xxx) turned out to be copies of main-scan
+    # pages (the second scan repeats runs of pages too, which misled its page map); they are left out again
+    20: {"in_order": True, "drop": [10605, 10608, 10609, 10610, 10612, 10613], "cols": {}},
+    21: {"in_order": True, "drop": list(range(95, 101)) + list(range(185, 191))
+                                   + [10088, 10095, 10096, 10097, 10098] + list(range(10183, 10189)), "cols": {}},
     22: {"in_order": True, "drop": list(range(283, 295)) + list(range(329, 339)), "cols": {}},
     # PG 8, 9 (Clemens Alexandrinus), 11-14, 17 (Origenes): Google scans (IA gr_vol series); second scans
     # PatrologiaGraeca (8, 9) or another IA copy (11-14, 17, see pg_ocr.sh alt_item); repeated pages
@@ -2056,7 +2070,7 @@ def main_scan_ocr(args, best):
     n = pdf_pages(args, best)
     try:
         S.running_heads(args, max(best) + 20)      # downloads and caches the IA OCR
-        mcache = args.root / "data" / "ia" / args.main_item
+        mcache = args.root / "data" / "ia" / S.ia_main(args.main_item)[2]
         text, index = gz_text(mcache / "searchtext.txt.gz"), gz_json(mcache / "pageindex.json.gz")
     except Exception as e:
         print(f"[works] no IA OCR for the main scan {args.main_item} ({e})", flush=True)
@@ -2079,7 +2093,7 @@ def main_scan_ocr(args, best):
 
 def pdf_text_index(args, min_share=0.5):
     """Text layer of the main PDF as (text, [start, end] per page), or None if it has none."""
-    cache = args.root / "data" / "ia" / f"{args.main_item}_pdftext"
+    cache = args.root / "data" / "ia" / f"{S.ia_main(args.main_item)[2]}_pdftext"
     st, pi = cache / "searchtext.txt.gz", cache / "pageindex.json.gz"
     if not (st.exists() and pi.exists()):
         try:

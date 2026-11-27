@@ -40,7 +40,7 @@ IA = "https://archive.org/download"
 MAIN_ITEMS = {25: "patrologiae_cursus_completus_gr_vol_025", 26: "patrologiae_cursus_completus_gr_vol_026",
               27: "patrologiae_cursus_completus_gr_vol_027", 28: "patrologiae_cursus_completus_gr_vol_028",
               29: "patrologiae_cursus_completus_gr_vol_029", 30: "PatrologiaGraeca", 31: "patrologiae_cursus_completus_gr_vol_031",
-              32: "patrologiae_cursus_completus_gr_vol_032", 33: "patrologiae_cursus_completus_gr_vol_033", 35: "patrologiae_cursus_completus_gr_vol_035", 36: "patrologiae_cursus_completus_gr_vol_036", 37: "patrologiae_cursus_completus_gr_vol_037", 38: "patrologiae_cursus_completus_gr_vol_038", 44: "patrologiae_cursus_completus_gr_vol_044", 45: "patrologiae_cursus_completus_gr_vol_045", 46: "patrologiae_cursus_completus_gr_vol_046", 47: "patrologiae_cursus_completus_gr_vol_047", 48: "patrologiae_cursus_completus_gr_vol_048", 49: "patrologiae_cursus_completus_gr_vol_049", 50: "patrologiae_cursus_completus_gr_vol_050", 51: "patrologiae_cursus_completus_gr_vol_051", 52: "patrologiae_cursus_completus_gr_vol_052", 53: "patrologiae_cursus_completus_gr_vol_053", 54: "patrologiae_cursus_completus_gr_vol_054", 55: "patrologiae_cursus_completus_gr_vol_055", 56: "patrologiae_cursus_completus_gr_vol_056", 57: "patrologiae_cursus_completus_gr_vol_057_chrysostom_matthew", 58: "patrologiae_cursus_completus_gr_vol_058_chrysostom_matthew_homilies_2", 59: "patrologiae_cursus_completus_gr_vol_059", 60: "patrologiae_cursus_completus_gr_vol_060", 61: "patrologiae_cursus_completus_gr_vol_061", 62: "patrologiae_cursus_completus_gr_vol_062", 63: "patrologiae_cursus_completus_gr_vol_063", 64: "patrologiae_cursus_completus_gr_vol_064", 67: "patrologiaecurs110migngoog", 68: "patrologiaecurs41hopfgoog", 69: "patrologiaecurs122migngoog", 8: "patrologiae_cursus_completus_gr_vol_008_clemens_alexandrinus_1", 9: "patrologiae_cursus_completus_gr_vol_009_clemens_alexandrinus_2", 11: "patrologiae_cursus_completus_gr_vol_011", 12: "patrologiae_cursus_completus_gr_vol_012", 13: "patrologiae_cursus_completus_gr_vol_013", 14: "patrologiae_cursus_completus_gr_vol_014", 17: "patrologiae_cursus_completus_gr_vol_017", 20: "patrologiae_cursus_completus_gr_vol_020", 21: "patrologiae_cursus_completus_gr_vol_021", 22: "patrologiae_cursus_completus_gr_vol_022", 70: "patrologiae_cursus_completus_gr_vol_070", 71: "patrologiaecurs21hopfgoog", 72: "patrologiaecurs10hopfgoog", 73: "patrologiaecurs43hopfgoog", 74: "patrologiaecurs07migngoog", 75: "patrologiaecurs96migngoog", 76: "patrologiaecurs00hopfgoog", 77: "patrologicursus08migngoog",
+              32: "patrologiae_cursus_completus_gr_vol_032", 33: "patrologiae_cursus_completus_gr_vol_033", 35: "patrologiae_cursus_completus_gr_vol_035", 36: "patrologiae_cursus_completus_gr_vol_036", 37: "patrologiae_cursus_completus_gr_vol_037", 38: "patrologiae_cursus_completus_gr_vol_038", 44: "patrologiae_cursus_completus_gr_vol_044", 45: "patrologiae_cursus_completus_gr_vol_045", 46: "patrologiae_cursus_completus_gr_vol_046", 47: "patrologiae_cursus_completus_gr_vol_047", 48: "patrologiae_cursus_completus_gr_vol_048", 49: "patrologiae_cursus_completus_gr_vol_049", 50: "patrologiae_cursus_completus_gr_vol_050", 51: "patrologiae_cursus_completus_gr_vol_051", 52: "patrologiae_cursus_completus_gr_vol_052", 53: "patrologiae_cursus_completus_gr_vol_053", 54: "patrologiae_cursus_completus_gr_vol_054", 55: "patrologiae_cursus_completus_gr_vol_055", 56: "patrologiae_cursus_completus_gr_vol_056", 57: "patrologiae_cursus_completus_gr_vol_057_chrysostom_matthew", 58: "patrologiae_cursus_completus_gr_vol_058_chrysostom_matthew_homilies_2", 59: "patrologiae_cursus_completus_gr_vol_059", 60: "patrologiae_cursus_completus_gr_vol_060", 61: "patrologiae_cursus_completus_gr_vol_061", 62: "patrologiae_cursus_completus_gr_vol_062", 63: "patrologiae_cursus_completus_gr_vol_063", 64: "patrologiae_cursus_completus_gr_vol_064", 67: "patrologiaecurs110migngoog", 68: "patrologiaecurs41hopfgoog", 69: "patrologiaecurs122migngoog", 8: "patrologiae_cursus_completus_gr_vol_008_clemens_alexandrinus_1", 9: "patrologiae_cursus_completus_gr_vol_009_clemens_alexandrinus_2", 11: "patrologiae_cursus_completus_gr_vol_011", 12: "patrologiae_cursus_completus_gr_vol_012", 13: "patrologiae_cursus_completus_gr_vol_013", 14: "patrologiae_cursus_completus_gr_vol_014", 17: "patrologiae_cursus_completus_gr_vol_017", 20: "patrologiae_cursus_completus_gr_vol_020", 21: "patrologiae_cursus_completus_gr_vol_021", 22: "patrologiae_cursus_completus_gr_vol_022", 78: "PatrologiaGraeca|Patrologia Graeca Vol. 078", 79: "patrologiaecurs33hopfgoog", 80: "patrologiaecurs143unkngoog", 70: "patrologiae_cursus_completus_gr_vol_070", 71: "patrologiaecurs21hopfgoog", 72: "patrologiaecurs10hopfgoog", 73: "patrologiaecurs43hopfgoog", 74: "patrologiaecurs07migngoog", 75: "patrologiaecurs96migngoog", 76: "patrologiaecurs00hopfgoog", 77: "patrologicursus08migngoog",
               94: "patrologicursus53migngoog", 95: "patrologicursus50migngoog",
               96: "patrologiaecursu96mign_0"}       # IA item of data/pdf/PGxxx.pdf
 GREEK_NUM = {"Α": 1, "Β": 2, "Γ": 3, "Δ": 4, "Ε": 5, "Ϛ": 6, "Ϝ": 6, "Ζ": 7, "Η": 8, "Θ": 9,
@@ -103,13 +103,23 @@ def roman_value(s):
 
 
 # ----------------------------------------------------------------- 1+2: columns, books
+def ia_main(item):
+    """IA item and file prefix of the main scan: "item" or "item|prefix" (a volume inside a
+    multi-volume item such as PatrologiaGraeca); and the name of its cache folder."""
+    item, _, prefix = item.partition("|")
+    prefix = prefix or item
+    return item, prefix, re.sub(r"[^\w.-]+", "_", prefix if prefix != item else item)
+
+
 def running_heads(args, n_pages):
     """Per PDF page: numbers and book seen in the running head of the IA OCR."""
-    item = args.main_item
-    cache = args.root / "data" / "ia" / item
-    st = gzip.decompress(ia_get(f"{IA}/{item}/{item}_hocr_searchtext.txt.gz",
+    item, prefix, cname = ia_main(args.main_item)
+    cache = args.root / "data" / "ia" / cname
+    from urllib.parse import quote
+    pre = quote(prefix)
+    st = gzip.decompress(ia_get(f"{IA}/{item}/{pre}_hocr_searchtext.txt.gz",
                                 cache / "searchtext.txt.gz")).decode("utf-8", "replace")
-    idx = json.loads(gzip.decompress(ia_get(f"{IA}/{item}/{item}_hocr_pageindex.json.gz",
+    idx = json.loads(gzip.decompress(ia_get(f"{IA}/{item}/{pre}_hocr_pageindex.json.gz",
                                             cache / "pageindex.json.gz")))
     heads = {}
     for i, a in enumerate(idx[:n_pages]):
@@ -334,8 +344,7 @@ def ia_headings(text):
 
 def load_ia(args, tag):
     """IA OCR page texts: main item (by PDF page) and alt item (by alt leaf)."""
-    item = args.main_item
-    cache = args.root / "data" / "ia" / item
+    cache = args.root / "data" / "ia" / ia_main(args.main_item)[2]
     st = gzip.decompress((cache / "searchtext.txt.gz").read_bytes()).decode("utf-8", "replace")
     idx = json.loads(gzip.decompress((cache / "pageindex.json.gz").read_bytes()))
     main = {i + 1: st[a[0]:a[1]] for i, a in enumerate(idx)}

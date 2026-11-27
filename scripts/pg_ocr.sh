@@ -115,6 +115,10 @@ main() {
     if [ "$SOURCE" = "alt" ] && [ -z "${ALT_ITEM:-}" ]; then
         ALT_ITEM="$(alt_item "$VOL")"          # volumes missing in "PatrologiaGraeca"
     fi
+    if [ "$SOURCE" = "alt" ] && [ "${ALT_ITEM:-}" = "none" ]; then
+        echo "PG $VOL: no second scan available - the main scan alone is used"
+        exit 1
+    fi
     [ "$SOURCE" = "alt" ] && echo "second scan: IA item ${ALT_ITEM:-PatrologiaGraeca}"
     if [ "$SOURCE" = "pdf2" ]; then
         [ -n "${ALT_PDF:-}" ] && [ -s "$ALT_PDF" ] || die "SOURCE=pdf2 needs ALT_PDF=<the other copy's PDF>"
@@ -157,6 +161,7 @@ alt_item() {
         13) printf '%s\n' "bim_early-english-books-1641-1700_patrologiae-cursus-completus-_1857_13" ;;
         14) printf '%s\n' "bim_early-english-books-1641-1700_patrologiae-cursus-completus-_1857_14" ;;
         17) printf '%s\n' "bim_early-english-books-1641-1700_1857_17" ;;
+        78) printf '%s\n' "none" ;;          # PatrologiaGraeca Vol. 078 is the main scan; no other copy with Greek OCR
         *)  echo "" ;;
     esac
 }
@@ -174,6 +179,9 @@ default_url() {
         20) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_020/patrologiae_cursus_completus_gr_vol_020.pdf" ;;
         21) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_021/patrologiae_cursus_completus_gr_vol_021.pdf" ;;
         22) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_022/patrologiae_cursus_completus_gr_vol_022.pdf" ;;
+        78) echo "https://archive.org/download/PatrologiaGraeca/Patrologia%20Graeca%20Vol.%20078.pdf" ;;
+        79) echo "https://archive.org/download/patrologiaecurs33hopfgoog/patrologiaecurs33hopfgoog.pdf" ;;
+        80) echo "https://archive.org/download/patrologiaecurs143unkngoog/patrologiaecurs143unkngoog.pdf" ;;
         25) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_025/patrologiae_cursus_completus_gr_vol_025.pdf" ;;
         26) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_026/patrologiae_cursus_completus_gr_vol_026.pdf" ;;
         27) echo "https://archive.org/download/patrologiae_cursus_completus_gr_vol_027/patrologiae_cursus_completus_gr_vol_027.pdf" ;;
