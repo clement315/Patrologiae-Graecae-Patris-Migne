@@ -7,7 +7,7 @@ text with books, chapters and Migne column numbers.
 
 ## Texts
 
-Greek text of 56 volumes, split into 1364 works with Migne column numbers, in
+Greek text of 58 volumes, split into 1398 works with Migne column numbers, in
 [`texts/`](texts) (format described in [`texts/README.md`](texts/README.md)):
 
 | Volume | Contents | Works | PDF pages | Lines | Mean line confidence |
@@ -19,6 +19,8 @@ Greek text of 56 volumes, split into 1364 works with Migne column numbers, in
 | [PG 13](texts/PG013) | Origen III: Greek Old Testament fragments, Commentary on Matthew, and Luke material printed in this volume | 11 | 645 | 27,726 | 0.9839 |
 | [PG 14](texts/PG014) | Origen IV: Commentary on John, Acts fragments and Philocalia (Latin Romans commentary excluded) | 3 | 410 | 20,074 | 0.9839 |
 | [PG 17](texts/PG017) | Origen VII: exegetical supplements and fragments, including Greek quotations in Huet's Origeniana | 7 | 349 | 11,498 | 0.9624 |
+| [PG 20](texts/PG020) | Eusebius of Caesarea II: Historia ecclesiastica I–X, Vita Constantini I–IV, Constantine's Oratio ad sanctorum coetum, De laudibus Constantini, De martyribus Palaestinae | 19 | 759 | 27,300 | 0.9884 |
+| [PG 21](texts/PG021) | Eusebius of Caesarea III: Praeparatio evangelica I–XV | 15 | 747 | 33,774 | 0.9817 |
 | [PG 22](texts/PG022) | Eusebius of Caesarea IV: Demonstratio evangelica I–X, Contra Hieroclem, Quaestiones evangelicae, Eclogae propheticae, Ex vitis prophetarum | 15 | 649 | 33,735 | 0.9855 |
 | [PG 25](texts/PG025) | Athanasius I | 15 | 458 | 21,799 | 0.9897 |
 | [PG 26](texts/PG026) | Athanasius II | 22 | 637 | 26,518 | 0.9885 |
