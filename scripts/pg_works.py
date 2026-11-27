@@ -37,20 +37,66 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pg_structure as S  # noqa: E402
 
-VERSION = "1.47"
+VERSION = "1.49"
 
 WORKS = {
     20: [
-        # Eusebius Caesariensis II: Historia ecclesiastica, De martyribus Palaestinae, Vita Constantini, Constantini oratio ad sanctorum coetum, De laudibus Constantini.  Main scan IA patrologiae_cursus_completus_gr_vol_020; Greek and Latin in parallel columns - provisional, split after the OCR
-        {"slug": "opera_vol_20_provisional", "title": "PG 20: Eusebius Caesariensis II: Historia ecclesiastica, De martyribus Palaestinae, Vita Constantini, Constantini oratio ad sanctorum coetum, De laudibus Constantini (provisional, to be split after the OCR)", "col": 0, "pages": [26, 799], "kind": "sections"},
+        # Eusebius Caesariensis II (from the book titles in the main scan)
+        {"slug": "historia_ecclesiastica_1", "title": "Historia ecclesiastica I", "col": 9, "pages": [26, 70], "kind": "sections"},
+        {"slug": "historia_ecclesiastica_2", "title": "Historia ecclesiastica II", "col": 0, "pages": [70, 111], "kind": "sections", "cut": True},
+        {"slug": "historia_ecclesiastica_3", "title": "Historia ecclesiastica III", "col": 0, "pages": [111, 156], "kind": "sections", "cut": True},
+        {"slug": "historia_ecclesiastica_4", "title": "Historia ecclesiastica IV", "col": 0, "pages": [156, 207], "kind": "sections", "cut": True},
+        {"slug": "historia_ecclesiastica_5", "title": "Historia ecclesiastica V", "col": 0, "pages": [207, 265], "kind": "sections", "cut": True},
+        {"slug": "historia_ecclesiastica_6", "title": "Historia ecclesiastica VI", "col": 0, "pages": [265, 323], "kind": "sections", "cut": True},
+        {"slug": "historia_ecclesiastica_7", "title": "Historia ecclesiastica VII", "col": 0, "pages": [323, 374], "kind": "sections", "cut": True},
+        {"slug": "historia_ecclesiastica_8", "title": "Historia ecclesiastica VIII (with the appendix to book VIII)", "col": 0, "pages": [374, 404], "kind": "sections", "cut": True},
+        {"slug": "historia_ecclesiastica_9", "title": "Historia ecclesiastica IX", "col": 0, "pages": [404, 426], "kind": "sections", "cut": True},
+        {"slug": "historia_ecclesiastica_10", "title": "Historia ecclesiastica X", "col": 0, "pages": [426, 457], "kind": "sections", "cut": True},
+        {"slug": "vita_constantini_1", "title": "De vita Constantini I", "col": 0, "pages": [458, 494], "kind": "sections"},
+        {"slug": "vita_constantini_2", "title": "De vita Constantini II", "col": 0, "pages": [494, 531], "kind": "sections", "cut": True},
+        {"slug": "vita_constantini_3", "title": "De vita Constantini III", "col": 0, "pages": [531, 580], "kind": "sections", "cut": True},
+        {"slug": "vita_constantini_4", "title": "De vita Constantini IV", "col": 0, "pages": [580, 621], "kind": "sections", "cut": True},
+        {"slug": "constantini_oratio_ad_sanctorum_coetum", "title": "Constantinus, Oratio ad sanctorum coetum", "col": 0, "pages": [622, 663], "kind": "sections"},
+        {"slug": "de_laudibus_constantini", "title": "De laudibus Constantini (Oratio tricennalis)", "col": 0, "pages": [663, 733], "kind": "sections", "cut": True},
+        {"slug": "de_martyribus_palaestinae", "title": "De martyribus Palaestinae", "col": 0, "pages": [734, 765], "kind": "sections"},
+        {"slug": "antiquorum_martyriorum_collectio", "title": "Antiquorum martyriorum collectio (fragmenta)", "col": 0, "pages": [765, 777], "kind": "sections", "cut": True},
+        {"slug": "epistola_ad_constantiam", "title": "Epistola ad Constantiam Augustam", "col": 0, "pages": [778, 783], "kind": "sections"},
     ],
     21: [
-        # Eusebius Caesariensis III: Praeparatio evangelica.  Main scan IA patrologiae_cursus_completus_gr_vol_021; Greek and Latin in parallel columns - provisional, split after the OCR
-        {"slug": "opera_vol_21_provisional", "title": "PG 21: Eusebius Caesariensis III: Praeparatio evangelica (provisional, to be split after the OCR)", "col": 0, "pages": [16, 869], "kind": "sections"},
+        # Eusebius Caesariensis III: Praeparatio evangelica I-XV (Seguier's notes, pp. 742 ff., not included)
+        {"slug": "praeparatio_evangelica_1", "title": "Praeparatio evangelica I", "col": 9, "pages": [16, 51], "kind": "sections"},
+        {"slug": "praeparatio_evangelica_2", "title": "Praeparatio evangelica II", "col": 0, "pages": [51, 81], "kind": "sections", "cut": True},
+        {"slug": "praeparatio_evangelica_3", "title": "Praeparatio evangelica III", "col": 0, "pages": [81, 125], "kind": "sections", "cut": True},
+        {"slug": "praeparatio_evangelica_4", "title": "Praeparatio evangelica IV", "col": 0, "pages": [125, 165], "kind": "sections", "cut": True},
+        {"slug": "praeparatio_evangelica_5", "title": "Praeparatio evangelica V", "col": 0, "pages": [165, 219], "kind": "sections", "cut": True},
+        {"slug": "praeparatio_evangelica_6", "title": "Praeparatio evangelica VI", "col": 0, "pages": [219, 270], "kind": "sections", "cut": True},
+        {"slug": "praeparatio_evangelica_7", "title": "Praeparatio evangelica VII", "col": 0, "pages": [270, 309], "kind": "sections", "cut": True},
+        {"slug": "praeparatio_evangelica_8", "title": "Praeparatio evangelica VIII", "col": 0, "pages": [309, 356], "kind": "sections", "cut": True},
+        {"slug": "praeparatio_evangelica_9", "title": "Praeparatio evangelica IX", "col": 0, "pages": [356, 400], "kind": "sections", "cut": True},
+        {"slug": "praeparatio_evangelica_10", "title": "Praeparatio evangelica X", "col": 0, "pages": [400, 438], "kind": "sections", "cut": True},
+        {"slug": "praeparatio_evangelica_11", "title": "Praeparatio evangelica XI", "col": 0, "pages": [438, 489], "kind": "sections", "cut": True},
+        {"slug": "praeparatio_evangelica_12", "title": "Praeparatio evangelica XII", "col": 0, "pages": [489, 544], "kind": "sections", "cut": True},
+        {"slug": "praeparatio_evangelica_13", "title": "Praeparatio evangelica XIII", "col": 0, "pages": [544, 603], "kind": "sections", "cut": True},
+        {"slug": "praeparatio_evangelica_14", "title": "Praeparatio evangelica XIV", "col": 0, "pages": [603, 658], "kind": "sections", "cut": True},
+        {"slug": "praeparatio_evangelica_15", "title": "Praeparatio evangelica XV", "col": 0, "pages": [658, 717], "kind": "sections", "cut": True},
     ],
     22: [
-        # Eusebius Caesariensis IV: Demonstratio evangelica, Contra Hieroclem, Quaestiones evangelicae, Canones evangeliorum and other works.  Main scan IA patrologiae_cursus_completus_gr_vol_022; Greek and Latin in parallel columns - provisional, split after the OCR
-        {"slug": "opera_vol_22_provisional", "title": "PG 22: Eusebius Caesariensis IV: Demonstratio evangelica, Contra Hieroclem, Quaestiones evangelicae, Canones evangeliorum and other works (provisional, to be split after the OCR)", "col": 0, "pages": [12, 668], "kind": "sections"},
+        # Eusebius Caesariensis IV (from the book titles in the main scan)
+        {"slug": "demonstratio_evangelica_1", "title": "Demonstratio evangelica I", "col": 9, "pages": [12, 54], "kind": "sections"},
+        {"slug": "demonstratio_evangelica_2", "title": "Demonstratio evangelica II", "col": 0, "pages": [54, 89], "kind": "sections", "cut": True},
+        {"slug": "demonstratio_evangelica_3", "title": "Demonstratio evangelica III", "col": 0, "pages": [89, 131], "kind": "sections", "cut": True},
+        {"slug": "demonstratio_evangelica_4", "title": "Demonstratio evangelica IV", "col": 0, "pages": [131, 174], "kind": "sections", "cut": True},
+        {"slug": "demonstratio_evangelica_5", "title": "Demonstratio evangelica V", "col": 0, "pages": [174, 213], "kind": "sections", "cut": True},
+        {"slug": "demonstratio_evangelica_6", "title": "Demonstratio evangelica VI", "col": 0, "pages": [213, 250], "kind": "sections", "cut": True},
+        {"slug": "demonstratio_evangelica_7", "title": "Demonstratio evangelica VII", "col": 0, "pages": [250, 303], "kind": "sections", "cut": True},
+        {"slug": "demonstratio_evangelica_8", "title": "Demonstratio evangelica VIII", "col": 0, "pages": [303, 354], "kind": "sections", "cut": True},
+        {"slug": "demonstratio_evangelica_9", "title": "Demonstratio evangelica IX", "col": 0, "pages": [354, 387], "kind": "sections", "cut": True},
+        {"slug": "demonstratio_evangelica_10", "title": "Demonstratio evangelica X", "col": 0, "pages": [387, 427], "kind": "sections", "cut": True},
+        {"slug": "contra_hieroclem", "title": "Contra Hieroclem", "col": 0, "pages": [427, 469], "kind": "sections", "cut": True},
+        {"slug": "quaestiones_evangelicae", "title": "Quaestiones evangelicae ad Stephanum et ad Marinum (epitome and supplements)", "col": 0, "pages": [469, 538], "kind": "sections", "cut": True},
+        {"slug": "eclogae_propheticae", "title": "Eclogae propheticae (Generalis elementaria introductio VI-IX)", "col": 0, "pages": [538, 659], "kind": "sections", "cut": True},
+        {"slug": "ex_vitis_prophetarum", "title": "Ex vitis prophetarum", "col": 0, "pages": [659, 667], "kind": "sections", "cut": True},
+        {"slug": "epistola_ad_carpianum_canones", "title": "Epistola ad Carpianum and the Canones evangeliorum (beginning)", "col": 0, "pages": [667, 668], "kind": "sections", "cut": True},
     ],
     8: [
         # S. Clemens Alexandrinus I: Cohortatio ad gentes, Paedagogus, Stromata I-V.  Main scan IA patrologiae_cursus_completus_gr_vol_008_clemens_alexandrinus_1; Greek and Latin in parallel columns - provisional, split after the OCR
@@ -1728,10 +1774,16 @@ WORKS = {
 #   same_scan: the second scan is the same digitisation (copies found by their text; column
 #            numbers from sparse running heads of 2-4 digits, single changes confirmed by 3 of 4)
 SCAN_FIXES = {
-    # PG 20-22 (Eusebius): Google scans (IA gr_vol series), second scan PatrologiaGraeca; repeated pages and anchors after the OCR
-    20: {"in_order": True, "drop": [], "cols": {}},
-    21: {"in_order": True, "drop": [], "cols": {}},
-    22: {"in_order": True, "drop": [], "cols": {}},
+    # PG 20-22 (Eusebius): Google scans (IA gr_vol series), second scan PatrologiaGraeca; runs of pages photographed
+    # twice dropped (found by comparing the OCR text of all pages)
+    # PG 20, 21: the main scan misses leaves and repeats or shuffles pages around them; p10xxx = leaf xxx of the
+    # second scan (fix_20_21.sh), placed by the page map of the second scan
+    20: {"in_order": True, "drop": [], "cols": {},
+         "order": [[606, 10605, 608, 609, 10608, 10609, 10610, 607, 10612, 10613, 610]]},
+    21: {"in_order": True, "drop": list(range(96, 101)) + list(range(185, 191)), "cols": {},
+         "order": [[89, 10088, 91, 92, 93, 94, 95, 90, 10095, 10096, 10097, 10098, 101],
+                   [184, 10183, 10184, 10185, 10186, 10187, 10188, 191]]},
+    22: {"in_order": True, "drop": list(range(283, 295)) + list(range(329, 339)), "cols": {}},
     # PG 8, 9 (Clemens Alexandrinus), 11-14, 17 (Origenes): Google scans (IA gr_vol series); second scans
     # PatrologiaGraeca (8, 9) or another IA copy (11-14, 17, see pg_ocr.sh alt_item); repeated pages
     # and anchors are set after the OCR
